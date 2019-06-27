@@ -3,3 +3,5 @@ pom.xml
 .classpath
 .settings
 target
+logs
+src/main/resources/*.properties
