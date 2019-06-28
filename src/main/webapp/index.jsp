@@ -68,7 +68,7 @@
 
 						<!-- 判断登陆状态 -->
 						<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
-						<li class="header-top-contact"><a href="#">sign in</a></li>
+						<li class="header-top-contact"><a href="login.jsp">sign in</a></li>
 						<li class="header-top-contact"><a href="#">register</a></li>
 
 						<!-- <li class="select-opt header-top-contact">
