@@ -1,5 +1,7 @@
 package cn.edu.cqu.yihao.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +25,8 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Book getByTypeandDate(String type, String date) {
-		// TODO Auto-generated method stub
-		return null;
+	public Book getByTypeandDate(int type, Date date) {
+		return bookDao.selectByTypeandDate(type, date);
 	}
 
 }

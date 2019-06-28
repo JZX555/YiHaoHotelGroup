@@ -1,6 +1,8 @@
 package cn.edu.cqu.yihao.Dao;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.apache.ibatis.annotations.Param;
 
 import cn.edu.cqu.yihao.pojo.Book;
 import cn.edu.cqu.yihao.pojo.BookKey;
@@ -14,7 +16,7 @@ public interface BookMapper {
 
     Book selectByPrimaryKey(BookKey key);
     
-    Book selectByTypeandDate(String type, Date date);
+    Book selectByTypeandDate(@Param("type") int type, @Param("date") Date date);
 
     int updateByPrimaryKeySelective(Book record);
 

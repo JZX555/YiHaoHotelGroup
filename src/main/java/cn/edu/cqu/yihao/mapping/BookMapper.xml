@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.edu.cqu.yihao.pojo.Book">
     <id column="tel" jdbcType="VARCHAR" property="tel" />
     <id column="room_id" jdbcType="VARCHAR" property="roomId" />
-    <result column="bookdate" jdbcType="INTEGER" property="bookdate" />
+    <result column="bookdate" jdbcType="DATE" property="bookdate" />
     <result column="is_booked" jdbcType="INTEGER" property="isBooked" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -17,10 +17,11 @@
     where tel = #{tel,jdbcType=VARCHAR}
       and room_id = #{roomId,jdbcType=VARCHAR}
   </select>
-  <select id="selectByTypeandDate">
+  <select id="selectByTypeandDate" resultMap="BaseResultMap">
   	select * 
-  	from book 
-  	where to_days(#{values}) = to_days(now());
+  	from book as b
+  	where 
+  		#{type, jdbcType=INTEGER} = (select room_type from room as r2 where r2.room_id = b.room_id);
   </select>
   <delete id="deleteByPrimaryKey" parameterType="cn.edu.cqu.yihao.pojo.BookKey">
     delete from book

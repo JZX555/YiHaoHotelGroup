@@ -1,15 +1,17 @@
 package cn.edu.cqu.yihao.pojo;
 
+import java.util.Date;
+
 public class Book extends BookKey {
-    private Integer bookdate;
+    private Date bookdate;
 
     private Integer isBooked;
 
-    public Integer getBookdate() {
+    public Date getBookdate() {
         return bookdate;
     }
 
-    public void setBookdate(Integer bookdate) {
+    public void setBookdate(Date bookdate) {
         this.bookdate = bookdate;
     }
 
