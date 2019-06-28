@@ -4,13 +4,21 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import cn.edu.cqu.yihao.pojo.Account;
+import cn.edu.cqu.yihao.service.AccountService;
 
 @Controller
 @RequestMapping("/log")
 public class LogController {
+	@Autowired
+	AccountService accountService = null;
+	
 	/**
 	 * 登录转发
 	 * @param request
@@ -30,9 +38,27 @@ public class LogController {
 	 * @return
 	 */
 	@RequestMapping("/validate")
-	public String validate(HttpServletRequest request,Model model) {
-		
-		return "redirect:/";
+	public String validate(@RequestParam("tel")String tel, @RequestParam("password")String password, HttpServletResponse response, Model model) {
+		Account a = this.accountService.getAccountByTel(tel);
+    	if(a != null) {
+    		if(a.getPassword().equals(password)) {	
+	    	    Cookie telCookie = new Cookie("loginTel", tel);  
+	    	    Cookie passwordCookie = new Cookie("loginPassword", password);  
+	    	    telCookie.setMaxAge(60 * 60);  
+	    	    telCookie.setPath("/");  
+	    	    passwordCookie.setMaxAge(60 * 60);  
+	    	    passwordCookie.setPath("/");  
+	    	    response.addCookie(telCookie);  
+	    	    response.addCookie(passwordCookie); 
+	    	    
+	    	    model.addAttribute("Account", a);
+	    		
+	    		return "foward:/";
+	    	}
+    	}
+    	
+    	model.addAttribute("flag", 1);
+    	return "forward:/log/login";	
 	}
 	
 	/**

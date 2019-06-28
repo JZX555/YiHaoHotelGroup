@@ -17,6 +17,11 @@
     where tel = #{tel,jdbcType=VARCHAR}
       and room_id = #{roomId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByTypeandDate">
+  	select * 
+  	from book 
+  	where to_days(#{values}) = to_days(now());
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="cn.edu.cqu.yihao.pojo.BookKey">
     delete from book
     where tel = #{tel,jdbcType=VARCHAR}
