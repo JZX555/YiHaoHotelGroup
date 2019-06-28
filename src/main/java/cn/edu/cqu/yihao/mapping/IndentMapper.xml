@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cqu.yihao.Dao.IndentMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.yihao.pojo.Indent">
+    <id column="indent_id" jdbcType="VARCHAR" property="indentId" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="start_time" jdbcType="DATE" property="startTime" />
+    <result column="end_time" jdbcType="DATE" property="endTime" />
+    <result column="room_id" jdbcType="VARCHAR" property="roomId" />
+    <result column="indent_type" jdbcType="INTEGER" property="indentType" />
+    <result column="cost" jdbcType="REAL" property="cost" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    indent_id, tel, start_time, end_time, room_id, indent_type, cost, customer_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from indent
+    where indent_id = #{indentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from indent
+    where indent_id = #{indentId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.cqu.yihao.pojo.Indent">
+    insert into indent (indent_id, tel, start_time, 
+      end_time, room_id, indent_type, 
+      cost, customer_id)
+    values (#{indentId,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, 
+      #{endTime,jdbcType=DATE}, #{roomId,jdbcType=VARCHAR}, #{indentType,jdbcType=INTEGER}, 
+      #{cost,jdbcType=REAL}, #{customerId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.cqu.yihao.pojo.Indent">
+    insert into indent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="indentId != null">
+        indent_id,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="roomId != null">
+        room_id,
+      </if>
+      <if test="indentType != null">
+        indent_type,
+      </if>
+      <if test="cost != null">
+        cost,
+      </if>
+      <if test="customerId != null">
+        customer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="indentId != null">
+        #{indentId,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="roomId != null">
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="indentType != null">
+        #{indentType,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null">
+        #{cost,jdbcType=REAL},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.yihao.pojo.Indent">
+    update indent
+    <set>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="roomId != null">
+        room_id = #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="indentType != null">
+        indent_type = #{indentType,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=REAL},
+      </if>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where indent_id = #{indentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.yihao.pojo.Indent">
+    update indent
+    set tel = #{tel,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE},
+      room_id = #{roomId,jdbcType=VARCHAR},
+      indent_type = #{indentType,jdbcType=INTEGER},
+      cost = #{cost,jdbcType=REAL},
+      customer_id = #{customerId,jdbcType=VARCHAR}
+    where indent_id = #{indentId,jdbcType=VARCHAR}
+  </update>
+</mapper>

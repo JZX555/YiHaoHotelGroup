@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cqu.yihao.Dao.RoomMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.yihao.pojo.Room">
+    <id column="room_id" jdbcType="VARCHAR" property="roomId" />
+    <result column="room_type" jdbcType="INTEGER" property="roomType" />
+    <result column="floor" jdbcType="INTEGER" property="floor" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    room_id, room_type, floor, price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from room
+    where room_id = #{roomId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from room
+    where room_id = #{roomId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.cqu.yihao.pojo.Room">
+    insert into room (room_id, room_type, floor, 
+      price)
+    values (#{roomId,jdbcType=VARCHAR}, #{roomType,jdbcType=INTEGER}, #{floor,jdbcType=INTEGER}, 
+      #{price,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.cqu.yihao.pojo.Room">
+    insert into room
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roomId != null">
+        room_id,
+      </if>
+      <if test="roomType != null">
+        room_type,
+      </if>
+      <if test="floor != null">
+        floor,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roomId != null">
+        #{roomId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomType != null">
+        #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null">
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.yihao.pojo.Room">
+    update room
+    <set>
+      <if test="roomType != null">
+        room_type = #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+    </set>
+    where room_id = #{roomId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.yihao.pojo.Room">
+    update room
+    set room_type = #{roomType,jdbcType=INTEGER},
+      floor = #{floor,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER}
+    where room_id = #{roomId,jdbcType=VARCHAR}
+  </update>
+</mapper>

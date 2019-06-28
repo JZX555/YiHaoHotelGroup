@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cqu.yihao.Dao.PostMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.cqu.yihao.pojo.Post">
+    <id column="indent_id" jdbcType="VARCHAR" property="indentId" />
+    <result column="socre" jdbcType="REAL" property="socre" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.edu.cqu.yihao.pojo.Post">
+    <result column="comment" jdbcType="LONGVARCHAR" property="comment" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    indent_id, socre
+  </sql>
+  <sql id="Blob_Column_List">
+    comment
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from post
+    where indent_id = #{indentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from post
+    where indent_id = #{indentId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.cqu.yihao.pojo.Post">
+    insert into post (indent_id, socre, comment
+      )
+    values (#{indentId,jdbcType=VARCHAR}, #{socre,jdbcType=REAL}, #{comment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.cqu.yihao.pojo.Post">
+    insert into post
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="indentId != null">
+        indent_id,
+      </if>
+      <if test="socre != null">
+        socre,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="indentId != null">
+        #{indentId,jdbcType=VARCHAR},
+      </if>
+      <if test="socre != null">
+        #{socre,jdbcType=REAL},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.cqu.yihao.pojo.Post">
+    update post
+    <set>
+      <if test="socre != null">
+        socre = #{socre,jdbcType=REAL},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where indent_id = #{indentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.edu.cqu.yihao.pojo.Post">
+    update post
+    set socre = #{socre,jdbcType=REAL},
+      comment = #{comment,jdbcType=LONGVARCHAR}
+    where indent_id = #{indentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.yihao.pojo.Post">
+    update post
+    set socre = #{socre,jdbcType=REAL}
+    where indent_id = #{indentId,jdbcType=VARCHAR}
+  </update>
+</mapper>
