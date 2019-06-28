@@ -34,19 +34,19 @@
 
 <!--slick.css-->
 <link rel="stylesheet" href="assets/css/slick.css">
-<link rel="stylesheet" href="assets/css/slick-theme.css">
+<link rel="stylesheet" href="/assets/css/slick-theme.css">
 
 <!--bootstrap.min.css-->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 
 <!-- bootsnav -->
-<link rel="stylesheet" href="assets/css/bootsnav.css">
+<link rel="stylesheet" href="/assets/css/bootsnav.css">
 
 <!--style.css-->
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css">
 
 <!--responsive.css-->
-<link r el="stylesheet" href="assets/css/responsive.css">
+<link r el="stylesheet" href="/assets/css/responsive.css">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -163,7 +163,7 @@
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">大床房</p>
 						</div>
 					</a>
