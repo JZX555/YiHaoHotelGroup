@@ -24,7 +24,7 @@ public class AccountServiceImplTest {
 		System.out.println(a.getTel());
 		System.out.println("----");
 		
-		System.out.println(this.accountService.addPoint("17725024014", 100));
+		System.out.println(this.accountService.subPoint("17725024014", 300));
 	}
 
 }
