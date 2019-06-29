@@ -17,8 +17,7 @@
 <title>亿豪酒店</title>
 
 <!-- For favicon png -->
-<link rel="shortcut icon" type="image/icon"
-	href="assets/logo/logo.PNG" />
+<link rel="shortcut icon" type="image/icon" href="assets/logo/logo.PNG" />
 
 <!--font-awesome.min.css-->
 <link rel="stylesheet" href="assets/css/font-awesome.min.css">
@@ -69,7 +68,7 @@
 						<!-- 判断登陆状态 -->
 						<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 						<li class="header-top-contact"><a href="#">sign in</a></li>
-						<li class="header-top-contact"><a href="#">register</a></li>
+						<li class="header-top-contact"><a href="register.jsp">register</a></li>
 
 						<!-- <li class="select-opt header-top-contact">
                             <select name="currency" id="currency">
@@ -139,9 +138,10 @@
 				<h2>欢迎光临亿豪酒店</h2>
 			</div>
 
-			<div class="welcome-hero-serch-box" style="height: 70px;width: 170px;margin:0 auto;padding-top:350px">
+			<div class="welcome-hero-serch-box"
+				style="height: 70px; width: 170px; margin: 0 auto; padding-top: 350px">
 				<div class="welcome-hero-serch">
-					<button class="welcome-hero-btn" style="margin-left:  0px;">
+					<button class="welcome-hero-btn" style="margin-left: 0px;">
 						<a>立即预定</a>
 					</button>
 				</div>
@@ -152,7 +152,7 @@
 
 	<!-- 房型介绍 -->
 	<section id="roomTypes" class="explore"
-		style=" padding-left: 25px; padding-right: 25px;">
+		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
 				<h2>房型介绍</h2>
@@ -224,10 +224,10 @@
 		</div>
 
 	</section>
-	
+
 	<!-- 周边精彩-->
 	<section id="surronding" class="explore"
-		style=" padding-left: 25px; padding-right: 25px;">
+		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
 				<h2>周边精彩</h2>
@@ -237,8 +237,7 @@
 				<div class=" col-md-4 col-sm-6">
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/surrounding/1.jpg"><br>
+							<img alt="" src="assets/images/surrounding/1.jpg"><br>
 							<p class="section-header">xxx</p>
 						</div>
 					</a>
@@ -247,8 +246,7 @@
 				<div class=" col-md-4 col-sm-6">
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/surrounding/2.jpg"><br>
+							<img alt="" src="assets/images/surrounding/2.jpg"><br>
 							<p class="section-header">xxx</p>
 						</div>
 					</a>
@@ -257,8 +255,7 @@
 				<div class=" col-md-4 col-sm-6">
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/surrounding/3.jpg"><br>
+							<img alt="" src="assets/images/surrounding/3.jpg"><br>
 							<p class="section-header">xxx</p>
 						</div>
 					</a>
@@ -268,51 +265,56 @@
 		</div>
 
 	</section>
-	
-	
-	<footer id="footer"  class="footer">
-			<div class="container">
-				<div class="hm-footer-copyright">
-					<div class="row">
-						<div class="col-sm-5">
-							<p style="text-align: center">
-								&copy;copyright. designed and developed by 亿豪 
-							</p><!--/p-->
-						</div>
+
+
+	<footer id="footer" class="footer">
+		<div class="container">
+			<div class="hm-footer-copyright">
+				<div class="row">
+					<div class="col-sm-5">
+						<p style="text-align: center">&copy;copyright. designed and
+							developed by 亿豪</p>
+						<!--/p-->
 					</div>
-					
-				</div><!--/.hm-footer-copyright-->
-			</div><!--/.container-->
-			
-        </footer><!--/.footer-->
-	
-	
-	
+				</div>
+
+			</div>
+			<!--/.hm-footer-copyright-->
+		</div>
+		<!--/.container-->
+
+	</footer>
+	<!--/.footer-->
+
+
+
 	<script src="assets/js/jquery.js"></script>
-        
-        <!--modernizr.min.js-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-		
-		<!--bootstrap.min.js-->
-        <script src="assets/js/bootstrap.min.js"></script>
-		
-		<!-- bootsnav js -->
-		<script src="assets/js/bootsnav.js"></script>
 
-        <!--feather.min.js-->
-        <script  src="assets/js/feather.min.js"></script>
+	<!--modernizr.min.js-->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
-        <!-- counter js -->
-		<script src="assets/js/jquery.counterup.min.js"></script>
-		<script src="assets/js/waypoints.min.js"></script>
+	<!--bootstrap.min.js-->
+	<script src="assets/js/bootstrap.min.js"></script>
 
-        <!--slick.min.js-->
-        <script src="assets/js/slick.min.js"></script>
+	<!-- bootsnav js -->
+	<script src="assets/js/bootsnav.js"></script>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-		     
-        <!--Custom JS-->
-        <script src="assets/js/custom.js"></script>
+	<!--feather.min.js-->
+	<script src="assets/js/feather.min.js"></script>
+
+	<!-- counter js -->
+	<script src="assets/js/jquery.counterup.min.js"></script>
+	<script src="assets/js/waypoints.min.js"></script>
+
+	<!--slick.min.js-->
+	<script src="assets/js/slick.min.js"></script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+	<!--Custom JS-->
+	<script src="assets/js/custom.js"></script>
 
 
 </body>
