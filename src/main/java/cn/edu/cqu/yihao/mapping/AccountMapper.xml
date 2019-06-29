@@ -135,6 +135,6 @@
   	update account
   	set point = #{point, jdbcType=INTEGER} - point,
   		where tel = #{tel,jdbcType=VARCHAR} and
-  			#{point, jdbcType=INTEGER} < point
+  			#{point, jdbcType=INTEGER} &lt; point
   </update>
 </mapper>
