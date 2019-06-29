@@ -16,8 +16,12 @@ public interface BookMapper {
 
     Book selectByPrimaryKey(BookKey key);
     
-    Book selectByTypeandDate(@Param("type") int type, @Param("date") Date date);
-
+    Book[] selectByTypeandDate(@Param("type") int type, @Param("date") String date);
+    
+    String[] selectNotBook(@Param("type") int type, @Param("date") String date);
+    
+    String[] selectNotBookBetween(@Param("type") int type, @Param("begin") String begin, @Param("end") String end);
+    
     int updateByPrimaryKeySelective(Book record);
 
     int updateByPrimaryKey(Book record);

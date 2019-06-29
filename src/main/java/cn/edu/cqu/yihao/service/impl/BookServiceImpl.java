@@ -25,8 +25,19 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Book getByTypeandDate(int type, Date date) {
+	public Book[] getByTypeandDate(int type, String date) {
 		return bookDao.selectByTypeandDate(type, date);
 	}
+
+	@Override
+	public String[] getAvailRoom(int type, String date) {
+		return bookDao.selectNotBook(type, date);
+	}
+
+	@Override
+	public String[] getAvailRoomBetween(int type, String begin, String end) {
+		return bookDao.selectNotBookBetween(type, begin, end);
+	}
+	
 
 }

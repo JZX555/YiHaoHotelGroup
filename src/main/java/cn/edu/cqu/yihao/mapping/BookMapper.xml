@@ -20,8 +20,22 @@
   <select id="selectByTypeandDate" resultMap="BaseResultMap">
   	select * 
   	from book as b
-  	where 
+  	where to_days(#{date, jdbcType=VARCHAR}) = to_days(b.bookdate) and
   		#{type, jdbcType=INTEGER} = (select room_type from room as r2 where r2.room_id = b.room_id);
+  </select>
+  <select id="selectNotBook" resultType="java.lang.String">
+  	select r.room_id
+	from room as r 
+	where r.room_type = #{type, jdbcType=INTEGER} and
+		room_id not in (select room_id from room_book as rb where rb.bookdate = #{date, jdbcType=VARCHAR} and rb.room_type = #{type, jdbcType=INTEGER});
+  </select>
+  <select id="selectNotBookBetween" resultType="java.lang.String">
+  	select r.room_id
+	from room as r 
+	where r.room_type = #{type, jdbcType=INTEGER} and
+		room_id not in (select distinct room_id 
+						from room_book as rb 
+						where rb.bookdate &gt;= #{begin, jdbcType=VARCHAR} and rb.bookdate &lt;= #{end, jdbcType=VARCHAR} and rb.room_type = #{type, jdbcType=INTEGER});
   </select>
   <delete id="deleteByPrimaryKey" parameterType="cn.edu.cqu.yihao.pojo.BookKey">
     delete from book

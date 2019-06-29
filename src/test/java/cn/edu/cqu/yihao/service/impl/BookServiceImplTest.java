@@ -2,6 +2,7 @@ package cn.edu.cqu.yihao.service.impl;
 
 import static org.junit.Assert.*;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,13 +24,15 @@ public class BookServiceImplTest {
 	
 	@Test
 	public void test() {
-		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		Date date;
+//		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+//		Date date;
 		try {
-			date = f.parse("2019-06-28");
-			Book b = bookService.getByTypeandDate(5, date);
-			System.out.println(b.getTel());
-		} catch (ParseException e) {
+//			date = f.parse("2019-06-28");
+//			System.out.println(date);
+			String[] books = bookService.getAvailRoomBetween(5, "2019-06-27", "2019-06-29");
+			for(String b:books)
+				System.out.println(b);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
