@@ -5,7 +5,7 @@ public class Debit_card {
 
     private String password;
 
-    private Float balance;
+    private Double balance;
 
     public String getCardId() {
         return cardId;
@@ -23,11 +23,11 @@ public class Debit_card {
         this.password = password == null ? null : password.trim();
     }
 
-    public Float getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(Float balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 }

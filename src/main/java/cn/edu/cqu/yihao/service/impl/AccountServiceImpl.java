@@ -17,4 +17,14 @@ public class AccountServiceImpl implements AccountService {
 		return this.accountDao.selectByPrimaryKey(tel);
 	}
 
+	@Override
+	public int addPoint(String tel, int point) {
+		return this.accountDao.addPoint(tel, point);
+	}
+
+	@Override
+	public int subPoint(String tel, int point) {
+		return this.accountDao.subPoint(tel, point);
+	}
+
 }

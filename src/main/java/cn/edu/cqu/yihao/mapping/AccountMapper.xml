@@ -9,9 +9,10 @@
     <result column="birthday" jdbcType="DATE" property="birthday" />
     <result column="point" jdbcType="INTEGER" property="point" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="maxPoint" jdbcType="INTEGER" property="maxpoint" />
   </resultMap>
   <sql id="Base_Column_List">
-    tel, vip_level, password, email, birthday, point, name
+    tel, vip_level, password, email, birthday, point, name, maxPoint
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -26,10 +27,10 @@
   <insert id="insert" parameterType="cn.edu.cqu.yihao.pojo.Account">
     insert into account (tel, vip_level, password, 
       email, birthday, point, 
-      name)
+      name, maxPoint)
     values (#{tel,jdbcType=VARCHAR}, #{vipLevel,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{point,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR})
+      #{name,jdbcType=VARCHAR}, #{maxpoint,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cqu.yihao.pojo.Account">
     insert into account
@@ -55,6 +56,9 @@
       <if test="name != null">
         name,
       </if>
+      <if test="maxpoint != null">
+        maxPoint,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="tel != null">
@@ -77,6 +81,9 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="maxpoint != null">
+        #{maxpoint,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -101,6 +108,9 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="maxpoint != null">
+        maxPoint = #{maxpoint,jdbcType=INTEGER},
+      </if>
     </set>
     where tel = #{tel,jdbcType=VARCHAR}
   </update>
@@ -111,7 +121,20 @@
       email = #{email,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=DATE},
       point = #{point,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR}
+      name = #{name,jdbcType=VARCHAR},
+      maxPoint = #{maxpoint,jdbcType=INTEGER}
     where tel = #{tel,jdbcType=VARCHAR}
+  </update>
+  <update id="addPoint">
+  	update account
+  	set point = #{point, jdbcType=INTEGER} + point,
+  		maxPoint = #{point, jdbcType=INTEGER} + point
+  		where tel = #{tel,jdbcType=VARCHAR}
+  </update>
+  <update id="subPoint">
+  	update account
+  	set point = #{point, jdbcType=INTEGER} - point,
+  		where tel = #{tel,jdbcType=VARCHAR} and
+  			#{point, jdbcType=INTEGER} < point
   </update>
 </mapper>

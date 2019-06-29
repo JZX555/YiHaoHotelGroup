@@ -16,5 +16,15 @@ public class Debit_cardServiceImpl implements Debit_cardService{
 	public Debit_card getByID(String id) {
 		return Debit_cardDao.selectByPrimaryKey(id);
 	}
+
+	@Override
+	public int add(String id, double money) {
+		return Debit_cardDao.addBalance(id, money);
+	}
+
+	@Override
+	public int sub(String id, double money) {
+		return Debit_cardDao.subBalance(id, money);
+	}
 	
 }

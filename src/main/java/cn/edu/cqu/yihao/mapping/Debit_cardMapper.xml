@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.edu.cqu.yihao.pojo.Debit_card">
     <id column="card_id" jdbcType="VARCHAR" property="cardId" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="balance" jdbcType="REAL" property="balance" />
+    <result column="balance" jdbcType="DOUBLE" property="balance" />
   </resultMap>
   <sql id="Base_Column_List">
     card_id, password, balance
@@ -22,7 +22,7 @@
   <insert id="insert" parameterType="cn.edu.cqu.yihao.pojo.Debit_card">
     insert into debit_card (card_id, password, balance
       )
-    values (#{cardId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{balance,jdbcType=REAL}
+    values (#{cardId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{balance,jdbcType=DOUBLE}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cqu.yihao.pojo.Debit_card">
@@ -46,7 +46,7 @@
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="balance != null">
-        #{balance,jdbcType=REAL},
+        #{balance,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -57,15 +57,25 @@
         password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="balance != null">
-        balance = #{balance,jdbcType=REAL},
+        balance = #{balance,jdbcType=DOUBLE},
       </if>
     </set>
     where card_id = #{cardId,jdbcType=VARCHAR}
   </update>
+  <update id="addBalance">
+  	update debit_card
+  	set balance = balance + #{money, jdbcType=DOUBLE}
+  	where card_id = #{id, jdbcType=VARCHAR};
+  </update>
+  <update id="subBalance">
+  	update debit_card
+  	set balance = balance - #{money, jdbcType=DOUBLE}
+  	where card_id = #{id, jdbcType=VARCHAR} and balance > #{money, jdbcType=DOUBLE};
+  </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.cqu.yihao.pojo.Debit_card">
     update debit_card
     set password = #{password,jdbcType=VARCHAR},
-      balance = #{balance,jdbcType=REAL}
+      balance = #{balance,jdbcType=DOUBLE}
     where card_id = #{cardId,jdbcType=VARCHAR}
   </update>
 </mapper>

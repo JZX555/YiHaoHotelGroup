@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PayController {
 	@RequestMapping("/debit_card")
 	public String debit_cardWay(HttpServletRequest req, Model model) {
-		Double price = (Double)req.getParameter("price");
-		
+		return "";
 		
 	}
 

@@ -1,5 +1,7 @@
 package cn.edu.cqu.yihao.Dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.edu.cqu.yihao.pojo.Account;
 
 public interface AccountMapper {
@@ -14,4 +16,8 @@ public interface AccountMapper {
     int updateByPrimaryKeySelective(Account record);
 
     int updateByPrimaryKey(Account record);
+    
+    int addPoint(@Param("tel")String tel, @Param("point")int point);
+    
+    int subPoint(@Param("tel")String tel, @Param("point")int point);
 }

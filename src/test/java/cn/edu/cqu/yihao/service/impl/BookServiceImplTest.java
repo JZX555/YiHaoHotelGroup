@@ -29,7 +29,7 @@ public class BookServiceImplTest {
 		try {
 //			date = f.parse("2019-06-28");
 //			System.out.println(date);
-			String[] books = bookService.getAvailRoomBetween(5, "2019-06-27", "2019-06-29");
+			String[] books = bookService.getAvailRoomBetween(5, "2019-06-28", "2019-06-29");
 			for(String b:books)
 				System.out.println(b);
 		} catch (Exception e) {
