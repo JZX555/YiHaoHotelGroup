@@ -25,6 +25,8 @@ public class AccountServiceImplTest {
 		System.out.println("----");
 		
 		System.out.println(this.accountService.subPoint("17725024014", 300));
+		
+		System.out.println(this.accountService.changePassword("17725024014", "123456", "111111"));
 	}
 
 }

@@ -20,4 +20,6 @@ public interface AccountMapper {
     int addPoint(@Param("tel")String tel, @Param("point")int point);
     
     int subPoint(@Param("tel")String tel, @Param("point")int point);
+    
+    int updatePassword(@Param("tel")String tel, @Param("last")String last, @Param("cur")String cur);
 }
