@@ -39,9 +39,9 @@ public class LogController {
 	 */
 	@RequestMapping("/validate")
 	public String validate(@RequestParam("tel")String tel, @RequestParam("password")String password, HttpServletResponse response, Model model) {
-		Account a = this.accountService.getAccountByTel(tel);
-    	if(a != null) {
-    		if(a.getPassword().equals(password)) {	
+		Account account = this.accountService.getAccountByTel(tel);
+    	if(account != null) {
+    		if(account.getPassword().equals(password)) {	
 	    	    Cookie telCookie = new Cookie("loginTel", tel);  
 	    	    Cookie passwordCookie = new Cookie("loginPassword", password);  
 	    	    telCookie.setMaxAge(60 * 60);  
@@ -51,7 +51,7 @@ public class LogController {
 	    	    response.addCookie(telCookie);  
 	    	    response.addCookie(passwordCookie); 
 	    	    
-	    	    model.addAttribute("Account", a);
+	    	    model.addAttribute("Account", account);
 	    		
 	    		return "foward:/";
 	    	}

@@ -8,7 +8,7 @@
     <result column="end_time" jdbcType="DATE" property="endTime" />
     <result column="room_id" jdbcType="VARCHAR" property="roomId" />
     <result column="indent_type" jdbcType="INTEGER" property="indentType" />
-    <result column="cost" jdbcType="REAL" property="cost" />
+    <result column="cost" jdbcType="DOUBLE" property="cost" />
     <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -20,6 +20,12 @@
     from indent
     where indent_id = #{indentId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByTypeandTel" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from indent
+  	where tel = #{tel, jdbcType=VARCHAR} and indent_type = #{type, jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from indent
     where indent_id = #{indentId,jdbcType=VARCHAR}
@@ -30,7 +36,7 @@
       cost, customer_id)
     values (#{indentId,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, 
       #{endTime,jdbcType=DATE}, #{roomId,jdbcType=VARCHAR}, #{indentType,jdbcType=INTEGER}, 
-      #{cost,jdbcType=REAL}, #{customerId,jdbcType=VARCHAR})
+      #{cost,jdbcType=DOUBLE}, #{customerId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cqu.yihao.pojo.Indent">
     insert into indent
@@ -80,7 +86,7 @@
         #{indentType,jdbcType=INTEGER},
       </if>
       <if test="cost != null">
-        #{cost,jdbcType=REAL},
+        #{cost,jdbcType=DOUBLE},
       </if>
       <if test="customerId != null">
         #{customerId,jdbcType=VARCHAR},
@@ -106,7 +112,7 @@
         indent_type = #{indentType,jdbcType=INTEGER},
       </if>
       <if test="cost != null">
-        cost = #{cost,jdbcType=REAL},
+        cost = #{cost,jdbcType=DOUBLE},
       </if>
       <if test="customerId != null">
         customer_id = #{customerId,jdbcType=VARCHAR},
@@ -121,7 +127,7 @@
       end_time = #{endTime,jdbcType=DATE},
       room_id = #{roomId,jdbcType=VARCHAR},
       indent_type = #{indentType,jdbcType=INTEGER},
-      cost = #{cost,jdbcType=REAL},
+      cost = #{cost,jdbcType=DOUBLE},
       customer_id = #{customerId,jdbcType=VARCHAR}
     where indent_id = #{indentId,jdbcType=VARCHAR}
   </update>

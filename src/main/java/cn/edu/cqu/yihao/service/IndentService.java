@@ -4,4 +4,6 @@ import cn.edu.cqu.yihao.pojo.Indent;
 
 public interface IndentService {
 	public Indent getById(String id);
+	
+	public Indent[] getByTypeandTel(int type, String tel);
 }

@@ -1,5 +1,7 @@
 package cn.edu.cqu.yihao.Dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.edu.cqu.yihao.pojo.Indent;
 
 public interface IndentMapper {
@@ -14,4 +16,6 @@ public interface IndentMapper {
     int updateByPrimaryKeySelective(Indent record);
 
     int updateByPrimaryKey(Indent record);
+    
+    Indent[] selectByTypeandTel(@Param("type")int type, @Param("tel")String tel);
 }
