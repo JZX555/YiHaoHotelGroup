@@ -17,6 +17,8 @@ public class Account {
 
     private String name;
 
+    private Integer maxpoint;
+
     public String getTel() {
         return tel;
     }
@@ -71,5 +73,13 @@ public class Account {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public Integer getMaxpoint() {
+        return maxpoint;
+    }
+
+    public void setMaxpoint(Integer maxpoint) {
+        this.maxpoint = maxpoint;
     }
 }

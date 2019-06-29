@@ -1,5 +1,7 @@
 package cn.edu.cqu.yihao.Dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.edu.cqu.yihao.pojo.Debit_card;
 
 public interface Debit_cardMapper {
@@ -14,4 +16,8 @@ public interface Debit_cardMapper {
     int updateByPrimaryKeySelective(Debit_card record);
 
     int updateByPrimaryKey(Debit_card record);
+    
+    int subBalance(@Param("id")String id, @Param("money")double money);
+    
+    int addBalance(@Param("id")String id, @Param("money")double money);
 }
