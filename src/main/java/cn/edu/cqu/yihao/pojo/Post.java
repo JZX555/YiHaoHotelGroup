@@ -3,7 +3,7 @@ package cn.edu.cqu.yihao.pojo;
 public class Post {
     private String indentId;
 
-    private Float socre;
+    private Double score;
 
     private String comment;
 
@@ -15,12 +15,12 @@ public class Post {
         this.indentId = indentId == null ? null : indentId.trim();
     }
 
-    public Float getSocre() {
-        return socre;
+    public Double getSocre() {
+        return score;
     }
 
-    public void setSocre(Float socre) {
-        this.socre = socre;
+    public void setSocre(Double score) {
+        this.score = score;
     }
 
     public String getComment() {

@@ -15,7 +15,7 @@ public class Indent {
 
     private Integer indentType;
 
-    private Float cost;
+    private Double cost;
 
     private String customerId;
 
@@ -67,11 +67,11 @@ public class Indent {
         this.indentType = indentType;
     }
 
-    public Float getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(Float cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 

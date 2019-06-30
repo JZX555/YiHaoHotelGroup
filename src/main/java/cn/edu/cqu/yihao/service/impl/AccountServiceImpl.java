@@ -27,4 +27,14 @@ public class AccountServiceImpl implements AccountService {
 		return this.accountDao.subPoint(tel, point);
 	}
 
+	@Override
+	public int changePassword(String tel, String last, String cur) {
+		return this.accountDao.updatePassword(tel, last, cur);
+	}
+
+	@Override
+	public int insertAccount(Account record) {
+		return this.accountDao.insert(record);
+	}
+
 }

@@ -8,4 +8,8 @@ public interface AccountService {
 	int addPoint(String tel, int point);
 	
 	int subPoint(String tel, int point);
+	
+	int changePassword(String tel, String last, String cur);
+	
+	int insertAccount(Account record);
 }

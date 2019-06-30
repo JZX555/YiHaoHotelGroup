@@ -17,4 +17,9 @@ public class IndentServiceImpl implements IndentService {
 		return indentDao.selectByPrimaryKey(id);
 	}
 
+	@Override
+	public Indent[] getByTypeandTel(int type, String tel) {
+		return indentDao.selectByTypeandTel(type, tel);
+	}
+
 }

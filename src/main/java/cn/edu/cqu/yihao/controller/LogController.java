@@ -27,6 +27,29 @@ public class LogController {
 	 */
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,Model model) {
+    	String telCookie = null;
+    	String passwordCookie = null;
+    	
+    	Cookie[] cookies = request.getCookies();
+    	if(cookies != null) {
+    		for (Cookie cookie : cookies) {
+    			// 得到cookie的用户名
+    	        if (cookie.getName().equals("loginTel"))
+    	        	telCookie = cookie.getValue(); 
+
+    	        // 得到cookie的密码
+    	        if (cookie.getName().equals("loginPassword"))
+    	        	passwordCookie = cookie.getValue(); 
+
+    		}
+    		if (telCookie != null && passwordCookie != null) {
+    			Account account = accountService.getAccountByTel(telCookie);
+    			if(account != null && account.getPassword().equals(passwordCookie)) {
+    				model.addAttribute("account", account);
+    				return "redirect:/user/showUser";
+    			}
+    		}
+    	}
 		
 		return "login";
 	}
@@ -39,9 +62,9 @@ public class LogController {
 	 */
 	@RequestMapping("/validate")
 	public String validate(@RequestParam("tel")String tel, @RequestParam("password")String password, HttpServletResponse response, Model model) {
-		Account a = this.accountService.getAccountByTel(tel);
-    	if(a != null) {
-    		if(a.getPassword().equals(password)) {	
+		Account account = this.accountService.getAccountByTel(tel);
+    	if(account != null) {
+    		if(account.getPassword().equals(password)) {	
 	    	    Cookie telCookie = new Cookie("loginTel", tel);  
 	    	    Cookie passwordCookie = new Cookie("loginPassword", password);  
 	    	    telCookie.setMaxAge(60 * 60);  
@@ -51,7 +74,7 @@ public class LogController {
 	    	    response.addCookie(telCookie);  
 	    	    response.addCookie(passwordCookie); 
 	    	    
-	    	    model.addAttribute("Account", a);
+	    	    model.addAttribute("Account", account);
 	    		
 	    		return "redirect:/index.jsp";
 	    	}
@@ -69,9 +92,23 @@ public class LogController {
 	 * @return
 	 */
 	@RequestMapping("/register")
-	public String register(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String register(String tel, String email, String password, Model model) {
+		Account account = new Account();
+		account.setTel(tel);
+		account.setEmail(email);
+		account.setPassword(password);
+		
+		accountService.insertAccount(account);
 		
 		return "register";
+	}
+	
+	@RequestMapping("/checkTel")
+	public int checkTel(String tel) {
+		int flag = 0;
+		if(accountService.getAccountByTel(tel) != null)
+			flag = 1;
+		return flag;
 	}
 	
 	/**
@@ -84,7 +121,7 @@ public class LogController {
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
         //删除登录cookie  
-        Cookie cookieUserName = new Cookie("loginUserName", "");  
+        Cookie cookieUserName = new Cookie("loginTel", "");  
         Cookie cookiePassword = new Cookie("loginPassword", "");  
         cookieUserName.setMaxAge(0);  
         cookieUserName.setPath("/");  

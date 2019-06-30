@@ -128,7 +128,7 @@
   <update id="addPoint">
   	update account
   	set point = #{point, jdbcType=INTEGER} + point,
-  		maxPoint = #{point, jdbcType=INTEGER} + point
+  		maxPoint = #{point, jdbcType=INTEGER} + maxPoint
   		where tel = #{tel,jdbcType=VARCHAR}
   </update>
   <update id="subPoint">
@@ -136,5 +136,11 @@
   	set point = #{point, jdbcType=INTEGER} - point
   		where tel = #{tel,jdbcType=VARCHAR} and
   			#{point, jdbcType=INTEGER} &lt; point
+  </update>
+  <update id="updatePassword">
+  	update account
+  	set password = #{cur, jdbcType=VARCHAR}
+  		where tel = #{tel,jdbcType=VARCHAR} and
+  			#{last, jdbcType=VARCHAR} = password
   </update>
 </mapper>
