@@ -12,4 +12,6 @@ public interface AccountService {
 	int changePassword(String tel, String last, String cur);
 	
 	int insertAccount(Account record);
+	
+	int setVipLevel(String tel, int vip);
 }

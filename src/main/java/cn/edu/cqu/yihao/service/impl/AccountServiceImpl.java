@@ -37,4 +37,9 @@ public class AccountServiceImpl implements AccountService {
 		return this.accountDao.insert(record);
 	}
 
+	@Override
+	public int setVipLevel(String tel, int vip) {
+		return this.accountDao.updateVip(tel, vip);
+	}
+
 }

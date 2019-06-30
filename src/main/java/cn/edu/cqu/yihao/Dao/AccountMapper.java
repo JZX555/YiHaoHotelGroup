@@ -22,4 +22,6 @@ public interface AccountMapper {
     int subPoint(@Param("tel")String tel, @Param("point")int point);
     
     int updatePassword(@Param("tel")String tel, @Param("last")String last, @Param("cur")String cur);
+    
+    int updateVip(@Param("tel")String tel, @Param("vip")int vip);
 }

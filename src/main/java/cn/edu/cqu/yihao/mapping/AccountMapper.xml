@@ -143,4 +143,9 @@
   		where tel = #{tel,jdbcType=VARCHAR} and
   			#{last, jdbcType=VARCHAR} = password
   </update>
+  <update id="updateVip">
+  	update account
+  	set vip_level = #{vip, jdbcType=INTEGER}
+  		where tel = #{tel,jdbcType=VARCHAR}
+  </update>
 </mapper>

@@ -46,7 +46,7 @@ public class LogController {
     			Account account = accountService.getAccountByTel(telCookie);
     			if(account != null && account.getPassword().equals(passwordCookie)) {
     				model.addAttribute("account", account);
-    				return "redirect:/user/showUser";
+    				return "redirect:/";
     			}
     		}
     	}
@@ -62,6 +62,7 @@ public class LogController {
 	 */
 	@RequestMapping("/validate")
 	public String validate(@RequestParam("tel")String tel, @RequestParam("password")String password, HttpServletResponse response, Model model) {
+		System.out.println("in validate");
 		Account account = this.accountService.getAccountByTel(tel);
     	if(account != null) {
     		if(account.getPassword().equals(password)) {	
@@ -76,19 +77,12 @@ public class LogController {
 	    	    
 	    	    model.addAttribute("Account", account);
 	    		
-	    		return "redirect:/index.jsp";
+	    		return "redirect:/";
 	    	}
     	}
     	
     	model.addAttribute("flag", 1);
-    	return "login";	
-	}
-	
-	@RequestMapping("/goregister")
-	public String goregister() {
-
-		
-		return "register";
+    	return "forward:/log/login";	
 	}
 	
 	/**
@@ -108,7 +102,7 @@ public class LogController {
 		
 		accountService.insertAccount(account);
 		
-		return "/login";
+		return "forward:/";
 	}
 	
 	@RequestMapping("/checkTel")
