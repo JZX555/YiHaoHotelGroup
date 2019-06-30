@@ -76,12 +76,19 @@ public class LogController {
 	    	    
 	    	    model.addAttribute("Account", account);
 	    		
-	    		return "foward:/";
+	    		return "redirect:/index.jsp";
 	    	}
     	}
     	
     	model.addAttribute("flag", 1);
-    	return "forward:/log/login";	
+    	return "login";	
+	}
+	
+	@RequestMapping("/goregister")
+	public String goregister() {
+
+		
+		return "register";
 	}
 	
 	/**
@@ -101,7 +108,7 @@ public class LogController {
 		
 		accountService.insertAccount(account);
 		
-		return "forward:/";
+		return "/login";
 	}
 	
 	@RequestMapping("/checkTel")
