@@ -6,15 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.edu.cqu.yihao.Dao.BookMapper;
+import cn.edu.cqu.yihao.Dao.RoomMapper;
 import cn.edu.cqu.yihao.pojo.Book;
 import cn.edu.cqu.yihao.pojo.BookKey;
+import cn.edu.cqu.yihao.pojo.Room;
 import cn.edu.cqu.yihao.service.BookService;
 
 @Service
 public class BookServiceImpl implements BookService {
 	@Autowired
 	private BookMapper bookDao = null;
-	
+	private RoomMapper roomDao = null;
 	@Override
 	public Book getByKey(String tel, String roomId) {
 		BookKey key = new BookKey();
@@ -39,5 +41,10 @@ public class BookServiceImpl implements BookService {
 		return bookDao.selectNotBookBetween(type, begin, end);
 	}
 	
+	@Override
+	public int getPriceByType(String roomType)
+	{
+		return roomDao.selectPriceByType(roomType);
+	}
 
 }

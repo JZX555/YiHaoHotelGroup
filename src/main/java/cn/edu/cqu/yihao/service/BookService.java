@@ -1,8 +1,8 @@
 package cn.edu.cqu.yihao.service;
 
 import java.util.Date;
-
 import cn.edu.cqu.yihao.pojo.Book;
+import cn.edu.cqu.yihao.pojo.Room;
 
 public interface BookService {
 	public Book getByKey(String tel, String room_id);
@@ -12,4 +12,6 @@ public interface BookService {
 	public String[] getAvailRoom(int type, String date);
 	
 	public String[] getAvailRoomBetween(int type, String begin, String end);
+	
+	public int getPriceByType(String roomType);
 }
