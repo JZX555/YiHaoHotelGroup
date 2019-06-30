@@ -92,9 +92,23 @@ public class LogController {
 	 * @return
 	 */
 	@RequestMapping("/register")
-	public String register(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String register(String tel, String email, String password, Model model) {
+		Account account = new Account();
+		account.setTel(tel);
+		account.setEmail(email);
+		account.setPassword(password);
 		
-		return "redirect:/";
+		accountService.insertAccount(account);
+		
+		return "forward:/";
+	}
+	
+	@RequestMapping("/checkTel")
+	public int checkTel(String tel) {
+		int flag = 0;
+		if(accountService.getAccountByTel(tel) != null)
+			flag = 1;
+		return flag;
 	}
 	
 	/**

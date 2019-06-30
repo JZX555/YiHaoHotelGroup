@@ -10,4 +10,6 @@ public interface AccountService {
 	int subPoint(String tel, int point);
 	
 	int changePassword(String tel, String last, String cur);
+	
+	int insertAccount(Account record);
 }

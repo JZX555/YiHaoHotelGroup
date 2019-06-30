@@ -17,4 +17,32 @@ public class PostServiceImpl implements PostService {
 		return postDao.selectByPrimaryKey(id);
 	}
 
+	@Override
+	public int addPost(String id, double score, String comment) {
+		Post post = new Post();
+		post.setIndentId(id);
+		post.setSocre(score);
+		post.setComment(comment);
+		return this.postDao.insert(post);
+	}
+
+	@Override
+	public int updateScore(String id, double score) {
+		return this.postDao.updateScore(id, score);
+	}
+
+	@Override
+	public int updateComment(String id, String comment) {
+		return this.postDao.updateComment(id, comment);
+	}
+
+	@Override
+	public int updateAll(String id, double score, String comment) {
+		Post post = new Post();
+		post.setIndentId(id);
+		post.setSocre(score);
+		post.setComment(comment);
+		return this.postDao.updateByPrimaryKeyWithBLOBs(post);
+	}
+	
 }

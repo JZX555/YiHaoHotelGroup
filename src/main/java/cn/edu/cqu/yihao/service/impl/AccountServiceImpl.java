@@ -32,4 +32,9 @@ public class AccountServiceImpl implements AccountService {
 		return this.accountDao.updatePassword(tel, last, cur);
 	}
 
+	@Override
+	public int insertAccount(Account record) {
+		return this.accountDao.insert(record);
+	}
+
 }
