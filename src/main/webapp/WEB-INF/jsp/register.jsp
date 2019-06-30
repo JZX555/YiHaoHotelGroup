@@ -64,10 +64,9 @@
 			<li class="head-responsive-right pull-right">
 				<div class="header-top-right">
 					<ul>
-					
+
 						<!-- 判断登陆状态 -->
-						<c:if test="${cookie.loginTel==null}" var="login"
-							scope="session">
+						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">sign
 									in</a></li>
@@ -107,20 +106,6 @@
 					<!--/.navbar-header-->
 					<!-- End Header Navigation -->
 
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse menu-ui-design"
-						id="navbar-menu">
-						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
-							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="#home">我们的品牌</a></li>
-							<li class="scroll"><a href="#roomTypes">房间类型</a></li>
-							<li class="scroll"><a href="#surronding">周边精彩</a></li>
-						</ul>
-						<!--/.nav -->
-					</div>
-					<!-- /.navbar-collapse -->
-
-
 				</div>
 				<!--/.container-->
 			</nav>
@@ -135,147 +120,37 @@
 	<section id="home" class="welcome-hero">
 		<div class="container">
 			<div class="welcome-hero-txt">
-				<h2>欢迎光临亿豪酒店</h2>
+				<h2>注册</h2>
 			</div>
-			<form action="/book" method="get">
+			<form>
 				<div class="welcome-hero-serch-box"
-					style="opacity: 0; margin-left: 129px;">
+					style="opacity: 0; margin-left: 129px; display: block;">
 
-					<div class="welcome-hero-form">
-						<div class="single-welcome-hero-form">
-							<h3>入住日期</h3>
-							<input type="date" name="date" />
+					<div class="welcome-hero-form" style="margin-top: 5px;">
+						<div class="single-welcome-hero-form" style="width: 100%;">
+							<h3>电话号码</h3>
+							<input type="text" name="tel">
 						</div>
-						<div class="single-welcome-hero-form">
-							<h3>离开日期</h3>
-							<input type="date">
-						</div>
-
-						<button class="welcome-hero-btn" type="submit">
-							立即预定 <i data-feather="search"></i>
-						</button>
 					</div>
-
+					<div class="welcome-hero-form" style="margin-top: 5px;">
+						<div class="single-welcome-hero-form" style="width: 100%;">
+							<h3>邮件</h3>
+							<input type="text" name="email">
+						</div>
+					</div>
+					<div class="welcome-hero-form" style="margin-top: 5px;">
+						<div class="single-welcome-hero-form" style="width: 100%;">
+							<h3>密码</h3>
+							<input type="password" name=password>
+						</div>
+					</div>
+					
+					<button class="welcome-hero-btn" type="submit" style="margin-top:15px;">
+							注册
+						</button>
 				</div>
 			</form>
 		</div>
-	</section>
-
-
-	<!-- 房型介绍 -->
-	<section id="roomTypes" class="explore"
-		style="padding-left: 25px; padding-right: 25px;">
-		<div class="explore-content">
-			<div class="section-header">
-				<h2>房型介绍</h2>
-			</div>
-			<!--/.section-header-->
-			<div class="row">
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-
-			</div>
-		</div>
-
-	</section>
-
-	<!-- 周边精彩-->
-	<section id="surronding" class="explore"
-		style="padding-left: 25px; padding-right: 25px;">
-		<div class="explore-content">
-			<div class="section-header">
-				<h2>周边精彩</h2>
-			</div>
-			<!--/.section-header-->
-			<div class="row">
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/1.jpg"><br>
-							<p class="section-header">xxx</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/2.jpg"><br>
-							<p class="section-header">xxx</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/3.jpg"><br>
-							<p class="section-header">xxx</p>
-						</div>
-					</a>
-				</div>
-
-			</div>
-		</div>
-
 	</section>
 
 

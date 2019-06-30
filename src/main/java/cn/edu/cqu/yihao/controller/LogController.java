@@ -53,12 +53,12 @@ public class LogController {
 	    	    
 	    	    model.addAttribute("Account", a);
 	    		
-	    		return "foward:/";
+	    		return "redirect:/index.jsp";
 	    	}
     	}
     	
     	model.addAttribute("flag", 1);
-    	return "forward:/log/login";	
+    	return "login";	
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class LogController {
 	@RequestMapping("/register")
 	public String register(HttpServletRequest request, HttpServletResponse response, Model model) {
 		
-		return "redirect:/";
+		return "register";
 	}
 	
 	/**
