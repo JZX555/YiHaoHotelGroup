@@ -47,4 +47,13 @@ public class BookServiceImpl implements BookService {
 		return roomDao.selectPriceByType(roomType);
 	}
 
+	@Override
+	public int addBook(Book book) {
+		return this.bookDao.insert(book);
+	}
+
+	@Override
+	public int updateSelect(Book book) {
+		return this.bookDao.updateByPrimaryKeySelective(book);
+	}
 }

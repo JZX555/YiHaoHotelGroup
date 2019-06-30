@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.edu.cqu.yihao.pojo.Account;
+import cn.edu.cqu.yihao.pojo.Root;
 import cn.edu.cqu.yihao.service.AccountService;
+import cn.edu.cqu.yihao.service.RootService;
 
 @Controller
 @RequestMapping("/log")
 public class LogController {
 	@Autowired
 	AccountService accountService = null;
+	
+	@Autowired
+	RootService rootService = null;
 	
 	/**
 	 * 登录转发
@@ -61,25 +66,40 @@ public class LogController {
 	 * @return
 	 */
 	@RequestMapping("/validate")
-	public String validate(@RequestParam("tel")String tel, @RequestParam("password")String password, HttpServletResponse response, Model model) {
-		System.out.println("in validate");
-		Account account = this.accountService.getAccountByTel(tel);
-    	if(account != null) {
-    		if(account.getPassword().equals(password)) {	
-	    	    Cookie telCookie = new Cookie("loginTel", tel);  
-	    	    Cookie passwordCookie = new Cookie("loginPassword", password);  
-	    	    telCookie.setMaxAge(60 * 60);  
-	    	    telCookie.setPath("/");  
-	    	    passwordCookie.setMaxAge(60 * 60);  
-	    	    passwordCookie.setPath("/");  
-	    	    response.addCookie(telCookie);  
-	    	    response.addCookie(passwordCookie); 
-	    	    
-	    	    model.addAttribute("Account", account);
-	    		
-	    		return "redirect:/";
+	public String validate(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String tel = request.getParameter("tel");
+		String password = request.getParameter("password");
+		String userType = request.getParameter("p");
+		
+		System.out.println(userType);
+		
+		if(userType.equals("user")) {
+			Account account = this.accountService.getAccountByTel(tel);
+	    	if(account != null) {
+	    		if(account.getPassword().equals(password)) {	
+		    	    Cookie telCookie = new Cookie("loginTel", tel);  
+		    	    Cookie passwordCookie = new Cookie("loginPassword", password);  
+		    	    telCookie.setMaxAge(60 * 60);  
+		    	    telCookie.setPath("/");  
+		    	    passwordCookie.setMaxAge(60 * 60);  
+		    	    passwordCookie.setPath("/");  
+		    	    response.addCookie(telCookie);  
+		    	    response.addCookie(passwordCookie); 
+		    	    
+		    	    model.addAttribute("Account", account);
+		    		
+		    		return "redirect:/";
+		    	}
 	    	}
-    	}
+		}
+		
+		else if(userType.equals("manager")) {
+			Root root = this.rootService.getById(tel);
+			if(root != null) {
+				if(root.getPassword().equals(password))
+					return "redirect:/root/login";
+			}
+		}
     	
     	model.addAttribute("flag", 1);
     	return "forward:/log/login";	

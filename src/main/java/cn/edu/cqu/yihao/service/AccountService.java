@@ -14,4 +14,8 @@ public interface AccountService {
 	int insertAccount(Account record);
 	
 	int setVipLevel(String tel, int vip);
+	
+	int addAccount(Account account);
+	
+	int updateSelect(Account account);
 }

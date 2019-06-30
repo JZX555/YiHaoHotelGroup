@@ -18,4 +18,8 @@ public interface IndentMapper {
     int updateByPrimaryKey(Indent record);
     
     Indent[] selectByTypeandTel(@Param("type")int type, @Param("tel")String tel);
+    
+    Indent[] selectByTypeandStartDate(@Param("type")int type, @Param("date")String date);
+    
+    Indent[] selectByTypeandEndDate(@Param("type")int type, @Param("date")String date);
 }

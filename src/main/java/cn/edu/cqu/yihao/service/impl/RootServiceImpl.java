@@ -17,4 +17,14 @@ public class RootServiceImpl implements RootService {
 		return rootDao.selectByPrimaryKey(id);
 	}
 
+	@Override
+	public int addRoot(Root root) {
+		return this.rootDao.insert(root);
+	}
+
+	@Override
+	public int updateSelect(Root root) {
+		return this.rootDao.updateByPrimaryKeySelective(root);
+	}
+
 }

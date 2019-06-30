@@ -17,4 +17,13 @@ public class RoomServiceImpl implements RoomService {
 		return roomDao.selectByPrimaryKey(id);
 	}
 
+	@Override
+	public int addRoom(Room room) {
+		return this.roomDao.insert(room);
+	}
+
+	@Override
+	public int updateSelect(Room room) {
+		return this.roomDao.updateByPrimaryKeySelective(room);
+	}
 }

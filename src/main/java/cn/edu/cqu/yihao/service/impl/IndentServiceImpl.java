@@ -22,4 +22,23 @@ public class IndentServiceImpl implements IndentService {
 		return indentDao.selectByTypeandTel(type, tel);
 	}
 
+	@Override
+	public Indent[] getByTypeandStartDate(int type, String date) {
+		return this.indentDao.selectByTypeandStartDate(type, date);
+	}
+
+	@Override
+	public Indent[] getByTypeandEndDate(int type, String date) {
+		return this.indentDao.selectByTypeandEndDate(type, date);
+	}
+
+	@Override
+	public int addIndent(Indent indent) {
+		return this.indentDao.insert(indent);
+	}
+
+	@Override
+	public int updateSelect(Indent indent) {
+		return this.indentDao.updateByPrimaryKeySelective(indent);
+	}
 }
