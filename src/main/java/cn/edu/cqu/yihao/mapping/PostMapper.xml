@@ -88,6 +88,6 @@
   <update id="updateComment" parameterType="cn.edu.cqu.yihao.pojo.Post">
     update post
     set comment = #{comment,jdbcType=DOUBLE}
-    where indent_id = #{indentId,jdbcType=VARCHAR}
+    where indent_id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

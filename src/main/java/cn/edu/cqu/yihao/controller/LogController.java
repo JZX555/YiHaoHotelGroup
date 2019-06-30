@@ -97,6 +97,7 @@ public class LogController {
 		account.setTel(tel);
 		account.setEmail(email);
 		account.setPassword(password);
+		account.setVipLevel(0);
 		
 		accountService.insertAccount(account);
 		
