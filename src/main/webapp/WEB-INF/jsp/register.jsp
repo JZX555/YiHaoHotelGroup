@@ -122,14 +122,15 @@
 			<div class="welcome-hero-txt">
 				<h2>注册</h2>
 			</div>
-			<form>
+			<form action="/log/register" method="post">
 				<div class="welcome-hero-serch-box"
 					style="opacity: 0; margin-left: 129px; display: block;">
 
 					<div class="welcome-hero-form" style="margin-top: 5px;">
 						<div class="single-welcome-hero-form" style="width: 100%;">
 							<h3>电话号码</h3>
-							<input type="text" name="tel">
+							<input type="text" name="tel" id="tel">
+							<span></span>
 						</div>
 					</div>
 					<div class="welcome-hero-form" style="margin-top: 5px;">

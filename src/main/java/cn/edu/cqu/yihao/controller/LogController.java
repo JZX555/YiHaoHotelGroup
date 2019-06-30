@@ -84,6 +84,13 @@ public class LogController {
     	return "login";	
 	}
 	
+	@RequestMapping("/goregister")
+	public String goregister() {
+
+		
+		return "register";
+	}
+	
 	/**
 	 * 用户注册
 	 * @param request
@@ -100,7 +107,7 @@ public class LogController {
 		
 		accountService.insertAccount(account);
 		
-		return "register";
+		return "/login";
 	}
 	
 	@RequestMapping("/checkTel")
