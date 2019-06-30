@@ -27,6 +27,29 @@ public class LogController {
 	 */
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,Model model) {
+    	String telCookie = null;
+    	String passwordCookie = null;
+    	
+    	Cookie[] cookies = request.getCookies();
+    	if(cookies != null) {
+    		for (Cookie cookie : cookies) {
+    			// 得到cookie的用户名
+    	        if (cookie.getName().equals("loginTel"))
+    	        	telCookie = cookie.getValue(); 
+
+    	        // 得到cookie的密码
+    	        if (cookie.getName().equals("loginPassword"))
+    	        	passwordCookie = cookie.getValue(); 
+
+    		}
+    		if (telCookie != null && passwordCookie != null) {
+    			Account account = accountService.getAccountByTel(telCookie);
+    			if(account != null && account.getPassword().equals(passwordCookie)) {
+    				model.addAttribute("account", account);
+    				return "redirect:/user/showUser";
+    			}
+    		}
+    	}
 		
 		return "login";
 	}
@@ -84,7 +107,7 @@ public class LogController {
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
         //删除登录cookie  
-        Cookie cookieUserName = new Cookie("loginUserName", "");  
+        Cookie cookieUserName = new Cookie("loginTel", "");  
         Cookie cookiePassword = new Cookie("loginPassword", "");  
         cookieUserName.setMaxAge(0);  
         cookieUserName.setPath("/");  
