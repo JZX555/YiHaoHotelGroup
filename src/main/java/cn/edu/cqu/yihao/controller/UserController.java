@@ -19,7 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UserController {
 	@Autowired
 	private BookService bookservice;
+	@Autowired
 	private RoomService roomservice;
+	@Autowired
+	private Debit_cardService dbcService;
+	@Autowired
+	private AccountService acService;
 	private static String lastIdentId;
 	@RequestMapping("/query")
 	public String query(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -27,6 +32,15 @@ public class UserController {
 		return "query";
 	}
 	
+	@RequestMapping("/changepassword")
+	public String change(HttpServletRequest request, Model model) {
+		String oldpw=(String)request.getParameter("oldpw");//获得输入的新旧密码
+		String newpw=(String)request.getParameter("newpw");
+		String tel=(String)request.getParameter("tel");
+		int rows=acService.changePassword(tel, oldpw, newpw);//修改密码
+
+		return "forward:/";//返回首页
+	}
 	//-------------------------------------------------------------------------------------
 	//用户选择入住和退房时间->用户点击预订
 	@RequestMapping(value = "/date", method = RequestMethod.POST)
