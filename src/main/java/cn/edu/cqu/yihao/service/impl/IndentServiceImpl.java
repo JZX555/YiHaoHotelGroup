@@ -51,10 +51,17 @@ public class IndentServiceImpl implements IndentService {
 	public Indent getByRoomandOneDate(String roomID, String date) {
 		return this.indentDao.selectByRoomandOneDate(roomID, date);
 	}
+<<<<<<< HEAD
 	
 	@Override
 	public int dropIndent(String indentId)
 	{
 		return this.indentDao.deleteByPrimaryKey(indentId);
+=======
+
+	@Override
+	public Indent[] getCompleteBetweenDate(int type, String beginDate, String endDate) {
+		return this.indentDao.selectCompleteBetweenDate(type, beginDate, endDate);
+>>>>>>> caf25292d3bc0224a5e6465e5c8eae99f630e304
 	}
 }

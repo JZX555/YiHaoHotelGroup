@@ -20,4 +20,5 @@ public interface IndentService {
 	public Indent getByRoomandOneDate(String roomID, String date);
 	
 	public int dropIndent(String indentId);
+
 }
