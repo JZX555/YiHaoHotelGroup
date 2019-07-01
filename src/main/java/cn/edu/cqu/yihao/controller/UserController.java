@@ -154,7 +154,7 @@ public class UserController {
 			java.util.Date utilDate=sdf2.parse(checkInDate);
 			java.sql.Date sqlDate=new java.sql.Date(utilDate.getTime());
 			book.setBookdate(sqlDate);
-			int bookRow=bookservice.insert(book);
+			int bookRow=bookservice.addBook(book);
 			Calendar cld=Calendar.getInstance();
 			cld.setTime(utilDate);
 			cld.add(Calendar.DATE, 1);
@@ -163,7 +163,7 @@ public class UserController {
 			{
 				sqlDate=new java.sql.Date(utilDate.getTime());
 				book.setBookdate(sqlDate);
-				bookRow=bookservice.insert(book);
+				bookRow=bookservice.addBook(book);
 				cld.setTime(utilDate);
 				cld.add(Calendar.DATE, 1);
 				utilDate=cld.getTime();

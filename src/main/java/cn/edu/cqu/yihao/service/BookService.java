@@ -13,8 +13,6 @@ public interface BookService {
 	
 	public String[] getAvailRoomBetween(int type, String begin, String end);
 	
-	public int insert(Book book);
-	
 	public int getPriceByType(String roomType);
 	
 	public int addBook(Book book);
