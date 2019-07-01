@@ -41,10 +41,4 @@ public class BookServiceImpl implements BookService {
 		return bookDao.selectNotBookBetween(type, begin, end);
 	}
 	
-	@Override
-	public int getPriceByType(String roomType)
-	{
-		return roomDao.selectPriceByType(roomType);
-	}
-
 }

@@ -16,5 +16,11 @@ public class RoomServiceImpl implements RoomService {
 	public Room getById(String id) {
 		return roomDao.selectByPrimaryKey(id);
 	}
+	
+	@Override
+	public int getPriceByType(String roomType)
+	{
+		return roomDao.selectPriceByType(roomType);
+	}
 
 }
