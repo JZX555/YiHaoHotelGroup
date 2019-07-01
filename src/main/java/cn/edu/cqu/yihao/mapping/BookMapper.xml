@@ -45,7 +45,7 @@
   <insert id="insert" parameterType="cn.edu.cqu.yihao.pojo.Book">
     insert into book (tel, room_id, bookdate, 
       is_booked)
-    values (#{tel,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, #{bookdate,jdbcType=INTEGER}, 
+    values (#{tel,jdbcType=VARCHAR}, #{roomId,jdbcType=VARCHAR}, #{bookdate,jdbcType=DATE}, 
       #{isBooked,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.cqu.yihao.pojo.Book">
