@@ -69,11 +69,12 @@
 						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
-							<li class="header-top-contact"><a href="/log/register">注册</a></li>
+							<li class="header-top-contact"><a href="/log/goregister">注册</a></li>
 						</c:if>
 
 						<c:if test="${!login}">
 							<li class="header-top-contact"><a href="#">会员中心</a></li>
+							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -99,11 +100,23 @@
 							data-target="#navbar-menu">
 							<i class="fa fa-bars"></i>
 						</button>
-						<a class="navbar-brand" href="/index.jsp">Yihao<span>Hotel</span></a>
+						<a class="navbar-brand" href="/index.jsp">yi<span>hao</span></a>
 
 					</div>
 					<!--/.navbar-header-->
 					<!-- End Header Navigation -->
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse menu-ui-design"
+						id="navbar-menu">
+						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
+							data-out="fadeOutUp">
+							<li class=""><a id="home" class="active" href="#">银行卡支付</a></li>
+						</ul>
+						<!--/.nav -->
+					</div>
+					<!-- /.navbar-collapse -->
+
 
 				</div>
 				<!--/.container-->
@@ -115,43 +128,24 @@
 		<div class="clearfix"></div>
 	</section>
 
-	<!-- 首页home  -->
-	<section id="home" class="welcome-hero">
-		<div class="container">
-			<div class="welcome-hero-txt">
-				<h2>注册</h2>
+	<!-- 房间状态改变 -->
+	<section id="status-view-change-view" class="explore rootview"
+		style="padding-left: 25px; padding-right: 25px;">
+		<div class="explore-content">
+			<div class="section-header">
+				<h2>银行卡支付</h2>
+				<hr>
+				
+				<h2>你共需支付：</h2>
+				<h2>xxxxx元</h2>
+				
+				
+				<button class="welcome-hero-btn" style="display:inline-block;"><a href="#">确认支付</a></button>
 			</div>
-			<form action="/log/register" method="post">
-				<div class="welcome-hero-serch-box"
-					style="opacity: 0; margin-left: 129px; display: block;">
 
-					<div class="welcome-hero-form" style="margin-top: 5px;">
-						<div class="single-welcome-hero-form" style="width: 100%;">
-							<h3>电话号码</h3>
-							<input type="text" name="tel" id="tel">
-							<span></span>
-						</div>
-					</div>
-					<div class="welcome-hero-form" style="margin-top: 5px;">
-						<div class="single-welcome-hero-form" style="width: 100%;">
-							<h3>邮件</h3>
-							<input type="text" name="email">
-						</div>
-					</div>
-					<div class="welcome-hero-form" style="margin-top: 5px;">
-						<div class="single-welcome-hero-form" style="width: 100%;">
-							<h3>密码</h3>
-							<input type="password" name=password>
-						</div>
-					</div>
-					
-					<button class="welcome-hero-btn" type="submit" style="margin-top:15px;">
-							注册
-						</button>
-				</div>
-			</form>
 		</div>
 	</section>
+
 
 
 	<footer id="footer" class="footer">
@@ -202,11 +196,7 @@
 
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
-	
-	<script type="text/javascript">
-		
-	</script>
-
 
 </body>
+</html>
 </html>

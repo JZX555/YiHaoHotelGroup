@@ -64,10 +64,9 @@
 			<li class="head-responsive-right pull-right">
 				<div class="header-top-right">
 					<ul>
-					
+
 						<!-- 判断登陆状态 -->
-						<c:if test="${cookie.loginTel==null}" var="login"
-							scope="session">
+						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
 							<li class="header-top-contact"><a href="/log/goregister">注册</a></li>
@@ -101,7 +100,7 @@
 							data-target="#navbar-menu">
 							<i class="fa fa-bars"></i>
 						</button>
-						<a class="navbar-brand" href="/index.jsp">Yihao<span>Hotel</span></a>
+						<a class="navbar-brand" href="/index.jsp">root<span>user</span></a>
 
 					</div>
 					<!--/.navbar-header-->
@@ -112,9 +111,12 @@
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="#home">我们的品牌</a></li>
-							<li class="scroll"><a href="#roomTypes">房间类型</a></li>
-							<li class="scroll"><a href="#surronding">周边精彩</a></li>
+							<li class=""><a id="home" class="active" href="#">首页</a></li>
+							<li class=""><a id="checkin-out" href="#">入住登记/退房</a></li>
+							<li class=""><a id="status-view-change" href="#">房间状态查看/改变</a></li>
+							<li class=""><a id="order-query" href="#">订单查询</a></li>
+							<li class=""><a id="reservation" href="#">门市订房</a></li>
+							<li class=""><a id="account-inquiry" href="#">流水账查询</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -132,122 +134,73 @@
 	</section>
 
 	<!-- 首页home  -->
-	<section id="home" class="welcome-hero">
+	<section id="home-view" class="welcome-hero rootview">
 		<div class="container">
 			<div class="welcome-hero-txt">
-				<h2>欢迎光临亿豪酒店</h2>
+				<h2>你好管理员xxxxx</h2>
+				<br>
+				<h2>今天是xx月xx日</h2>
+				<h2>共有x人入住</h2>
 			</div>
-			<form action="/roomtype.jsp" method="get">
-				<div class="welcome-hero-serch-box"
-					style="opacity: 0; margin-left: 129px;">
-
-					<div class="welcome-hero-form">
-						<div class="single-welcome-hero-form">
-							<h3>入住日期</h3>
-							<input type="date" name="date" />
-						</div>
-						<div class="single-welcome-hero-form">
-							<h3>离开日期</h3>
-							<input type="date">
-						</div>
-
-						<button class="welcome-hero-btn" type="submit">
-							立即预定 <i data-feather="search"></i>
-						</button>
-					</div>
-
-				</div>
-			</form>
 		</div>
 	</section>
 
 
-	<!-- 房型介绍 -->
-	<section id="roomTypes" class="explore"
+	<!-- 房间状态改变 -->
+	<section id="status-view-change-view" class="explore rootview"
 		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
-				<h2>房型介绍</h2>
+				<h2>房间状态</h2>
+				<hr>
+				<form>
+					日期：<input type="date" name="checkin">至 <input type="date"
+						name="checkout"><br> <br> 房间号：<input type="text"
+						name="rootnumber"><br> <br> <input type="submit">
+				</form>
 			</div>
-			<!--/.section-header-->
-			<div class="row">
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
 
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-
-			</div>
 		</div>
-
 	</section>
 
 	<!-- 周边精彩-->
-	<section id="surronding" class="explore"
+	<section id="checkin-out-view" class="explore rootview"
 		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
-				<h2>周边精彩</h2>
+				<h2>入住登记</h2>
+				<hr>
+				<form>
+					用户电话<input type="text" name="tel"> <input type="submit">
+				</form>
+				<br> <br>
+				<h2>退房</h2>
+				<hr>
+				<form action="">
+					房间号码:<input type="text" name="number"> <input type="submit">
+				</form>
 			</div>
-			<!--/.section-header-->
+		</div>
+
+		</div>
+
+	</section>
+
+	<!-- 订单查询 -->
+	<section id="order-query-view" class="explore rootview"
+		style="padding-left: 25px; padding-right: 25px;">
+		<div class="explore-content">
+			<div class="section-header">
+				<h2>订单查询</h2>
+				<form action="">
+					订单号：<input type="text"><br> <br> <input
+						type="submit">
+				</form>
+			</div>
+			<!-- <!--/.section-header
 			<div class="row">
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
+					<a href="#"> 跳转
 						<div class="single-explore-item">
 							<img alt="" src="assets/images/surrounding/1.jpg"><br>
 							<p class="section-header">xxx</p>
@@ -256,7 +209,7 @@
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
+					<a href="#"> 跳转
 						<div class="single-explore-item">
 							<img alt="" src="assets/images/surrounding/2.jpg"><br>
 							<p class="section-header">xxx</p>
@@ -265,18 +218,72 @@
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
+					<a href="#"> 跳转
 						<div class="single-explore-item">
 							<img alt="" src="assets/images/surrounding/3.jpg"><br>
 							<p class="section-header">xxx</p>
 						</div>
 					</a>
-				</div>
+				</div> -->
 
+		</div>
+
+	</section>
+
+
+	<!-- 门市订房 -->
+	<section id="reservation-view" class="explore rootview"
+		style="padding-left: 25px; padding-right: 25px;">
+		<div class="explore-content">
+			<div class="section-header">
+				<h2>门市订房</h2>
+				<form>
+					入住日期：<input type="date" name="checkin">至 <input type="date"
+						name="checkout"><br> <br> 房型：<select
+						name="roomType">
+						<option value="1">双床房</option>
+						<option value="2">大床房</option>
+						<option value="3">高级大床房</option>
+						<option value="4">豪华套房</option>
+						<option value="5">总统套房</option>
+					</select><br>
+					<br> 住房策略：<select name="strategyType">
+						<option value="0">无早餐</option>
+						<option value="1">单早餐</option>
+						<option value="2">双早餐</option>
+
+					</select><br><br>
+					
+					住客身份证号码：<input type="text" name="id"><br>
+					<br>
+					
+					<input type="submit">
+					
+				</form>
 			</div>
 		</div>
 
 	</section>
+
+	</section>
+
+	<!-- 流水账查询 -->
+
+	<section id="account-inquiry-view" class="explore rootview"
+		style="padding-left: 25px; padding-right: 25px;">
+		<div class="explore-content">
+			<div class="section-header">
+				<h2>流水账查询</h2>
+				<form>
+					日期：<input type="date">至
+					<input type="date"><br>
+					<input type="submit" value="查询">
+				</form>
+			</div>
+		</div>
+
+	</section>
+
 
 
 	<footer id="footer" class="footer">
@@ -328,6 +335,48 @@
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
 
+	<script type="text/javascript">
+		var roomtype = null;
+		$(document).ready(function() {
+
+			$(".rootview").hide();
+			$("#home-view").show();
+
+			$(".book").click(function() {
+				$("#roomType").val(roomtype);
+				$("#strategyType").val(this.value);
+				$("#breakfast").slideUp();
+				$("#information").slideDown();
+			});
+			$("#home").click(function() {
+				$(".rootview").hide();
+				$("#home-view").show();
+			})
+			$("#checkin-out").click(function() {
+				$(".rootview").hide();
+				$("#checkin-out-view").fadeIn();
+			})
+			$("#status-view-change").click(function() {
+				$(".rootview").hide();
+				$("#status-view-change-view").fadeIn();
+			})
+			$("#order-query").click(function() {
+				$(".rootview").hide();
+				$("#order-query-view").fadeIn();
+			})
+			$("#reservation").click(function() {
+				$(".rootview").hide();
+				$("#reservation-view").fadeIn();
+			})
+			$("#account-inquiry").click(function() {
+				$(".rootview").hide();
+				$("#account-inquiry-view").fadeIn();
+			})
+
+		});
+	</script>
+
 
 </body>
+</html>
 </html>

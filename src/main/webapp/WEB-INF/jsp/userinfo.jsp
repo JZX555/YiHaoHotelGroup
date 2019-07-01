@@ -17,22 +17,22 @@
 <title>亿豪酒店</title>
 
 <!-- For favicon png -->
-<link rel="shortcut icon" type="image/icon" href="assets/logo/logo.PNG" />
+<link rel="shortcut icon" type="image/icon" href="/assets/logo/logo.PNG" />
 
 <!--font-awesome.min.css-->
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
 
 <!--linear icon css-->
-<link rel="stylesheet" href="assets/css/linearicons.css">
+<link rel="stylesheet" href="/assets/css/linearicons.css">
 
 <!--animate.css-->
-<link rel="stylesheet" href="assets/css/animate.css">
+<link rel="stylesheet" href="/assets/css/animate.css">
 
 <!--flaticon.css-->
-<link rel="stylesheet" href="assets/css/flaticon.css">
+<link rel="stylesheet" href="/assets/css/flaticon.css">
 
 <!--slick.css-->
-<link rel="stylesheet" href="assets/css/slick.css">
+<link rel="stylesheet" href="/assets/css/slick.css">
 <link rel="stylesheet" href="/assets/css/slick-theme.css">
 
 <!--bootstrap.min.css-->
@@ -64,18 +64,18 @@
 			<li class="head-responsive-right pull-right">
 				<div class="header-top-right">
 					<ul>
-					
+
 						<!-- 判断登陆状态 -->
-						<c:if test="${cookie.loginTel==null}" var="login"
-							scope="session">
+						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
-							<li class="header-top-contact"><a href="login.jsp">sign
+							<li class="header-top-contact"><a href="/log/login">sign
 									in</a></li>
-							<li class="header-top-contact"><a href="register.jsp">register</a></li>
+							<li class="header-top-contact"><a href="/log/goregister">register</a></li>
 						</c:if>
 
 						<c:if test="${!login}">
 							<li class="header-top-contact"><a href="#">会员中心</a></li>
+							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -106,18 +106,15 @@
 					</div>
 					<!--/.navbar-header-->
 					<!-- End Header Navigation -->
-
-					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse menu-ui-design"
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class="scroll"><a href="#roomTypes">房型选择</a></li>
+							<li class=" scroll active"><a href="/#">返回</a></li><!-- 返回会员中心 -->
+
 						</ul>
 						<!--/.nav -->
 					</div>
-					<!-- /.navbar-collapse -->
-
 
 				</div>
 				<!--/.container-->
@@ -128,82 +125,47 @@
 		<!--/.header-area-->
 		<div class="clearfix"></div>
 	</section>
-
 	
-	<!-- 房型介绍 -->
-	<section id="roomTypes" class="explore"
-		style="padding-left: 25px; padding-right: 25px;">
-		<div class="explore-content">
-			<div class="section-header">
-				<h2>房型介绍</h2>
+	
+
+	<!-- 首页home  -->
+	<section id="home" class="welcome-hero">
+		<div class="container">
+			<div class="welcome-hero-txt">
+				<h2>个人中心</h2>
 			</div>
-			<!--/.section-header-->
-			<div class="row">
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
+			<form action="#" method="post">
+				<div class="welcome-hero-serch-box"
+					style="opacity: 0; margin-left: 129px; display: block;">
+
+					<div class="welcome-hero-form" style="margin-top: 5px;">
+						<div class="single-welcome-hero-form" style="width: 100%;">
+							<h3>电话号码</h3>
+							<input type="text" name="tel" id="tel" placeholder="${tel}">
+							<span></span>
 						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
+					</div>
+					<div class="welcome-hero-form" style="margin-top: 5px;">
+						<div class="single-welcome-hero-form" style="width: 100%;">
+							<h3>生日</h3>
+							<input type="date" name="birthday" placeholder="${birthday}">
 						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
+					</div>
+					<div class="welcome-hero-form" style="margin-top: 5px;">
+						<div class="single-welcome-hero-form" style="width: 100%;">
+							<h3>电子邮件</h3>
+							<input type="password" name=email placeholder="${email}">
 						</div>
-					</a>
+					</div>
+					
+					<button class="welcome-hero-btn" type="submit" style="margin-top:15px;">
+							修改
+						</button>
 				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-
-			</div>
+			</form>
 		</div>
-
 	</section>
+
 
 	<footer id="footer" class="footer">
 		<div class="container">
@@ -226,33 +188,37 @@
 
 
 
-	<script src="assets/js/jquery.js"></script>
+	<script src="/assets/js/jquery.js"></script>
 
 	<!--modernizr.min.js-->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
 	<!--bootstrap.min.js-->
-	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
 
 	<!-- bootsnav js -->
-	<script src="assets/js/bootsnav.js"></script>
+	<script src="/assets/js/bootsnav.js"></script>
 
 	<!--feather.min.js-->
-	<script src="assets/js/feather.min.js"></script>
+	<script src="/assets/js/feather.min.js"></script>
 
 	<!-- counter js -->
-	<script src="assets/js/jquery.counterup.min.js"></script>
-	<script src="assets/js/waypoints.min.js"></script>
+	<script src="/assets/js/jquery.counterup.min.js"></script>
+	<script src="/assets/js/waypoints.min.js"></script>
 
 	<!--slick.min.js-->
-	<script src="assets/js/slick.min.js"></script>
+	<script src="/assets/js/slick.min.js"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
 	<!--Custom JS-->
-	<script src="assets/js/custom.js"></script>
+	<script src="/assets/js/custom.js"></script>
+	
+	<script type="text/javascript">
+		
+	</script>
 
 
 </body>
