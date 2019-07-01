@@ -119,6 +119,8 @@ public class LogController {
 		account.setEmail(email);
 		account.setPassword(password);
 		account.setVipLevel(0);
+		account.setPoint(0);
+		account.setMaxpoint(0);
 		
 		accountService.insertAccount(account);
 		

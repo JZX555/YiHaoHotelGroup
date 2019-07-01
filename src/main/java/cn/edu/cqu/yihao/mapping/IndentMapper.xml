@@ -38,6 +38,22 @@
   	from indent
   	where indent_type = #{type, jdbcType=INTEGER} and to_days(end_time) = to_days(#{date, jdbcType=VARCHAR})
   </select>
+  <select id="selectByRoomandDate" resultMap="BaseResultMap">
+	select 
+	<include refid="Base_Column_List" />
+	from indent
+	where room_id = #{room, jdbcType=VARCHAR} and
+		to_days(start_time) &gt;= to_days(#{begin, jdbcType=VARCHAR}) and
+		to_days(end_time) &lt;= to_days(#{end, jdbcType=VARCHAR})
+  </select>
+  <select id="selectByRoomandOneDate" resultMap="BaseResultMap">
+	select 
+	<include refid="Base_Column_List" />
+	from indent
+	where room_id = #{room, jdbcType=VARCHAR} and
+		to_days(start_time) &lt;= to_days(#{date, jdbcType=VARCHAR}) and
+		to_days(end_time) &gt;= to_days(#{date, jdbcType=VARCHAR})
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from indent
     where indent_id = #{indentId,jdbcType=VARCHAR}

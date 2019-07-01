@@ -19,15 +19,22 @@ public class IndentServiceImplTest {
 	
 	@Test
 	public void test() {
-//		Indent[] indents = indentService.getByTypeandEndDate(2, "2019-06-15");
+//		Indent[] indents = indentService.getByRoomandDate("001", "2019-06-15", "2019-06-15");
 //		System.out.println("------------");
 //		for(Indent indent:indents)
 //			System.out.println(indent.getTel());
-		Indent indent = new Indent();
-		indent.setIndentId("00001");
-		indent.setIndentType(2);
-		indent.setCost(500.0);
-		this.indentService.updateSelect(indent);
+		
+		Indent indent = indentService.getByRoomandOneDate("001", "2019-6-19");
+		if(indent == null)
+			System.out.println("null");
+		System.out.println("------------");
+		System.out.println(indent.getRoomId());
+		
+//		Indent indent = new Indent();
+//		indent.setIndentId("00001");
+//		indent.setIndentType(2);
+//		indent.setCost(500.0);
+//		this.indentService.updateSelect(indent);
 	}
 
 }
