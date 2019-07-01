@@ -35,6 +35,11 @@ public class RootController {
 	@Autowired
 	private RoomService roomService = null;
 	
+	/**
+	 * 进入后台
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/index")
 	public String index(Model model) {
 		int isCheckIn = 0;
@@ -58,6 +63,36 @@ public class RootController {
 		return "root";
 	}
 	
+	@RequestMapping("/firstPage")
+	@ResponseBody
+	public Map<String, Integer> firstPage() {
+		Map<String, Integer> res = new HashMap<String, Integer>();
+		
+		int isCheckIn = 0;
+		int needCheckOut = 0;
+		int isBooked = 0;
+		
+		Date dNow = new Date( );
+		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+		String date = ft.format(dNow);
+		
+		isCheckIn = this.indentService.getByTypeandStartDate(2, date).length;
+		needCheckOut = this.indentService.getByTypeandEndDate(2, date).length;
+		for(int i = 0; i < 5; ++i) {
+			isBooked += this.bookService.getByTypeandDate(i, date).length;
+		}
+		
+		res.put("isCheckIn", isCheckIn);
+		res.put("needCheckOut", needCheckOut);
+		res.put("isBooked", isBooked);
+		
+		return res;
+	}
+	
+	/**
+	 * 获取checkin列表
+	 * @return
+	 */
 	@RequestMapping("/checkinList")
 	@ResponseBody
 	public List<Indent> checkinList() {
@@ -74,6 +109,10 @@ public class RootController {
 		return res;
 	}
 	
+	/**
+	 * 获取checkout列表
+	 * @return
+	 */
 	@RequestMapping("/checkoutList")
 	@ResponseBody
 	public List<Indent> checkoutList() {
@@ -90,6 +129,13 @@ public class RootController {
 		return res;
 	}
 	
+	/**
+	 * 完成checkin
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/checkin")
 	@ResponseBody
 	public int checkin(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -109,6 +155,13 @@ public class RootController {
 		return 1;
 	}
 	
+	/**
+	 * 完成checkout
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/checkout")
 	@ResponseBody
 	public int checkout(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -128,6 +181,13 @@ public class RootController {
 		return 1;
 	}
 	
+	/**
+	 * 查询房间
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/checkRoom")
 	@ResponseBody
 	public List<RoomWithIndent> checkRoom(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -175,6 +235,13 @@ public class RootController {
 		return res;
 	}
 	
+	/**
+	 * 更改房间价格
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/modifyRoomPrice")
 	@ResponseBody
 	public RoomWithIndent modifyRoomPrice(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -202,6 +269,13 @@ public class RootController {
 		return res;
 	}
 	
+	/**
+	 * 更改房间状态
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/modifyRoomState")
 	@ResponseBody
 	public RoomWithIndent modifyRoomState(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -237,6 +311,13 @@ public class RootController {
 		return res;
 	}
 	
+	/**
+	 * 获取订单
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/checkIndent")
 	@ResponseBody
 	public Indent checkIndent(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -248,6 +329,13 @@ public class RootController {
 		return res;
 	}
 	
+	/**
+	 * 预定房间
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/bookRoom")
 	@ResponseBody
 	public Map<String, String> bookRoom(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -280,6 +368,7 @@ public class RootController {
 			indent.setRoomId(rooms[0]);
 			indent.setCost(Double.valueOf(this.roomService.getById(rooms[0]).getPrice()));
 			indent.setIndentType(1);
+			indent.setPayType(0);
 			
 			book.setRoomId(rooms[0]);
 			book.setIsBooked(1);
@@ -293,6 +382,7 @@ public class RootController {
 				e.printStackTrace();
 			}
 			
+			this.indentService.addIndent(indent);
 			this.bookService.addBook(book);
 			
 			res.put("isSuccess", "1");
@@ -302,16 +392,81 @@ public class RootController {
 		return res;
 	}
 	
-	@RequestMapping("getBill")
+	/**
+	 * 获取账单
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/getBill")
 	@ResponseBody
 	public Map<String, Integer> getBill(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Map<String, Integer> res = new HashMap<String, Integer>();
+		String beginDate = request.getParameter("beginDate");
+		String endDate = request.getParameter("endDate");
 		
+		int type1 = 0, type2 = 0, type3 = 0, type4 = 0, type5 = 0;
+		int money = 0;
 		
+		Indent[] indents = this.indentService.getCompleteBetweenDate(3, beginDate, endDate);
+		
+		for(Indent indent : indents) {
+			int type = this.roomService.getById(indent.getRoomId()).getRoomType();
+			
+			money += indent.getCost();
+			
+			switch (type) {
+			case 1:
+				type1++;break;
+			case 2:
+				type2++;break;
+			case 3:
+				type3++;break;
+			case 4:
+				type4++;break;
+			case 5:
+				type5++;break;
+			default:
+				break;
+			}
+		}
+
+		res.put("complete", indents.length);
+		res.put("type1", type1);
+		res.put("type2", type2);
+		res.put("type3", type3);
+		res.put("type4", type4);
+		res.put("type5", type5);
+		res.put("money", money);
 		
 		return res;
 	}
 	
+	/**
+	 * 获取日期内订单详情
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/getDetil")
+	@ResponseBody
+	public List<Indent> getDetil(HttpServletRequest request, HttpServletResponse response, Model model) {
+		String beginDate = request.getParameter("beginDate");
+		String endDate = request.getParameter("endDate");
+		Indent[] indents = this.indentService.getCompleteBetweenDate(3, beginDate, endDate);
+		
+		List<Indent> res = new ArrayList<Indent>(indents.length);
+		Collections.addAll(res, indents);
+		
+		return res;
+	}
+	
+	/**
+	 * 注销
+	 * @return
+	 */
 	@RequestMapping("/logout")
 	public String logout() {
 		return "redirect:/";
