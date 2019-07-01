@@ -41,4 +41,14 @@ public class IndentServiceImpl implements IndentService {
 	public int updateSelect(Indent indent) {
 		return this.indentDao.updateByPrimaryKeySelective(indent);
 	}
+
+	@Override
+	public Indent[] getByRoomandDate(String roomID, String beginDate, String endDate) {
+		return this.indentDao.selectByRoomandDate(roomID, beginDate, endDate);
+	}
+
+	@Override
+	public Indent getByRoomandOneDate(String roomID, String date) {
+		return this.indentDao.selectByRoomandOneDate(roomID, date);
+	}
 }

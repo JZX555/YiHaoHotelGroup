@@ -1,5 +1,7 @@
 package cn.edu.cqu.yihao.Dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.edu.cqu.yihao.pojo.Room;
 
 public interface RoomMapper {
@@ -16,4 +18,5 @@ public interface RoomMapper {
     int updateByPrimaryKey(Room record);
 
 	int selectPriceByType(String roomType);
+
 }

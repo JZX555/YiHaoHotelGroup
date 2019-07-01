@@ -14,4 +14,8 @@ public interface IndentService {
 	public int addIndent(Indent indent);
 	
 	public int updateSelect(Indent indent);
+	
+	public Indent[] getByRoomandDate(String roomID, String beginDate, String endDate);
+	
+	public Indent getByRoomandOneDate(String roomID, String date);
 }

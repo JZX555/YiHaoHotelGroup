@@ -3,6 +3,7 @@ package cn.edu.cqu.yihao.Dao;
 import org.apache.ibatis.annotations.Param;
 
 import cn.edu.cqu.yihao.pojo.Indent;
+import cn.edu.cqu.yihao.pojo.Room;
 
 public interface IndentMapper {
     int deleteByPrimaryKey(String indentId);
@@ -22,4 +23,10 @@ public interface IndentMapper {
     Indent[] selectByTypeandStartDate(@Param("type")int type, @Param("date")String date);
     
     Indent[] selectByTypeandEndDate(@Param("type")int type, @Param("date")String date);
+    
+	Indent[] selectByRoomandDate(@Param("room")String room, @Param("begin")String begin, @Param("end")String end);
+	
+	Indent selectByRoomandOneDate(@Param("room")String room, @Param("date")String date);
+	
+	Indent[] selectCompleteBetweenDate(@Param("type")int type, @Param("begin")String beginDate, @Param("end")String endDate);
 }

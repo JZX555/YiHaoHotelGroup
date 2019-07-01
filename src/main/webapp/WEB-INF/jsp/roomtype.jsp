@@ -17,22 +17,22 @@
 <title>亿豪酒店</title>
 
 <!-- For favicon png -->
-<link rel="shortcut icon" type="image/icon" href="/assets/logo/logo.PNG" />
+<link rel="shortcut icon" type="image/icon" href="assets/logo/logo.PNG" />
 
 <!--font-awesome.min.css-->
-<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
 <!--linear icon css-->
-<link rel="stylesheet" href="/assets/css/linearicons.css">
+<link rel="stylesheet" href="assets/css/linearicons.css">
 
 <!--animate.css-->
-<link rel="stylesheet" href="/assets/css/animate.css">
+<link rel="stylesheet" href="assets/css/animate.css">
 
 <!--flaticon.css-->
-<link rel="stylesheet" href="/assets/css/flaticon.css">
+<link rel="stylesheet" href="assets/css/flaticon.css">
 
 <!--slick.css-->
-<link rel="stylesheet" href="/assets/css/slick.css">
+<link rel="stylesheet" href="assets/css/slick.css">
 <link rel="stylesheet" href="/assets/css/slick-theme.css">
 
 <!--bootstrap.min.css-->
@@ -54,6 +54,12 @@
 #roomType {
 	padding-left: 50px;
 }
+
+.book-button {
+	width: 170px;
+	height: 40px;
+	margin: auto;
+}
 </style>
 
 </head>
@@ -64,10 +70,9 @@
 			<li class="head-responsive-right pull-right">
 				<div class="header-top-right">
 					<ul>
-					
+
 						<!-- 判断登陆状态 -->
-						<c:if test="${cookie.loginTel==null}" var="login"
-							scope="session">
+						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
 							<li class="header-top-contact"><a href="/log/goregister">注册</a></li>
@@ -112,9 +117,7 @@
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="#home">我们的品牌</a></li>
-							<li class="scroll"><a href="#roomTypes">房间类型</a></li>
-							<li class="scroll"><a href="#surronding">周边精彩</a></li>
+							<li class="scroll"><a href="#roomTypes">房型选择</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -131,52 +134,55 @@
 		<div class="clearfix"></div>
 	</section>
 
-	<!-- 首页home  -->
-	<section id="home" class="welcome-hero">
-		<div class="container">
-			<div class="welcome-hero-txt">
-				<h2>欢迎光临亿豪酒店</h2>
-			</div>
-			<form action="/roomtype.jsp" method="get">
-				<div class="welcome-hero-serch-box"
-					style="opacity: 0; margin-left: 129px;">
-
-					<div class="welcome-hero-form">
-						<div class="single-welcome-hero-form">
-							<h3>入住日期</h3>
-							<input type="date" name="date" />
-						</div>
-						<div class="single-welcome-hero-form">
-							<h3>离开日期</h3>
-							<input type="date">
-						</div>
-
-						<button class="welcome-hero-btn" type="submit">
-							立即预定 <i data-feather="search"></i>
-						</button>
-					</div>
-
-				</div>
-			</form>
-		</div>
-	</section>
-
 
 	<!-- 房型介绍 -->
 	<section id="roomTypes" class="explore"
-		style="padding-left: 25px; padding-right: 25px;">
+		style="padding-left: 50px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
-				<h2>房型介绍</h2>
+				<h2>房型选择</h2>
 			</div>
 			<!--/.section-header-->
 			<div class="row">
 				<div class=" col-md-4 col-sm-6">
+					<div class="single-explore-item">
+						<img alt=""
+							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+						<p class="section-header">大床房</p>
+						<button
+							class="welcome-hero-btn book-button select-breakfast-button"
+							value="1">
+							立即预定 <i data-feather="search"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class=" col-md-4 col-sm-6">
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
+								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+							<p class="section-header">2</p>
+							<button
+								class="welcome-hero-btn book-button select-breakfast-button"
+								value="2">
+								立即预定 <i data-feather="search"></i>
+							</button>
+						</div>
+					</a>
+				</div>
+
+				<div class=" col-md-4 col-sm-6">
+					<a href="#"> <!-- 跳转 -->
+						<div class="single-explore-item">
+							<img alt=""
+								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+							<p class="section-header">3</p>
+							<button
+								class="welcome-hero-btn book-button select-breakfast-button"
+								value="3">
+								立即预定 <i data-feather="search"></i>
+							</button>
 						</div>
 					</a>
 				</div>
@@ -187,6 +193,11 @@
 							<img alt=""
 								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">大床房</p>
+							<button
+								class="welcome-hero-btn book-button select-breakfast-button"
+								value="4">
+								立即预定 <i data-feather="search"></i>
+							</button>
 						</div>
 					</a>
 				</div>
@@ -196,88 +207,19 @@
 						<div class="single-explore-item">
 							<img alt=""
 								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
+							<p class="section-header">5</p>
+							<button
+								class="welcome-hero-btn book-button select-breakfast-button"
+								value="5">
+								立即预定 <i data-feather="search"></i>
+							</button>
 						</div>
 					</a>
 				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-
 			</div>
 		</div>
 
 	</section>
-
-	<!-- 周边精彩-->
-	<section id="surronding" class="explore"
-		style="padding-left: 25px; padding-right: 25px;">
-		<div class="explore-content">
-			<div class="section-header">
-				<h2>周边精彩</h2>
-			</div>
-			<!--/.section-header-->
-			<div class="row">
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/1.jpg"><br>
-							<p class="section-header">xxx</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/2.jpg"><br>
-							<p class="section-header">xxx</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/3.jpg"><br>
-							<p class="section-header">xxx</p>
-						</div>
-					</a>
-				</div>
-
-			</div>
-		</div>
-
-	</section>
-
 
 	<footer id="footer" class="footer">
 		<div class="container">
@@ -297,37 +239,117 @@
 
 	</footer>
 	<!--/.footer-->
+	<div id="breakfast" class="explore"
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		<div class="explore-content">
+			<div class="section-header">
+				<h2>选择早餐类型</h2>
+			</div>
+			<div class="section-header">
+				<div class="row">
+					<div class=" col-md-4 col-sm-6">
+						<div class="single-explore-item">
+							<img alt=""
+								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+							<p class="section-header">无早餐</p>
+							<button value="0" class="welcome-hero-btn book"
+								style="width: 170px; height: 40px; margin: auto;">
+								立即预定 <i data-feather="search"></i>
+							</button>
+						</div>
+					</div>
+					<div class=" col-md-4 col-sm-6">
+						<div class="single-explore-item">
+							<img alt=""
+								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+							<p class="section-header">单早</p>
+								<button value="1" class="welcome-hero-btn book"
+									style="width: 170px; height: 40px; margin: auto;">
+									立即预定 <i data-feather="search"></i>
+								</button>
+						</div>
+					</div>
+					<div class=" col-md-4 col-sm-6">
+						<div class="single-explore-item">
+							<img alt=""
+								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+							<button value="2" class="welcome-hero-btn book"
+								style="width: 170px; height: 40px; margin: auto;">
+								立即预定 <i data-feather="search"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 
-	<script src="/assets/js/jquery.js"></script>
+	</div>
+
+	<div id="information" class="explore"
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		<div>
+			<form>
+				<input type="text" name="name" placeholder="姓名"><br> <input
+					type="text" name="id" placeholder="身份证号"><br> <input
+					type="text" name="nickName" placeholder="称号"><br> <input
+					type="hidden" id="roomType" name="roomType" placeholder="身份证号">
+				<input type="hidden" id="strategyType" name="strategyType">
+				<input type="submit">
+			</form>
+		</div>
+
+	</div>
+
+
+
+	<script src="assets/js/jquery.js"></script>
 
 	<!--modernizr.min.js-->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
 	<!--bootstrap.min.js-->
-	<script src="/assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
 
 	<!-- bootsnav js -->
-	<script src="/assets/js/bootsnav.js"></script>
+	<script src="assets/js/bootsnav.js"></script>
 
 	<!--feather.min.js-->
-	<script src="/assets/js/feather.min.js"></script>
+	<script src="assets/js/feather.min.js"></script>
 
 	<!-- counter js -->
-	<script src="/assets/js/jquery.counterup.min.js"></script>
-	<script src="/assets/js/waypoints.min.js"></script>
+	<script src="assets/js/jquery.counterup.min.js"></script>
+	<script src="assets/js/waypoints.min.js"></script>
 
 	<!--slick.min.js-->
-	<script src="/assets/js/slick.min.js"></script>
+	<script src="assets/js/slick.min.js"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
 	<!--Custom JS-->
-	<script src="/assets/js/custom.js"></script>
+	<script src="assets/js/custom.js"></script>
 
+	<script type="text/javascript">
+		var roomtype = null;
+		$(document).ready(function() {
 
+			$(".select-breakfast-button").click(function() {
+				$(".roomtype").val(this.value)
+				roomtype = this.value;
+				$("#breakfast").slideDown();
+			});
+
+			$(".book").click(function() {
+				$("#roomType").val(roomtype);
+				$("#strategyType").val(this.value);
+				$("#breakfast").slideUp();
+				$("#information").slideDown();
+			});
+
+		});
+	</script>
 </body>
 </html>
