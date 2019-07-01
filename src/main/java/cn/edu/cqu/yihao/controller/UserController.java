@@ -76,7 +76,7 @@ public class UserController {
 		return "选择房型的页面";
 	}
 	//用户选择入住和退房时间->用户点击预订->用户选择房型->用户点击预订->用户选择订房策略->用户点击预订->用户填写个人信息->用户点击确定
-	@RequestMapping(value = "/chooseDebitCard", method = RequestMethod.POST)
+	@RequestMapping(value = "/ready", method = RequestMethod.POST)
 	public synchronized String PayByDebitCard(HttpServletRequest request, HttpServletResponse response, Model model) throws ParseException
 	{
 		//接收七个用户输入，入住时间(checkInDate)和退房时间(checkOutDate)，房型(roomType)，订房策略(strategyType)，住户姓名(customerName)，住户身份证号(customerId)，账户电话号码(tel)
