@@ -18,6 +18,8 @@ public class Indent {
     private Double cost;
 
     private String customerId;
+    
+    private Integer payType;
 
     public String getIndentId() {
         return indentId;
@@ -82,4 +84,12 @@ public class Indent {
     public void setCustomerId(String customerId) {
         this.customerId = customerId == null ? null : customerId.trim();
     }
+
+	public Integer getPayType() {
+		return payType;
+	}
+
+	public void setPayType(Integer payType) {
+		this.payType = payType;
+	}
 }

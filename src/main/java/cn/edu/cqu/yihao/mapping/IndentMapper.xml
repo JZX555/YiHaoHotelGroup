@@ -10,9 +10,10 @@
     <result column="indent_type" jdbcType="INTEGER" property="indentType" />
     <result column="cost" jdbcType="DOUBLE" property="cost" />
     <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+    <result column="pay_type" jdbcType="INTEGER" property="payType">
   </resultMap>
   <sql id="Base_Column_List">
-    indent_id, tel, start_time, end_time, room_id, indent_type, cost, customer_id
+    indent_id, tel, start_time, end_time, room_id, indent_type, cost, customer_id, pay_type
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -54,6 +55,14 @@
 		to_days(start_time) &lt;= to_days(#{date, jdbcType=VARCHAR}) and
 		to_days(end_time) &gt;= to_days(#{date, jdbcType=VARCHAR})
   </select>
+  <select id="selectCompleteBetweenDate" resultMap="BaseResultMap">
+	select 
+	<include refid="Base_Column_List" />
+	from indent
+	where indent_type = #{type, jdbcType=INTEGER} and
+		to_days(end_time) &lt;= to_days(#{end, jdbcType=VARCHAR}) and
+		to_days(end_time) &gt;= to_days(#{start, jdbcType=VARCHAR}) 
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from indent
     where indent_id = #{indentId,jdbcType=VARCHAR}
@@ -93,6 +102,9 @@
       <if test="customerId != null">
         customer_id,
       </if>
+      <if test="payType != null">
+        payType,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="indentId != null">
@@ -118,6 +130,9 @@
       </if>
       <if test="customerId != null">
         #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -145,6 +160,9 @@
       <if test="customerId != null">
         customer_id = #{customerId,jdbcType=VARCHAR},
       </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=INTEGER},
+      </if>
     </set>
     where indent_id = #{indentId,jdbcType=VARCHAR}
   </update>
@@ -156,7 +174,8 @@
       room_id = #{roomId,jdbcType=VARCHAR},
       indent_type = #{indentType,jdbcType=INTEGER},
       cost = #{cost,jdbcType=DOUBLE},
-      customer_id = #{customerId,jdbcType=VARCHAR}
+      customer_id = #{customerId,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=INTEGER}
     where indent_id = #{indentId,jdbcType=VARCHAR}
   </update>
 </mapper>
