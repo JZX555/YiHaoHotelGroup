@@ -1,6 +1,9 @@
 package cn.edu.cqu.yihao.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -20,6 +23,9 @@ public class UserController {
 	@Autowired
 	private BookService bookservice;
 	private RoomService roomservice;
+	private AccountService accountservice;
+	private VipService vipservice;
+	private IndentService indentservice;
 	private static String lastIdentId;
 	@RequestMapping("/query")
 	public String query(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -53,8 +59,8 @@ public class UserController {
 		return "选择房型的页面";
 	}
 	//用户选择入住和退房时间->用户点击预订->用户选择房型->用户点击预订->用户选择订房策略->用户点击预订->用户填写个人信息->用户点击确定
-	@RequestMapping(value = "/everythingisready", method = RequestMethod.POST)
-	public synchronized String readyBook(HttpServletRequest request, HttpServletResponse response, Model model)
+	@RequestMapping(value = "/chooseDebitCard", method = RequestMethod.POST)
+	public synchronized String PayByDebitCard(HttpServletRequest request, HttpServletResponse response, Model model) throws ParseException
 	{
 		//接收七个用户输入，入住时间(checkInDate)和退房时间(checkOutDate)，房型(roomType)，订房策略(strategyType)，住户姓名(customerName)，住户身份证号(customerId)，账户电话号码(tel)
 		String checkInDate = request.getParameter("checkInDate");//接收入住时间
@@ -64,44 +70,32 @@ public class UserController {
 		String customerName=request.getParameter("customerName");//接收住户姓名
 		String customerId=request.getParameter("customerId");//接收住户身份证号
 		String tel=request.getParameter("tel");//接收账户电话号码
-		//计算该房型是否有剩余的房间
-		int roomFlag=bookservice.getAvailRoomBetween(Integer.parseInt(roomType), checkInDate, checkOutDate).length;
-		if(roomFlag==0)
+		Result result =new Result();
+		result=Work(checkInDate,checkOutDate,roomType,strategyType,customerName,customerId,tel);
+		if(result.flag==0)
 		{
-			//返回提示预订失败的页面（原因是该房型可用预订数为零）
-			return "fail";
+			return "提示失败的页面";
 		}
 		else
 		{
-			double price=(double)(roomservice.getPriceByType(roomType)+toPrice(strategyType));
-			//返回待支付金额
-			model.addAttribute("price",price);
-			//随机选择一个该房型下的可用房间的room_id(即选择该房间)
-			String Room[]=bookservice.getAvailRoomBetween(Integer.parseInt(roomType), checkInDate, checkOutDate);
-			Random random=new Random();
-			int subscript=random.nextInt(Room.length);
-			String currentRoomId=Room[subscript];
-			//生成订单id
-	        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
-	        String date=df.format(new Date()).toString();
-	        String tail=String.valueOf(100+random.nextInt(900));
-			String currentIndentId=date.concat(tail);
-			while(currentIndentId.equals(lastIdentId))
-			{
-		        date=df.format(new Date()).toString();
-		        tail=String.valueOf(100+random.nextInt(900));
-				currentIndentId=date.concat(tail);
-			}
-			lastIdentId=currentIndentId;
-			//在book表中加入相关记录（即锁下该房间）
-			
+		    //传回参数
+			/*
+			model.addAttribute("indenttId",result.currentIndentId);//传回订单号
+			model.addAttribute("checkInDatecost",result.checkInDate);//传回入住时间
+			model.addAttribute("checkOutDatecost",result.checkOutDate);//传回退房时间
+			model.addAttribute("roomType",result.roomType);//传回房间类型
+			model.addAttribute("customerName",result.customerName);//传回住户姓名
+			model.addAttribute("customerId",result.customerId);//传回身份证号
+			model.addAttribute("price",result.price);//传回原价
+			model.addAttribute("vipLevel",result.vipLevel);//传回VIP等级
+			model.addAttribute("discount", result.discount);//传回折扣
+			model.addAttribute("cost", result.cost);//传回折后价
+			*/
+			model.addAttribute("result",result);
 			//返回到支付界面
-			return "/pay/choose";
+			return "/pay";
 		}
 	}
-	@RequestMapping(value = "/payWayChoose", method = RequestMethod.POST)
-	
-	
 	public int toPrice(int type)
 	{
 		switch(type)
@@ -115,5 +109,112 @@ public class UserController {
 			default:
 				return (0);
 		}				
+	}
+	
+	public class Result
+	{
+		int flag=1;
+		public String currentIndentId;//订单号
+		public String checkInDate;//入住时间
+		public String checkOutDate;//退房时间
+		public String roomType;//房间类型
+		public String customerName;//住户姓名
+		public String customerId;//身份证号
+		int price;//原价
+		int vipLevel;//VIP等级
+		float discount;//折扣
+		double cost;//折后价
+	}
+	
+	public synchronized Result Work(String checkInDate,String checkOutDate,String roomType,int strategyType,String customerName,String customerId,String tel) throws ParseException
+	{
+		//计算该房型是否有剩余的房间
+		int roomFlag=bookservice.getAvailRoomBetween(Integer.parseInt(roomType), checkInDate, checkOutDate).length;
+		if(roomFlag==0)
+		{
+			//返回提示预订失败的页面（原因是该房型可用预订数为零）
+			Result result=new Result();
+			result.flag=0;
+			return result;
+		}
+		else
+		{
+			int price=roomservice.getPriceByType(roomType)+toPrice(strategyType);
+			//随机选择一个该房型下的可用房间的room_id(即选择该房间)
+			String Room[]=bookservice.getAvailRoomBetween(Integer.parseInt(roomType), checkInDate, checkOutDate);
+			Random random=new Random();
+			int subscript=random.nextInt(Room.length);
+			String currentRoomId=Room[subscript];
+			//在book表中加入相关记录（即锁下该房间）
+			Book book=new Book();
+			book.setTel(tel);
+			book.setRoomId(currentRoomId);
+			book.setIsBooked(1);
+			SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date utilDate=sdf2.parse(checkInDate);
+			java.sql.Date sqlDate=new java.sql.Date(utilDate.getTime());
+			book.setBookdate(sqlDate);
+			int bookRow=bookservice.insert(book);
+			Calendar cld=Calendar.getInstance();
+			cld.setTime(utilDate);
+			cld.add(Calendar.DATE, 1);
+			utilDate=cld.getTime();
+			while(!sqlDate.toString().equals(checkOutDate))
+			{
+				sqlDate=new java.sql.Date(utilDate.getTime());
+				book.setBookdate(sqlDate);
+				bookRow=bookservice.insert(book);
+				cld.setTime(utilDate);
+				cld.add(Calendar.DATE, 1);
+				utilDate=cld.getTime();
+			}
+			//创建订单
+			Indent indent=new Indent();
+			//生成并设置indent_id
+	        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
+	        String strDate=sdf1.format(new Date()).toString();
+	        String tail=String.valueOf(100+random.nextInt(900));
+			String currentIndentId=strDate.concat(tail);
+			while(currentIndentId.equals(lastIdentId))
+			{
+		        strDate=sdf1.format(new Date()).toString();
+		        tail=String.valueOf(100+random.nextInt(900));
+				currentIndentId=strDate.concat(tail);
+			}
+			lastIdentId=currentIndentId;
+			indent.setIndentId(currentIndentId);
+			//设置tel,start_time,end_time,room_id,indent_type,customer_id
+			indent.setTel(tel);
+			java.util.Date utilStartDate=sdf2.parse(checkInDate);
+			java.sql.Date sqlStartDate=new java.sql.Date(utilStartDate.getTime());
+			indent.setStartTime(sqlStartDate);
+			java.util.Date utilEndDate=sdf2.parse(checkOutDate);
+			java.sql.Date sqlEndDate=new java.sql.Date(utilEndDate.getTime());
+			indent.setEndTime(sqlEndDate);
+			indent.setRoomId(currentRoomId);
+			indent.setIndentType(0);
+			indent.setCustomerId(customerId);
+			//通过price计算并设置cost
+			Account currentAccount=accountservice.getAccountByTel(tel);
+			int vipLevel=currentAccount.getVipLevel();//获取VIP等级
+			Vip currentVip=vipservice.getByLevel(vipLevel);
+			float discount=currentVip.getDiscount();//获取该等级对应的折扣
+			double cost=price*discount;
+			indent.setCost(cost);
+			//此时记录的所有属性都设置完毕，可以插入indent表中
+			int indentRow=indentservice.addIndent(indent);
+			Result result=new Result();
+			result.currentIndentId=currentIndentId;//传回订单号
+			result.checkInDate=checkInDate;//传回入住时间
+			result.checkOutDate=checkOutDate;//传回退房时间
+			result.roomType=roomType;//传回房间类型
+			result.customerName=customerName;//传回住户姓名
+			result.customerId=customerId;//传回身份证号
+			result.price=price;//传回原价
+			result.vipLevel=vipLevel;//传回VIP等级
+			result.discount=discount;//传回折扣
+			result.cost=cost;//传回折后价
+			return result;
+		}	
 	}
 }
