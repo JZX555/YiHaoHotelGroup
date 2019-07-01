@@ -51,4 +51,10 @@ public class IndentServiceImpl implements IndentService {
 	public Indent getByRoomandOneDate(String roomID, String date) {
 		return this.indentDao.selectByRoomandOneDate(roomID, date);
 	}
+	
+	@Override
+	public int dropIndent(String indentId)
+	{
+		return this.indentDao.deleteByPrimaryKey(indentId);
+	}
 }

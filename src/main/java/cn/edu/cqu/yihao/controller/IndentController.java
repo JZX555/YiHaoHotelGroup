@@ -168,5 +168,14 @@ public class IndentController {
 		return "/showComment";		
 	}
 	
-	
+	@RequestMapping("cancelIndent")
+	public String cancelIndent(HttpServletRequest request, Model model)
+	{
+		String indentId=(String)request.getParameter("indentId");
+		String checkInDate=(String)request.getParameter("checkInDate");
+		String checkOutDate=(String)request.getParameter("checkOutDate");
+		//从订单里删除记录
+		inService.dropIndent(indentId);
+	}
+		
 }
