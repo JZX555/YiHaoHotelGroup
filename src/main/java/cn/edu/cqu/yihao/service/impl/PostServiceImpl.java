@@ -44,5 +44,15 @@ public class PostServiceImpl implements PostService {
 		post.setComment(comment);
 		return this.postDao.updateByPrimaryKeyWithBLOBs(post);
 	}
+
+	@Override
+	public int addPost(Post post) {
+		return this.postDao.insert(post);
+	}
+
+	@Override
+	public int updateSelect(Post post) {
+		return this.postDao.updateByPrimaryKeySelective(post);
+	}
 	
 }

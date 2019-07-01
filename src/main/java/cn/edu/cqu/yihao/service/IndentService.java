@@ -6,4 +6,12 @@ public interface IndentService {
 	public Indent getById(String id);
 	
 	public Indent[] getByTypeandTel(int type, String tel);
+	
+	public Indent[] getByTypeandStartDate(int type, String date);
+	
+	public Indent[] getByTypeandEndDate(int type, String date);
+	
+	public int addIndent(Indent indent);
+	
+	public int updateSelect(Indent indent);
 }

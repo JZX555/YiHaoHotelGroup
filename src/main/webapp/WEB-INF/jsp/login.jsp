@@ -14,9 +14,25 @@
 <body class="login" mycollectionplug="bind">
 
 <script type="text/javascript">
-	if(${flag}==1){
-		alert("账号或者密码错误");
-	}
+function isLeagel(form)
+{	
+    if(form.tel.value == "手机号/邮箱")
+    {
+         alert("ID不能为空");
+         return false;
+    }
+    if(form.password.value == "******")
+    {
+         alert("密码不能为空");
+         return false;
+    }
+    return true;
+}
+
+if(${flag}==1){
+	alert("账号或者密码错误");
+}
+	
 </script>
 <div class="login_m">
 <div class="login_logo"><img src="/assets/Wopop_files/4.png" width="196" height="46"></div>
@@ -25,7 +41,7 @@
 <div class="login_padding" id="login_model">
 
 
-  <form action="validate" method="post">
+  <form action="validate" method="post" onsubmit="return isLeagel(this);">
   
   
   <h2>用户名</h2>

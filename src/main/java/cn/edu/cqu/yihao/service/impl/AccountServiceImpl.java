@@ -42,4 +42,14 @@ public class AccountServiceImpl implements AccountService {
 		return this.accountDao.updateVip(tel, vip);
 	}
 
+	@Override
+	public int addAccount(Account account) {
+		return this.accountDao.insert(account);
+	}
+
+	@Override
+	public int updateSelect(Account account) {
+		return this.accountDao.updateByPrimaryKeySelective(account);
+	}
+
 }

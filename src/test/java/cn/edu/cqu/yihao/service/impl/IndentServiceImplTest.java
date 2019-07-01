@@ -19,10 +19,15 @@ public class IndentServiceImplTest {
 	
 	@Test
 	public void test() {
-		Indent[] indents = indentService.getByTypeandTel(3, "17725024014");
-		System.out.println("------------");
-		for(Indent indent:indents)
-			System.out.println(indent.getTel());
+//		Indent[] indents = indentService.getByTypeandEndDate(2, "2019-06-15");
+//		System.out.println("------------");
+//		for(Indent indent:indents)
+//			System.out.println(indent.getTel());
+		Indent indent = new Indent();
+		indent.setIndentId("00001");
+		indent.setIndentType(2);
+		indent.setCost(500.0);
+		this.indentService.updateSelect(indent);
 	}
 
 }

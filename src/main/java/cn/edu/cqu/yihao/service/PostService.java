@@ -12,4 +12,8 @@ public interface PostService {
 	public int updateComment(String id, String comment);
 	
 	public int updateAll(String id, double score, String comment);
+	
+	public int addPost(Post post);
+	
+	public int updateSelect(Post post);
 }
