@@ -160,13 +160,14 @@ public class IndentController {
 	}
 	@RequestMapping("/showComment")//查看评价
 	public String changeComment(HttpServletRequest request, Model model) {
-		String indent_id=(String)request.getParameter("indent_id");
+		String indent_id=(String)request.getParameter("indent_id");//需要订单号
 		Post p=pService.getById(indent_id);
 		model.addAttribute("score",p.getSocre());
 		model.addAttribute("comment", p.getComment());
 		
 		return "/showComment";		
 	}
+	
 	
 	@RequestMapping("cancelIndent")
 	public String cancelIndent(HttpServletRequest request, Model model)
