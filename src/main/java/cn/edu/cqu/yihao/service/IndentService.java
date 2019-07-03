@@ -18,4 +18,8 @@ public interface IndentService {
 	public Indent[] getByRoomandDate(String roomID, String beginDate, String endDate);
 	
 	public Indent getByRoomandOneDate(String roomID, String date);
+	
+	public int dropIndent(String indentId);
+
+	public Indent[] getCompleteBetweenDate(int type, String beginDate, String endDate);
 }

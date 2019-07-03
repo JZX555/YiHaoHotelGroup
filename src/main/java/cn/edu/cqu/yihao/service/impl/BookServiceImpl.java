@@ -57,4 +57,9 @@ public class BookServiceImpl implements BookService {
 		return this.bookDao.updateByPrimaryKeySelective(book);
 	}
 
+	@Override
+	public int dropBook(BookKey bookkey)
+	{
+		return this.bookDao.deleteByPrimaryKey(bookkey);
+	}
 }
