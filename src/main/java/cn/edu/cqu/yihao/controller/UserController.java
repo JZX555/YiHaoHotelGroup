@@ -124,7 +124,7 @@ public class UserController
 			 */
 			model.addAttribute("result", result);
 			// 返回到支付界面
-			return "/pay";
+			return "/payment";
 		}
 	}
 

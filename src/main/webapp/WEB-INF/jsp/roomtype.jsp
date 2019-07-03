@@ -149,11 +149,18 @@
 						<img alt=""
 							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 						<p class="section-header">大床房</p>
-						<button
-							class="welcome-hero-btn book-button select-breakfast-button"
-							value="1">
-							立即预定 <i data-feather="search"></i>
-						</button>
+						<c:if test="${roomtype1}!=0">
+							<button
+								class="welcome-hero-btn book-button select-breakfast-button"
+								value="1">
+								立即预定 <i data-feather="search"></i>
+							</button>
+						</c:if>
+						<c:if test="${roomtype1}==0">
+							<div class="welcome-hero-btn">
+								无余房<i data-feather="search"></i>
+							</div>
+						</c:if>
 					</div>
 				</div>
 
@@ -163,11 +170,18 @@
 							<img alt=""
 								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">2</p>
-							<button
-								class="welcome-hero-btn book-button select-breakfast-button"
-								value="2">
-								立即预定 <i data-feather="search"></i>
-							</button>
+							<c:if test="${roomtype1}!=0">
+								<button
+									class="welcome-hero-btn book-button select-breakfast-button"
+									value="2">
+									立即预定 <i data-feather="search"></i>
+								</button>
+							</c:if>
+							<c:if test="${roomtype1}==0">
+								<div class="welcome-hero-btn">
+									无余房<i data-feather="search"></i>
+								</div>
+							</c:if>
 						</div>
 					</a>
 				</div>
@@ -178,11 +192,18 @@
 							<img alt=""
 								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">3</p>
-							<button
-								class="welcome-hero-btn book-button select-breakfast-button"
-								value="3">
-								立即预定 <i data-feather="search"></i>
-							</button>
+							<c:if test="${roomtype1}!=0">
+								<button
+									class="welcome-hero-btn book-button select-breakfast-button"
+									value="3">
+									立即预定 <i data-feather="search"></i>
+								</button>
+							</c:if>
+							<c:if test="${roomtype1}==0">
+								<div class="welcome-hero-btn">
+									无余房<i data-feather="search"></i>
+								</div>
+							</c:if>
 						</div>
 					</a>
 				</div>
@@ -193,11 +214,18 @@
 							<img alt=""
 								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">大床房</p>
-							<button
-								class="welcome-hero-btn book-button select-breakfast-button"
-								value="4">
-								立即预定 <i data-feather="search"></i>
-							</button>
+							<c:if test="${roomtype1}!=0">
+								<button
+									class="welcome-hero-btn book-button select-breakfast-button"
+									value="4">
+									立即预定 <i data-feather="search"></i>
+								</button>
+							</c:if>
+							<c:if test="${roomtype1}==0">
+								<div class="welcome-hero-btn">
+									无余房<i data-feather="search"></i>
+								</div>
+							</c:if>
 						</div>
 					</a>
 				</div>
@@ -208,11 +236,19 @@
 							<img alt=""
 								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">5</p>
-							<button
-								class="welcome-hero-btn book-button select-breakfast-button"
-								value="5">
-								立即预定 <i data-feather="search"></i>
-							</button>
+							<c:if test="${roomtype1}!=0">
+								<button
+									class="welcome-hero-btn book-button select-breakfast-button"
+									value="5">
+									立即预定 <i data-feather="search"></i>
+								</button>
+							</c:if>
+
+							<c:if test="${roomtype1}==0">
+								<div class="welcome-hero-btn">
+									无余房<i data-feather="search"></i>
+								</div>
+							</c:if>
 						</div>
 					</a>
 				</div>
@@ -263,10 +299,10 @@
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">单早</p>
-								<button value="1" class="welcome-hero-btn book"
-									style="width: 170px; height: 40px; margin: auto;">
-									立即预定 <i data-feather="search"></i>
-								</button>
+							<button value="1" class="welcome-hero-btn book"
+								style="width: 170px; height: 40px; margin: auto;">
+								立即预定 <i data-feather="search"></i>
+							</button>
 						</div>
 					</div>
 					<div class=" col-md-4 col-sm-6">
@@ -289,14 +325,16 @@
 
 	<div id="information" class="explore"
 		style="display: none; position: fixed; width: 90%; left: 5%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
-		<div>
-			<form>
-				<input type="text" name="name" placeholder="姓名"><br> <input
-					type="text" name="id" placeholder="身份证号"><br> <input
-					type="text" name="nickName" placeholder="称号"><br> <input
-					type="hidden" id="roomType" name="roomType" placeholder="身份证号">
-				<input type="hidden" id="strategyType" name="strategyType">
-				<input type="submit">
+		<div class="section-header">
+			<form action="/user/ready">
+				<input type="text" name="customerName" placeholder="姓名"><br>
+				<input type="text" name="customerId" placeholder="身份证号"><br>
+				<input type="text" name="tel" placeholder="电话号码"><br>
+				<input type="hidden" id="roomType" name="roomType"> 
+				<input type="hidden" id="strategyType" name="strategyType"> 
+				<input type="hidden" name="checkInDate" value="${checkInDate }"> 
+				<input type="hidden" name="checkOutDate" value="${checkOutDate }"> 
+				<input type="submit" value="预定 ">
 			</form>
 		</div>
 

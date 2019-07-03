@@ -135,12 +135,24 @@
 			<div class="section-header">
 				<h2>银行卡支付</h2>
 				<hr>
-				
-				<h2>剩余积分：xxx</h2><br>
-				<h2>需要支付的积分：xxxx</h2>
-				
-				
-				<button class="welcome-hero-btn" style="display:inline-block;"><a href="#">确认支付</a></button>
+
+				<h2>
+					剩余积分：
+					<c:out value="${remain_point}" />
+				</h2>
+				<br>
+				<h2>
+					需要支付的积分：
+					<c:out value="${need_point }" />
+				</h2>
+
+				<form action="/pay/point" method="post">
+					<input type="hidden" name="indent_id" value="${indent_id }">
+					<input type="hidden" name="need_point" value="${need_point }">
+					<input type="hidden" name="price" value="${price }">
+					<button class="welcome-hero-btn" style="display: inline-block;">确认支付</button>
+				</form>
+
 			</div>
 
 		</div>
