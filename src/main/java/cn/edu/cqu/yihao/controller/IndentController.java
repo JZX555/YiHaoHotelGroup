@@ -170,7 +170,7 @@ public class IndentController {
 	
 	
 	@RequestMapping("cancelIndent")
-	public String cancelIndent(HttpServletRequest request, Model model)
+	public void cancelIndent(HttpServletRequest request, Model model)
 	{
 		String indentId=(String)request.getParameter("indentId");
 		String checkInDate=(String)request.getParameter("checkInDate");
