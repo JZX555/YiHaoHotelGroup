@@ -81,7 +81,7 @@
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">sign
 									in</a></li>
-							<li class="header-top-contact"><a href="/log/goregister">register</a></li>
+							<li class="header-top-contact"><a href="/log/register">register</a></li>
 						</c:if>
 
 						<c:if test="${!login}">

@@ -179,16 +179,18 @@ a:hover { text-decoration: none; }
          <!--  <div class="attitude"></div> -->
     </div>
 <div>
-<h3 style="color:#ffffff;text-align: left;">入住评价：</h3></br>
-</br>
-<textarea rows="20" cols="75" laceholder="卫生、网络、服务、设施...请对我们进行表扬或提建议，我们将认真查看您的入住感受，为了在以后给您带来更好的体验" style="width: 602px;"></textarea>
+<h3 style="color:#ffffff;text-align: left;">入住评价：</h3><br/>
+<br/>
+<textarea rows="20" cols="75" placeholder="卫生、网络、服务、设施...请对我们进行表扬或提建议，我们将认真查看您的入住感受，为了在以后给您带来更好的体验" style="width: 602px;"></textarea>
 </div>
 <input class="input" type="button" value="确认提交" style="margin-top: 5px;width: 64px;height: 24px;">
 <div>
 <h3 style="text-align: left; color:#ffffff;margin-top: 10px;" >
-1、禁止发布商业用途的联系信息，禁止发布含有外部链接（URL）的内容，禁止发布任何促销广告及无意义的灌水性内容。</br>
-2、点评必须是入住本人原创且是入住本人的真实入住体验，不允许发布谣言、道听途说等传闻内容；抄袭酒店简介及其他用户的点评，将不予发表，不得从其他网站转载内容，版权责任由点评人自行承担。</br>
-3、点评不含有违法、歧视等内容，涉及法律纠纷如丢失贵重物品、伤残、死亡等内容将不予展示。</br>
+<ol>
+	<li>禁止发布商业用途的联系信息，禁止发布含有外部链接（URL）的内容，禁止发布任何促销广告及无意义的灌水性内容。</li>
+	<li>点评必须是入住本人原创且是入住本人的真实入住体验，不允许发布谣言、道听途说等传闻内容；抄袭酒店简介及其他用户的点评，将不予发表，不得从其他网站转载内容，版权责任由点评人自行承担。</li>
+	<li>点评不含有违法、歧视等内容，涉及法律纠纷如丢失贵重物品、伤残、死亡等内容将不予展示。</li>
+</ol>
 </h3>
 </div>
 

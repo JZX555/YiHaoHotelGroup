@@ -69,7 +69,7 @@
 						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
-							<li class="header-top-contact"><a href="/log/goregister">注册</a></li>
+							<li class="header-top-contact"><a href="/log/register">注册</a></li>
 						</c:if>
 
 						<c:if test="${!login}">
