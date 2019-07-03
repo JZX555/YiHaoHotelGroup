@@ -4,9 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.tagext.PageData;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -175,9 +178,11 @@ public class IndentController {
 	}
 	
 	
-	@RequestMapping("cancelIndent")
-	public String cancelIndent(HttpServletRequest request, Model model) throws ParseException
+	@RequestMapping("/cancelIndent")
+	@ResponseBody
+	public Object cancelIndent(HttpServletRequest request, Model model) throws ParseException
 	{
+		Map<String,String> map = new HashMap<String,String>();
 		String indentId=(String)request.getParameter("indentId");
 		String checkInDate=(String)request.getParameter("checkInDate");
 		String checkOutDate=(String)request.getParameter("checkOutDate");
@@ -209,8 +214,11 @@ public class IndentController {
 			cld.add(Calendar.DATE, 1);
 			utilDate = cld.getTime();
 		}
-		//返回个人中心
-		return "forward:/personCenter/indent";
+		//返回所需值
+		map.put("indentId", indentId);
+		map.put("checkInDate", checkInDate);
+		map.put("checkOutDate", checkOutDate);
+		return map;
 	}
 		
 }

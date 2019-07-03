@@ -213,10 +213,10 @@
 		    },
 		        function(flag){
 		        if(flag==1){
-		        	$("#check").text("电话号码可用");
+		        	$("#check").html("电话号码可用");
 		        }
 		        else{
-		        	$("#check").text("电话号码已存在");
+		        	$("#check").html("电话号码已存在");
 		        }
 		    });
 		});

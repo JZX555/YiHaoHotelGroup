@@ -14,6 +14,7 @@
 
 <script type="text/javascript">
 function isLeagel(form)
+
 {	
     if(form.tel.value == "手机号/邮箱")
     {

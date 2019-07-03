@@ -60,7 +60,7 @@ public class RootController {
 		model.addAttribute("needCheckOut", needCheckOut);
 		model.addAttribute("isBooked", isBooked);
 		
-		return "root";
+		return "forward:/root.jsp";
 	}
 	
 	@RequestMapping("/firstPage")
@@ -95,16 +95,20 @@ public class RootController {
 	 */
 	@RequestMapping("/checkinList")
 	@ResponseBody
-	public List<Indent> checkinList() {
+	public List<Indent> checkinList(HttpServletRequest request, HttpServletResponse response, Model model) {
 		List<Indent> res = new ArrayList<Indent>();
 		Date dNow = new Date( );
+		String tel = request.getParameter("tel");
+		
 		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
 		String date = ft.format(dNow);
 		
 		
 		Indent[] indents = this.indentService.getByTypeandStartDate(1, date);
-		for(Indent indent:indents)
-			res.add(indent);
+		for(Indent indent:indents) {
+			if(indent.getTel().equals(tel))
+				res.add(indent);
+		}
 		
 		return res;
 	}
@@ -115,16 +119,20 @@ public class RootController {
 	 */
 	@RequestMapping("/checkoutList")
 	@ResponseBody
-	public List<Indent> checkoutList() {
+	public List<Indent> checkoutList(HttpServletRequest request, HttpServletResponse response, Model model) {
 		List<Indent> res = new ArrayList<Indent>();
 		Date dNow = new Date( );
+		String roomID = request.getParameter("number");
+		
 		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
 		String date = ft.format(dNow);
 		
 		
 		Indent[] indents = this.indentService.getByTypeandEndDate(1, date);
-		for(Indent indent:indents)
-			res.add(indent);
+		for(Indent indent:indents) {
+			if(indent.getRoomId().equals(roomID))
+				res.add(indent);
+		}
 		
 		return res;
 	}
