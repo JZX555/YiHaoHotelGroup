@@ -129,6 +129,7 @@
 						<div class="single-welcome-hero-form" style="width: 100%;">
 							<h3>电话号码</h3>
 							<input type="text" name="tel" id="tel">
+							<p id="check"></p>
 							<span></span>
 						</div>
 					</div>
@@ -204,7 +205,23 @@
 	<script src="/assets/js/custom.js"></script>
 	
 	<script type="text/javascript">
+	$(document).ready(function () {
+		$("#tel").blur(function(){
+		    $.post("/log/checkTel",
+		    {
+		        tel:$("#tel").value
+		    },
+		        function(flag){
+		        if(flag==1){
+		        	$("#check").text("电话号码可用");
+		        }
+		        else{
+		        	$("#check").text("电话号码已存在");
+		        }
+		    });
+		});
 		
+	})
 	</script>
 
 

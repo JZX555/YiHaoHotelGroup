@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.*"%>
 <html lang="zh_CN">
 <!-- meta data -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -137,10 +139,30 @@
 	<section id="home-view" class="welcome-hero rootview">
 		<div class="container">
 			<div class="welcome-hero-txt">
-				<h2>你好管理员xxxxx</h2>
+				<h2>你好管理员</h2>
 				<br>
-				<h2>今天是xx月xx日</h2>
-				<h2>共有x人入住</h2>
+				<%
+					Date d = new Date();
+					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+					String now = df.format(d);
+				%>
+				<h2>
+					今天是<%=now%></h2>
+				<h2>
+					共有
+					<c:out value="${isCheckIn}"></c:out>
+					人入住
+				</h2>
+				<h2>
+					共有
+					<c:out value="${needCheckOut}"></c:out>
+					需要退房
+				</h2>
+				<h2>
+					共有
+					<c:out value="${isBooked}"></c:out>
+					订房
+				</h2>
 			</div>
 		</div>
 	</section>
@@ -153,11 +175,13 @@
 			<div class="section-header">
 				<h2>房间状态</h2>
 				<hr>
-				<form>
-					日期：<input type="date" name="checkin">至 <input type="date"
-						name="checkout"><br> <br> 房间号：<input type="text"
-						name="rootnumber"><br> <br> <input type="submit">
-				</form>
+				日期：<input type="date" id="checkRoomBegin" name="checkin">至 <input
+					type="date" name="checkout" id="checkRoonEnd"><br> <br>
+				房间号：<input id="checkRoomId" type="text" name="rootnumber"><br>
+				<br> <input id="checkRoom" type="submit">
+				
+				<hr>
+				<div class="displayContent"></div>
 			</div>
 
 		</div>
@@ -237,29 +261,22 @@
 		<div class="explore-content">
 			<div class="section-header">
 				<h2>门市订房</h2>
-				<form>
-					入住日期：<input type="date" name="checkin">至 <input type="date"
-						name="checkout"><br> <br> 房型：<select
-						name="roomType">
-						<option value="1">双床房</option>
-						<option value="2">大床房</option>
-						<option value="3">高级大床房</option>
-						<option value="4">豪华套房</option>
-						<option value="5">总统套房</option>
-					</select><br>
-					<br> 住房策略：<select name="strategyType">
-						<option value="0">无早餐</option>
-						<option value="1">单早餐</option>
-						<option value="2">双早餐</option>
+				入住日期：<input type="date" name="checkin" id="beginDate">至 <input
+					type="date" name="checkout" id="beginDate"><br> <br>
+				房型：<select name="roomType" id="roomType">
+					<option value="1">双床房</option>
+					<option value="2">大床房</option>
+					<option value="3">高级大床房</option>
+					<option value="4">豪华套房</option>
+					<option value="5">总统套房</option>
+				</select><br> <br> 住房策略：<select name="strategyType">
+					<option value="0">无早餐</option>
+					<option value="1">单早餐</option>
+					<option value="2">双早餐</option>
 
-					</select><br><br>
-					
-					住客身份证号码：<input type="text" name="id"><br>
-					<br>
-					
-					<input type="submit">
-					
-				</form>
+				</select><br> <br> 住客身份证号码：<input id="customerId" type="text"
+					name="id"><br> <br> <input type="submit"
+					id="bookRoom">
 			</div>
 		</div>
 
@@ -275,8 +292,7 @@
 			<div class="section-header">
 				<h2>流水账查询</h2>
 				<form>
-					日期：<input type="date">至
-					<input type="date"><br>
+					日期：<input type="date">至 <input type="date"><br>
 					<input type="submit" value="查询">
 				</form>
 			</div>
@@ -372,6 +388,57 @@
 				$(".rootview").hide();
 				$("#account-inquiry-view").fadeIn();
 			})
+
+			$("#bookRoom").click()
+			{
+				$.post("/root/bookRoom", {
+					beginDate : $("#beginDate").value,
+					endDate : $("#endDate").value,
+					customerId : $("#customerId").value,
+					roomType : $("#roomType").value
+
+				}, function(res) {
+					if (res["isSuccess"] == 1) {
+						alert("订房成功,房间号为:" + res["roomID"]);
+					}
+				}, "json");
+			}
+			
+			//状态查看
+
+			$("#checkRoom").click()
+			{
+				$.post("/root/checkRoom", {
+					beginDate : $("#checkRoomBegin").value,
+					endDate : $("#checkRoomEnd").value,
+					roomID : $("#checkRoomId").value
+				}, function(res) {
+					//当订单不存在时，可修改价格和状态
+					if(res.haveIndent==0){
+						var display = $("#status-view-change-view displayContent");
+						display.empty();
+						var setPrice = "修改价格：<input type='text'>";
+						var setPriceButton ="<input id='setPrice' type='button'><br>";
+						var setStatus = "修改状态：<input type='text'>";
+						var setStatusButton ="<input id='setStatus' type='button'><br>";
+						
+						display.append(setPrice,setStatus,button);
+					}
+					else{
+						var display = $("#status-view-change-view displayContent");
+						display.empty();
+						
+						var bookDate = "<p>预定日期"+res.indent.startTime+"</p>";
+						var tel = "<p>预定人电话："+res.indent.tel+"</p>";
+						var checkoutDate = null;
+						if(res.indent.endTile!=null){
+							checkoutDate = "<p>退房日期："+res.indent.endTime+"</p>"
+						}
+						
+						display.append(bookDate,tel,checkoutDate);
+					}
+				}, "json");
+			}
 
 		});
 	</script>

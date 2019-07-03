@@ -8,7 +8,6 @@
 <link rel="stylesheet" type="text/css" href="/assets/Wopop_files/style.css">
 <link rel="stylesheet" type="text/css" href="/assets/Wopop_files/userpanel.css">
 <link rel="stylesheet" type="text/css" href="/assets/Wopop_files/jquery.ui.all.css">
-
 </head>
 
 <body class="login" mycollectionplug="bind">
@@ -59,8 +58,8 @@ if(${flag}==1){
             <option value="user">用户</option>
             <option value="manager">管理员</option>
         </select>
-      <input type="submit" class="sub_button" id="button" value="登 录" style="opacity: 0.7;" >
-      <input type="submit" class="sub_button" id="button" value="注 册" style="opacity: 0.7;">
+      <input type="submit" class="sub_button"  value="登 录" style="opacity: 0.7;" >
+      <input type="submit" class="sub_button"  value="注 册" style="opacity: 0.7;">
     </div>
   </div>
   </form>

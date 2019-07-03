@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.cqu.yihao.pojo.Account;
 import cn.edu.cqu.yihao.pojo.Root;
@@ -105,6 +107,11 @@ public class LogController {
     	return "forward:/log/login";	
 	}
 	
+	@RequestMapping(value = "/register",method=RequestMethod.GET)
+	public String goregister(){
+		return "register";
+	}
+	
 	/**
 	 * 用户注册
 	 * @param request
@@ -112,7 +119,7 @@ public class LogController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/register")
+	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public String register(String tel, String email, String password, Model model) {
 		Account account = new Account();
 		account.setTel(tel);
@@ -124,11 +131,11 @@ public class LogController {
 		
 		accountService.insertAccount(account);
 		
-		return "forward:/";
+		return "forward:/log/login";
 	}
 	
 	@RequestMapping("/checkTel")
-	public int checkTel(String tel) {
+	public @ResponseBody int checkTel (String tel) {
 		int flag = 0;
 		if(accountService.getAccountByTel(tel) != null)
 			flag = 1;
