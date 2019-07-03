@@ -60,7 +60,7 @@ public class RootController {
 		model.addAttribute("needCheckOut", needCheckOut);
 		model.addAttribute("isBooked", isBooked);
 		
-		return "root";
+		return "forward:/root.jsp";
 	}
 	
 	@RequestMapping("/firstPage")

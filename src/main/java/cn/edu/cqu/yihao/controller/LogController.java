@@ -97,12 +97,17 @@ public class LogController {
 			Root root = this.rootService.getById(tel);
 			if(root != null) {
 				if(root.getPassword().equals(password))
-					return "redirect:/root/login";
+					return "redirect:/root/index";
 			}
 		}
     	
     	model.addAttribute("flag", 1);
     	return "forward:/log/login";	
+	}
+	
+	@RequestMapping("/goregister")
+	public String goRegister() {
+		return "register";
 	}
 	
 	/**
@@ -113,7 +118,7 @@ public class LogController {
 	 * @return
 	 */
 	@RequestMapping("/register")
-	public String register(String tel, String email, String password, Model model) {
+	public String register(String tel, String email, String password, HttpServletResponse response, Model model) {
 		Account account = new Account();
 		account.setTel(tel);
 		account.setEmail(email);
@@ -122,9 +127,18 @@ public class LogController {
 		account.setPoint(0);
 		account.setMaxpoint(0);
 		
+	    Cookie telCookie = new Cookie("loginTel", tel);  
+	    Cookie passwordCookie = new Cookie("loginPassword", password);  
+	    telCookie.setMaxAge(60 * 60);  
+	    telCookie.setPath("/");  
+	    passwordCookie.setMaxAge(60 * 60);  
+	    passwordCookie.setPath("/");  
+	    response.addCookie(telCookie);  
+	    response.addCookie(passwordCookie); 
+		
 		accountService.insertAccount(account);
 		
-		return "forward:/";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/checkTel")
