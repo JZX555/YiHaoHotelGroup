@@ -290,7 +290,7 @@ public class RootController {
         Book book = new Book();
         try {
         	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			book.setBookdate(dateFormat.parse(curDate));
+			book.setBookDate(dateFormat.parse(curDate));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -377,7 +377,7 @@ public class RootController {
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				indent.setStartTime(dateFormat.parse(beginDate));
 				indent.setEndTime(dateFormat.parse(endDate));
-				book.setBookdate(dateFormat.parse(beginDate));
+				book.setBookDate(dateFormat.parse(beginDate));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
