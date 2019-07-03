@@ -1,6 +1,9 @@
 package cn.edu.cqu.yihao.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +19,9 @@ import cn.edu.cqu.yihao.pojo.Account;
 import cn.edu.cqu.yihao.pojo.Indent;
 import cn.edu.cqu.yihao.pojo.IndentWithPost;
 import cn.edu.cqu.yihao.pojo.Post;
+import cn.edu.cqu.yihao.pojo.BookKey;
 import cn.edu.cqu.yihao.service.AccountService;
+import cn.edu.cqu.yihao.service.BookService;
 import cn.edu.cqu.yihao.service.IndentService;
 import cn.edu.cqu.yihao.service.PostService;
 
@@ -30,7 +35,8 @@ public class IndentController {
 	private IndentService inService;
 	@Autowired
 	private AccountService acService;
-	
+	@Autowired
+	private BookService bookservice;
 	
 	@RequestMapping("/show_indents1")  
 	@ResponseBody
@@ -170,13 +176,41 @@ public class IndentController {
 	
 	
 	@RequestMapping("cancelIndent")
-	public String cancelIndent(HttpServletRequest request, Model model)
+	public String cancelIndent(HttpServletRequest request, Model model) throws ParseException
 	{
 		String indentId=(String)request.getParameter("indentId");
 		String checkInDate=(String)request.getParameter("checkInDate");
 		String checkOutDate=(String)request.getParameter("checkOutDate");
-		//从订单里删除记录
-		inService.dropIndent(indentId);
+		//在删除订单前通过indent.indent_id获取indnet.tel
+		String tel=inService.getById(indentId).getTel();
+		//在删除订单前通过indent.indent_id获取indnet.room_id
+		String roomId=inService.getById(indentId).getRoomId();
+		//从indent里删除记录
+		int indentRow=inService.dropIndent(indentId);
+		//从book里删除记录
+		BookKey bookkey=new BookKey();
+		bookkey.setTel(tel);
+		bookkey.setRoomId(roomId);
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilDate = sdf1.parse(checkInDate);
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		bookkey.setBookDate(sqlDate);
+		int bookRow = bookservice.dropBook(bookkey);
+		Calendar cld = Calendar.getInstance();
+		cld.setTime(utilDate);
+		cld.add(Calendar.DATE, 1);
+		utilDate = cld.getTime();
+		while (!sqlDate.toString().equals(checkOutDate))
+		{
+			sqlDate = new java.sql.Date(utilDate.getTime());
+			bookkey.setBookDate(sqlDate);
+			bookRow = bookservice.dropBook(bookkey);
+			cld.setTime(utilDate);
+			cld.add(Calendar.DATE, 1);
+			utilDate = cld.getTime();
+		}
+		//返回个人中心
+		return "forward:/personCenter/indent";
 	}
 		
 }

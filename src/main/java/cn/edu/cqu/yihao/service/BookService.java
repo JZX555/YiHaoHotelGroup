@@ -2,6 +2,7 @@ package cn.edu.cqu.yihao.service;
 
 import java.util.Date;
 import cn.edu.cqu.yihao.pojo.Book;
+import cn.edu.cqu.yihao.pojo.BookKey;
 import cn.edu.cqu.yihao.pojo.Room;
 
 public interface BookService {
@@ -18,5 +19,6 @@ public interface BookService {
 	public int addBook(Book book);
 	
 	public int updateSelect(Book book);
-
+	
+	public int dropBook(BookKey bookkey);
 }

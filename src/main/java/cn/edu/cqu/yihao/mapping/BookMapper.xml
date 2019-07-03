@@ -41,6 +41,7 @@
     delete from book
     where tel = #{tel,jdbcType=VARCHAR}
       and room_id = #{roomId,jdbcType=VARCHAR}
+      and bookdate = #{bookDate,jdbcType=DATE}
   </delete>
   <insert id="insert" parameterType="cn.edu.cqu.yihao.pojo.Book">
     insert into book (tel, room_id, bookdate, 

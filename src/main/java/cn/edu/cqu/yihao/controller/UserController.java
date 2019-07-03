@@ -54,27 +54,39 @@ public class UserController
 	// -------------------------------------------------------------------------------------
 	// 用户选择入住和退房时间->用户点击预订
 	@RequestMapping(value = "/date", method = RequestMethod.POST)
-	public synchronized String getRoom(HttpServletRequest request, HttpServletResponse response, Model model)
+	public synchronized String getRoom(HttpServletRequest request, HttpServletResponse response, Model model) throws ParseException
 	{
 		// 接收两个用户输入，入住时间和退房时间
 		String checkInDate = request.getParameter("checkInDate");// 接收入住时间
 		String checkOutDate = request.getParameter("checkOutDate"); // 接收退房时间
-		// 计算不同房型的可用房间数
-		int resultLength1 = bookservice.getAvailRoomBetween(1, checkInDate, checkOutDate).length;
-		int resultLength2 = bookservice.getAvailRoomBetween(2, checkInDate, checkOutDate).length;
-		int resultLength3 = bookservice.getAvailRoomBetween(3, checkInDate, checkOutDate).length;
-		int resultLength4 = bookservice.getAvailRoomBetween(4, checkInDate, checkOutDate).length;
-		int resultLength5 = bookservice.getAvailRoomBetween(5, checkInDate, checkOutDate).length;
-		// 返回各种类型的房间数量
-		model.addAttribute("roomtype1", resultLength1);
-		model.addAttribute("roomtype2", resultLength2);
-		model.addAttribute("roomtype3", resultLength3);
-		model.addAttribute("roomtype4", resultLength4);
-		model.addAttribute("roomtype5", resultLength5);
-		model.addAttribute("checkInDate", checkInDate);
-		model.addAttribute("checkOutDate", checkOutDate);
-		// 返回到一个选择房型的页面
-		return "选择房型的页面";
+		//判断入住日期是否小于等于退房日期，如果大于，返回初始页面并设置错误参数
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilCheckInDate = sdf.parse(checkInDate);
+		java.util.Date utilCheckOutDate = sdf.parse(checkOutDate);
+		if(utilCheckInDate.compareTo(utilCheckOutDate)==1)
+		{
+			model.addAttribute("errorFlag", 0);
+			return "forward:/index.jsp";
+		}
+		else
+		{
+			// 计算不同房型的可用房间数
+			int resultLength1 = bookservice.getAvailRoomBetween(1, checkInDate, checkOutDate).length;
+			int resultLength2 = bookservice.getAvailRoomBetween(2, checkInDate, checkOutDate).length;
+			int resultLength3 = bookservice.getAvailRoomBetween(3, checkInDate, checkOutDate).length;
+			int resultLength4 = bookservice.getAvailRoomBetween(4, checkInDate, checkOutDate).length;
+			int resultLength5 = bookservice.getAvailRoomBetween(5, checkInDate, checkOutDate).length;
+			// 返回各种类型的房间数量
+			model.addAttribute("roomtype1", resultLength1);
+			model.addAttribute("roomtype2", resultLength2);
+			model.addAttribute("roomtype3", resultLength3);
+			model.addAttribute("roomtype4", resultLength4);
+			model.addAttribute("roomtype5", resultLength5);
+			model.addAttribute("checkInDate", checkInDate);
+			model.addAttribute("checkOutDate", checkOutDate);
+			// 返回到一个选择房型的页面
+			return "选择房型的页面";
+		}
 	}
 
 	// 用户选择入住和退房时间->用户点击预订->用户选择房型->用户点击预订->用户选择订房策略->用户点击预订->用户填写个人信息->用户点击确定
@@ -170,10 +182,10 @@ public class UserController
 			book.setTel(tel);
 			book.setRoomId(currentRoomId);
 			book.setIsBooked(1);
-			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date utilDate = sdf2.parse(checkInDate);
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date utilDate = sdf1.parse(checkInDate);
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			book.setBookdate(sqlDate);
+			book.setBookDate(sqlDate);
 			int bookRow = bookservice.addBook(book);
 			Calendar cld = Calendar.getInstance();
 			cld.setTime(utilDate);
@@ -182,7 +194,7 @@ public class UserController
 			while (!sqlDate.toString().equals(checkOutDate))
 			{
 				sqlDate = new java.sql.Date(utilDate.getTime());
-				book.setBookdate(sqlDate);
+				book.setBookDate(sqlDate);
 				bookRow = bookservice.addBook(book);
 				cld.setTime(utilDate);
 				cld.add(Calendar.DATE, 1);
@@ -191,13 +203,13 @@ public class UserController
 			// 创建订单
 			Indent indent = new Indent();
 			// 生成并设置indent_id
-			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmmss");// 设置日期格式
-			String strDate = sdf1.format(new Date()).toString();
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMddHHmmss");// 设置日期格式
+			String strDate = sdf2.format(new Date()).toString();
 			String tail = String.valueOf(100 + random.nextInt(900));
 			String currentIndentId = strDate.concat(tail);
 			while (currentIndentId.equals(lastIdentId))
 			{
-				strDate = sdf1.format(new Date()).toString();
+				strDate = sdf2.format(new Date()).toString();
 				tail = String.valueOf(100 + random.nextInt(900));
 				currentIndentId = strDate.concat(tail);
 			}
@@ -205,10 +217,10 @@ public class UserController
 			indent.setIndentId(currentIndentId);
 			// 设置tel,start_time,end_time,room_id,indent_type,customer_id,pay_type
 			indent.setTel(tel);
-			java.util.Date utilStartDate = sdf2.parse(checkInDate);
+			java.util.Date utilStartDate = sdf1.parse(checkInDate);
 			java.sql.Date sqlStartDate = new java.sql.Date(utilStartDate.getTime());
 			indent.setStartTime(sqlStartDate);
-			java.util.Date utilEndDate = sdf2.parse(checkOutDate);
+			java.util.Date utilEndDate = sdf1.parse(checkOutDate);
 			java.sql.Date sqlEndDate = new java.sql.Date(utilEndDate.getTime());
 			indent.setEndTime(sqlEndDate);
 			indent.setRoomId(currentRoomId);
