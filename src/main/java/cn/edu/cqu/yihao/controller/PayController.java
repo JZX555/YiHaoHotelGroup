@@ -155,10 +155,17 @@ public class PayController {
 		String card_id=(String)req.getParameter("card_id"); 
 		String password=(String)req.getParameter("password");
 		Double  cost = Double.parseDouble((String)req.getParameter("cost"));
-		int  price = Integer.parseInt((String)req.getParameter("price"));
+		//int  price = Integer.parseInt((String)req.getParameter("price"));
 		String indent_id=(String)req.getParameter("indent_id");
 		
-		Account account=acService.getAccountByTel(tel);
+		Account account=acService.getAccountByTel(tel); //获得原价
+		int vip_level=account.getVipLevel();
+		Vip vip=vService.getByLevel(vip_level);
+		double discount=vip.getDiscount();
+		double dprice=(double)cost/discount;
+		int price=(int)dprice;
+		
+		
 		Debit_card db_card=dbcService.getByID(card_id);
 		Indent indent= new Indent();
 		indent.setIndentId(indent_id);
@@ -181,9 +188,14 @@ public class PayController {
 	public int  refunnbyP(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {//减去原价对应的积分，加上折扣价对应的积分
 	
 		int  cost =  Integer.parseInt((String)req.getParameter("cost"));
-		int  price = Integer.parseInt((String)req.getParameter("price"));
+		//int  price = Integer.parseInt((String)req.getParameter("price"));
 		String indent_id=(String)req.getParameter("indent_id");
-			
+		Account account=acService.getAccountByTel(tel);
+		int vip_level=account.getVipLevel();
+		Vip vip=vService.getByLevel(vip_level);
+		double discount=vip.getDiscount();
+		double dprice=(double)cost/discount;
+		int price=(int)dprice;
 		Indent indent= new Indent();
 		indent.setIndentId(indent_id);
 		indent.setIndentType(5);// 更改订单状态
@@ -192,7 +204,7 @@ public class PayController {
 		int r1 = acService.addPoint(tel, -price);// 减积分
 		int r2 = acService.subPoint(tel, -cost * 10);// 加积分
 		
-		Account account=acService.getAccountByTel(tel);
+		
 		int curpoint = account.getMaxpoint(); // 修改会员等级
 		changeViplevel(curpoint, tel);
 		
