@@ -159,6 +159,7 @@ public class RootController {
 	public int checkin(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Indent indent = null;
 		String indentID = request.getParameter("indentID");
+		System.out.println("checkin" + indentID);
 		
 		indent = this.indentService.getById(indentID);
 		if(indent == null)
@@ -185,6 +186,7 @@ public class RootController {
 	public int checkout(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Indent indent = null;
 		String indentID = request.getParameter("indentID");
+		System.out.println("checkout" + indentID);
 		
 		indent = this.indentService.getById(indentID);
 		if(indent == null)
@@ -312,12 +314,12 @@ public class RootController {
         Book book = new Book();
         try {
         	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			book.setBookDate(dateFormat.parse(curDate));
+			book.setBookdate(dateFormat.parse(curDate));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
         book.setRoomId(roomID);
-        book.setTel("123456789");
+        book.setTel("1234567890");
         book.setIsBooked(1);
         
         this.bookService.addBook(book);
@@ -345,6 +347,7 @@ public class RootController {
 	public Indent checkIndent(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Indent res = null;
 		String id = request.getParameter("indentID");
+		System.out.println("checkIndet" + id);
 		
 		res = this.indentService.getById(id);
 		
@@ -368,8 +371,16 @@ public class RootController {
 		String customerId = request.getParameter("customerId");
 		int roomType = Integer.parseInt(request.getParameter("roomType"));
 		
+		System.out.println(endDate);
+		
 		String[] rooms = this.bookService.getAvailRoomBetween(roomType, beginDate, endDate);
 		
+		Indent[] indents = this.indentService.getBetweenDate(beginDate, endDate);
+		for(Indent i:indents)
+			if(i.getCustomerId().equals(customerId)) {
+				res.put("isCheckIn", "1");
+				return res;
+			}
 		
 		if(rooms.length == 0) {
 			res.put("isSuccess", "0");
@@ -384,7 +395,7 @@ public class RootController {
 	        String tailID = String.valueOf(100+random.nextInt(900));
 			String indentId = dateID.concat(tailID);
 			
-			indent.setTel("123456789");
+			indent.setTel("1234567890");
 			indent.setCustomerId(customerId);
 			indent.setIndentId(indentId);
 			indent.setRoomId(rooms[0]);
@@ -394,18 +405,18 @@ public class RootController {
 			
 			book.setRoomId(rooms[0]);
 			book.setIsBooked(1);
-			book.setTel("123456789");
+			book.setTel("1234567890");
 			try {
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				indent.setStartTime(dateFormat.parse(beginDate));
 				indent.setEndTime(dateFormat.parse(endDate));
-				book.setBookDate(dateFormat.parse(beginDate));
+				book.setBookdate(dateFormat.parse(beginDate));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-			this.indentService.addIndent(indent);
 			this.bookService.addBook(book);
+			this.indentService.addIndent(indent);
 			
 			res.put("isSuccess", "1");
 			res.put("roomID", rooms[0]);
