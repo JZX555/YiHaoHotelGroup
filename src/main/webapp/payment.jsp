@@ -135,12 +135,46 @@
 			<div class="section-header">
 				<h2>支付方式选择</h2>
 				<hr>
-				<h2>订单号： XXXXXXXXXXXXX</h2><h2>原价： XXXX元</h2> <h2>您是尊贵的XX会员，享XX折，需支付：</h2><br>
+				<h2>
+					订单号：
+					<c:out value="${result.currentIndentId }"></c:out>
+				</h2>
+				<h2>
+					原价：
+					<c:out value="${result.price }"></c:out>
+					元
+				</h2>
+				<h2>
+					您是尊贵的
+					<c:out value="${result.vipLevel }" />
+					会员，享
+					<c:out value="${result.discount }" />
+					折，需支付：
+				</h2>
+				<br>
 
-				<h2>XXXX元</h2>
-				
-				<button class="welcome-hero-btn" style="display:inline-block;"><a href="#">银行卡支付</a></button>
-				<button class="welcome-hero-btn" style="display:inline-block;"><a href="#">积分支付</a></button>
+				<h2>
+					<c:out value="${result.cost }" />
+					元
+				</h2>
+				<form action="/pay/choose" method="post">
+					<input name="submit" type="hidden" value="银行卡支付"> <input
+						name="indent_id" type="hidden" value="${result.currentIndentId }">
+					<input name="price" type="hidden" value="${result.price }">
+					<input name="cost" type="hidden" value="${result.cost }">
+					<button class="welcome-hero-btn" style="display: inline-block;">银行卡支付
+					</button>
+				</form>
+
+				<form action="/pay/choose" method="post">
+					<input name="submit" type="hidden" value="积分支付"> <input
+						name="indent_id" type="hidden" value="${result.currentIndentId }">
+					<input name="price" type="hidden" value="${result.price }">
+					<input name="cost" type="hidden" value="${result.cost }">
+					<button class="welcome-hero-btn" style="display: inline-block;">
+						积分支付
+					</button>
+				</form>
 			</div>
 
 		</div>

@@ -137,18 +137,18 @@
 			<div class="welcome-hero-txt">
 				<h2>欢迎光临亿豪酒店</h2>
 			</div>
-			<form action="/roomtype.jsp" method="get">
+			<form action="/user/date" method="post">
 				<div class="welcome-hero-serch-box"
 					style="opacity: 0; margin-left: 129px;">
 
 					<div class="welcome-hero-form">
 						<div class="single-welcome-hero-form">
 							<h3>入住日期</h3>
-							<input type="date" name="date" />
+							<input type="date" name="checkInDate" />
 						</div>
 						<div class="single-welcome-hero-form">
 							<h3>离开日期</h3>
-							<input type="date">
+							<input type="date" name="checkOutDate">
 						</div>
 
 						<button class="welcome-hero-btn" type="submit">

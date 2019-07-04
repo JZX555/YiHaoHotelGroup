@@ -137,10 +137,15 @@
 				<hr>
 				
 				<h2>你共需支付：</h2>
-				<h2>xxxxx元</h2>
+				<h2><c:out value="${cost}"/>元</h2>
 				
+				<form action="/pay/debit_card" method="post">
+				<input type="hidden" name="cost" value="${cost }">
+				<input type="hidden" name="price" value="${price }">
+				<input type="hidden" name="indent_id" value="${indent_id }">
+				<button class="welcome-hero-btn" style="display:inline-block;">确认支付</button>
+				</form>
 				
-				<button class="welcome-hero-btn" style="display:inline-block;"><a href="#">确认支付</a></button>
 			</div>
 
 		</div>

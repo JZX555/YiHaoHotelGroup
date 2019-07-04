@@ -54,56 +54,51 @@
 #roomType {
 	padding-left: 50px;
 }
-</style>
-<style type="text/css">
-		
-		#welcome{
-			height: 40px;
-			width:100px;
-			margin-left:23%;
-			
-		}
-		.manage{
-			padding: 2px;
-			width:200px;
-    		height:200px;
-     		margin-left:14%; 
+.change{
+margin-left:35%;
+}
+#ziti{
+font-size:24px;
 
-		}
-		.ha{
-			background: url("/assets/images/personalcenter/button.png");
-			
-			display: inline-block;
-			width: 94px;
-			height: 98px;
-			line-height: 98px;
-			text-align: center;
-			border-radius:20px;
-		}
-		.vip{
-			background: url("/assets/images/personalcenter/login_m_bg.png");
-			background: rgba(0, 0, 0, 0.5);
-			padding: 20px;
-			height: 260px;
-			width:282px;
-			/* margin-left: 3.6%; */
-			border-radius:20px;
-		}
-		p{
-			text-align: center;
-			height:5px;
-		}
-		 .geren{
-		width:282px;
-		height:520px;
-		background:url("/assets/images/personalcenter/2.png");
-		/* filter:alpha(Opacity=60);-moz-opacity:0.6;opacity: 0.7; */
-		background: rgba(0, 0, 0, 0.5);
-		margin-left:42%;
-		border-radius:20px;
-		
-		} 
-	</style>
+}
+.font{
+font-size:32px;
+}
+</style>
+
+<style>
+.code_container{
+	display: block;
+	margin-top: 10px;
+	padding: 15px;
+	background: #fff;
+	display: flex;
+}
+
+.code_label{
+	font-size: 15px;
+	line-height: 21px;
+}
+
+.input_code{
+	width: 120px;
+	font-size: 15px;
+	border: none;
+	margin-left: 20px;
+	margin-right: 20px;
+	flex: 1;
+	text-align: right;
+	color: #999999;
+}
+.btn_send_code{
+	font-size: 14px;
+	line-height: 20px;
+}
+h1{
+font-size:40px;
+}
+
+</style>
 
 </head>
 <body>
@@ -183,25 +178,24 @@
 	
 	
 	<section id="home" class="welcome-hero" style="padding-top: 100px;">
-	<div class="geren">
-		<div id="welcome" style="padding-top: 10px; margin-bottom: 10px;" >
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的账号</br>
-			欢迎您，
+	<div class=change style="width: 500px;height: 300px;" >
+			<div>
+			<h1 style="color:#ffffff">个人信息</h1>
 		</div>
-		<div class ="manage" style="margin-bottom: 10px;">
-			<div class="ha"><a href="/">个人信息</a></div>
-			<div class="ha"><a href="/">我的订单</a></div>
-		</br>
-			<div class="ha"><a href="/">会员中心</a></div>
-			<div class="ha"><a href="/">注销</a></div>
+		<div class="font" style="color:#ffffff; margin-top: 10px;" >
+			验证邮箱： xxxxx@xxxxx
 		</div>
-		<div class="vip" >
-			<img src="/assets/images/personalcenter/1.png">
-			
-			<p>您有        可用积分</p></br>
-			<p>您已累计             积分</p></br>
-			<p>距离升级下一等级会员还需           积分</p></br>
-			<p>会员特权请点击会员中心进行查看</p></br>
+		<!-- <div class="font" style="color:#ffffff">
+			验证码：<textarea id="ziti" rows="1" cols="6" style="resize:none;"></textarea>
+		</div> -->
+		<label class="code_container" style="margin-left:13%;width: 380px;">
+	<span class="code_label">验证码</span>
+	<input type="text" class="input_code" placeholder="请输入邮箱验证码">
+	<a class="btn_send_code">发送验证码</a>
+</label>
+		
+		<div style="font-size:28px;">
+			<input class="input" type="button" value="确定"  style="margin-top: 15px;width: 104px;height: 54px;border-radius:10px;">
 		</div>
 	</div>
 	</section>
