@@ -55,54 +55,6 @@
 	padding-left: 50px;
 }
 </style>
-<style type="text/css">
-		
-		#welcome{
-			height: 40px;
-			width:100px;
-			margin-left:23%;
-			
-		}
-		.manage{
-			padding: 2px;
-			width:200px;
-    		height:200px;
-     		margin-left:14%; 
-
-		}
-		.ha{
-			background: url("/assets/images/personalcenter/button.png");
-			
-			display: inline-block;
-			width: 94px;
-			height: 98px;
-			line-height: 98px;
-			text-align: center;
-			border-radius:20px;
-		}
-		.vip{
-			background: url("/assets/images/personalcenter/login_m_bg.png");
-			background: rgba(0, 0, 0, 0.5);
-			padding: 20px;
-			height: 240px;
-			width:282px;
-			/* margin-left: 3.6%; */
-			border-radius:20px;
-		}
-		p{
-			text-align: center;
-		}
-		 .geren{
-		width:282px;
-		height:500px;
-		background:url("/assets/images/personalcenter/2.png");
-		/* filter:alpha(Opacity=60);-moz-opacity:0.6;opacity: 0.7; */
-		background: rgba(0, 0, 0, 0.5);
-		margin-left:42%;
-		border-radius:20px;
-		
-		} 
-	</style>
 
 </head>
 <body>
@@ -112,19 +64,16 @@
 			<li class="head-responsive-right pull-right">
 				<div class="header-top-right">
 					<ul>
-					
+
 						<!-- 判断登陆状态 -->
-						<c:if test="${cookie.loginTel==null}" var="login"
-							scope="session">
+						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
-							<li class="header-top-contact"><a href="/log/login">sign
-									in</a></li>
-							<li class="header-top-contact"><a href="/log/register">register</a></li>
+							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
+							<li class="header-top-contact"><a href="/log/register">注册</a></li>
 						</c:if>
 
 						<c:if test="${!login}">
 							<li class="header-top-contact"><a href="#">会员中心</a></li>
-							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -155,18 +104,17 @@
 					</div>
 					<!--/.navbar-header-->
 					<!-- End Header Navigation -->
-
-					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse menu-ui-design"
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="#home">用户中心</a></li>
+							<li class=""><a id="payed" href="#">已付款</a></li>
+							<li class=""><a id="finished" href="#">已完成</a></li>
+							<li class=""><a id="unpay" href="#">未付款</a></li>
+							<li class=""><a id="refund" href="#">已退款/取消</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
-					<!-- /.navbar-collapse -->
-
 
 				</div>
 				<!--/.container-->
@@ -177,30 +125,22 @@
 		<!--/.header-area-->
 		<div class="clearfix"></div>
 	</section>
-	
-	
-	
-	<section id="home" class="welcome-hero" style="padding-top: 100px;">
-	<div class="geren">
-		<div id="welcome" style="padding-top: 10px; margin-bottom: 10px;" >
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${cookie.loginTel.value}</br>
-			欢迎您，
-		</div>
-		<div class ="manage" style="margin-bottom: 10px;">
-			<div class="ha"><a href="/">个人信息</a></div>
-			<div class="ha"><a href="/">我的订单</a></div>
-		</br>
-			<div class="ha"><a href="/">会员中心</a></div>
-			<div class="ha"><a href="/">注销</a></div>
-		</div>
-		<div class="vip" >
-			<img src="/assets/images/personalcenter/1.png">
-			<div><p>您有xxxxx可用积分</p></div> 
-		</div>
-	</div>
-	</section>
-	
 
+	<section id="content" class="explore rootview"
+		style="padding-left: 25px; padding-right: 25px;">
+		<div class="explore-content">
+			<div class="section-header">
+				<table id="indentlist">
+					<thead>
+					</thead>
+					<tbody>
+					</tbody>
+
+				</table>
+			</div>
+
+		</div>
+	</section>
 
 
 	<footer id="footer" class="footer">
@@ -251,6 +191,97 @@
 
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#payed").click(function() {
+				alert("test");
+				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>预定人电话</th><th>价格</th><th>退款</th></tr>")
+				$.post("/indents/show_indents1", function(data) {
+					var tbody= $("table > tbody").empty();
+					$.each(data,function(i,item){
+						var tr = $("<tr/>");
+						var indentId = $("<td/>").html(item.indent.indentId);
+						var bookDate = $("<td/>").html(item.indent.startTime);
+						var tel = $("<td/>").html(item.indent.customerId);
+						var price = $("<td/>").html(item.indent.cost);
+						var button = $("<td/>").html("退款");
+						
+						tr.append(indentId,bookDate,tel,price,button).appendTo(tbody);
+			})
+
+				}, "json");
+
+			})
+			
+			$("#finished").click(function() {
+				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th>th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+				$.post("/indents/show_indents2", function(data) {
+					var tbody= $("table > tbody").empty();
+					$.each(data,function(i,item){
+						var tr = $("<tr/>");
+						var indentId = $("<td/>").html(item.indent.indentId);
+						var bookDate = $("<td/>").html(item.indent.startTime);
+						var endDate = $("<td/>").html(item.indent.endTime);
+						var tel = $("<td/>").html(item.indent.customerId);
+						var price = $("<td/>").html(item.indent.cost);
+						var button = null;
+						if(item.havePost == 0){
+							button = $("<td/>").html("<form action='/indents/addComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='去评价'></form>");
+						}
+						else{
+							button = $("<td/>").html("<form action='/indents/showComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='查看评价'></form>");
+						}
+						
+						
+						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
+			})
+
+				}, "json");
+
+			})
+			
+			$("#unpay").click(function() {
+				$("table>thead").html("<tr><th>订单号</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+				$.post("/indents/show_indents3", function(data) {
+					var tbody= $("table > tbody").empty();
+					$.each(data,function(i,item){
+						var tr = $("<tr/>");
+						var indentId = $("<td/>").html(item.indent.indentId);
+						var tel = $("<td/>").html(item.indent.customerId);
+						var price = $("<td/>").html(item.indent.cost);
+						var button = $("<td/>").html("去支付");
+						
+						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
+			})
+
+				}, "json");
+
+			})
+			
+			$("#refund").click(function() {
+				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+				$.post("/indents/show_indents4", function(data) {
+					var tbody= $("table > tbody").empty();
+					$.each(data,function(i,item){
+						var tr = $("<tr/>");
+						var indentId = $("<td/>").html(item.indent.indentId);
+						var bookDate = $("<td/>").html(item.indent.startTime);
+						var refundDate = $("<td/>").html(item.indent.endTime);
+						var tel = $("<td/>").html(item.indent.customerId);
+						var price = $("<td/>").html(item.indent.cost);
+						var button = $("<td/>").html("去支付");
+						
+						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
+			})
+
+				}, "json");
+
+			})
+			
+
+		})
+	</script>
 
 
 </body>

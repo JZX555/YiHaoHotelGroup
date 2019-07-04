@@ -207,12 +207,14 @@
 	<script type="text/javascript">
 	$(document).ready(function () {
 		$("#tel").blur(function(){
+			$("#check").empty();
 		    $.post("/log/checkTel",
 		    {
-		        tel:$("#tel").value
+		        tel:$("#tel").val()
 		    },
 		        function(flag){
-		        if(flag==1){
+		    	alert(flag)
+		        if(flag==0){
 		        	$("#check").html("电话号码可用");
 		        }
 		        else{

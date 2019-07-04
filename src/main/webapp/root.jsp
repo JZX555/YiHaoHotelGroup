@@ -47,7 +47,7 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 
 <!--responsive.css-->
-<link r el="stylesheet" href="/assets/css/responsive.css">
+<link rel="stylesheet" href="/assets/css/responsive.css">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -206,8 +206,6 @@
 			</div>
 		</div>
 
-		</div>
-
 	</section>
 
 	<!-- 订单查询 -->
@@ -282,7 +280,6 @@
 
 	</section>
 
-	</section>
 
 	<!-- 流水账查询 -->
 

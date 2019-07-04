@@ -64,6 +64,10 @@ if(${flag}==1){
     </div>
   </div>
   </form>
+  </div>
+  </div>
+  </div>
+  
   
    
 
@@ -80,8 +84,6 @@ if(${flag}==1){
 
  
   <div class="rem_sub">
-  <div class="rem_sub_l">
-   </div>
     <label>
      <input type="submit" class="sub_buttons" name="button" id="Retrievenow" value="Retrieve now" style="opacity: 0.7;">
      　　　
