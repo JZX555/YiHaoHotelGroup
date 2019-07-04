@@ -175,13 +175,13 @@
 			<div class="section-header">
 				<h2>房间状态</h2>
 				<hr>
-				日期：<input type="date" id="checkRoomBegin" name="checkin">至 <input
-					type="date" name="checkout" id="checkRoonEnd"><br> <br>
-				房间号：<input id="checkRoomId" type="text" name="rootnumber"><br>
+				日期：<input type="date" id="checkRoomBegin" name="checkRoomBegin">至 <input
+					type="date" name="checkRoomEnd" id="checkRoomEnd"><br> <br>
+				房间号：<input id="checkRoomId" type="text" name="checkRoomId"><br>
 				<br> <input id="checkRoom" type="submit">
 
 				<hr>
-				<div class="displayContent"></div>
+				<div class="displayContent" id="checkRoomContent"></div>
 			</div>
 
 		</div>
@@ -195,14 +195,16 @@
 				<h2>入住登记</h2>
 				<hr>
 				<form>
-					用户电话<input type="text" name="tel"> <input type="submit">
+					用户电话<input id="checkInTel" type="text"> <input id="checkInBtn" type="submit">
 				</form>
+				<div class="displayContent" id="checkInContent"></div>
 				<br> <br>
 				<h2>退房</h2>
 				<hr>
-				<form action="">
-					房间号码:<input type="text" name="number"> <input type="submit">
+				<form>
+					房间号码:<input id="checkOutId" type="text"> <input id="checkOutBtn" type="submit">
 				</form>
+				<div class="displayContent" id="checkOutContent"></div>
 			</div>
 		</div>
 
@@ -216,10 +218,11 @@
 		<div class="explore-content">
 			<div class="section-header">
 				<h2>订单查询</h2>
-				<form action="">
-					订单号：<input type="text"><br> <br> <input
-						type="submit">
+				<form>
+					订单号：<input id="checkIndentId" type="text" /><br> <br> 
+					<input id="checkIndentBtn" type="submit"> </input>
 				</form>
+				<div id="checkIndentContent" ></div>
 			</div>
 			<!-- <!--/.section-header
 			<div class="row">
@@ -361,6 +364,19 @@
 	<script src="/assets/js/custom.js"></script>
 
 	<script type="text/javascript">
+	
+	function formatDate(date) {
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+
+		month = (month.toString().length == 1) ? ("0" + month) : month;
+		day = (day.toString().length == 1) ? ("0" + day) : day;
+
+		var res = date.getFullYear() + "-" + month + "-" + day;
+
+		return res;
+	}
+
 		var roomtype = null;
 		$(document)
 				.ready(
@@ -399,104 +415,276 @@
 								$(".rootview").hide();
 								$("#account-inquiry-view").fadeIn();
 							})
+							
+							$(document).on("click", "#bookRoomBtn", function() {
+								$.ajax({
+									type:"post",
+									url:"/root/bookRoom", 
+									data:{
+										beginDate : $("#beginDate").val(),
+										endDate : $("#endDate").val(),
+										customerId : $("#customerId").val(),
+										roomType : $("#roomType").val()
+									}, 
+									success:function(res) {
+										if (res["isSuccess"] == 1) {
+											alert("订房成功,房间号为:" + res["roomID"]);
+										}
+										else
+											alert("房间不足，订房失败");
+									},
+									error:function() {
+										alert("订房失败");
+									},
+								});
 
-							$("#bookRoom").click(function() {
-								$.post("/root/bookRoom", {
-									beginDate : $("#beginDate").value,
-									endDate : $("#endDate").value,
-									customerId : $("#customerId").value,
-									roomType : $("#roomType").value
-
-								}, function(res) {
-									if (res["isSuccess"] == 1) {
-										alert("订房成功,房间号为:" + res["roomID"]);
+							});
+							
+							$(document).on("click", "#checkInBtn", function() {
+								var tel = $("#checkInTel").val();
+								if(tel == "") {
+									alert("电话不能为空");
+									return false;
+								}
+								$.ajax({
+									type:"post",
+									url:"/root/checkinList",
+									async:false,
+									data: {
+										tel : tel
+									},
+									dataType:"json",
+									success:function(res) {
+										var display = $("#checkInContent");
+										display.empty();
+										$.each(res, function(i, rwi) {
+											var line1 = "<p>订单号：" + rwi.indent.indentId + 
+														"    住房日期：" + formatDate(new Date(rwi.indent.startTime)) + 
+														" 至 " + formatDate(new Date(rwi.indent.endTime)) + "</p>";
+											var line2 = "<p>房间号：" + rwi.indent.roomId + 
+														"      预订人电话：" + rwi.indent.tel + 
+														"      ￥" + rwi.indent.cost + "          " + rwi.room.roomType + 
+														"<input id='checkInVerify' type='button' value='确认入住' data-indent-id='" + 
+														rwi.indent.indentId + "' ></input></p><br>";
+											display.append(line1, line2);
+										});
+									},
+									error:function() {
+										alert("查询失败");
 									}
-								}, "json");
+								})
 
+							});
+
+							$(document).on("click", "#checkOutBtn", function() {
+								var roomID = $("#checkOutId").val();
+								if(roomID == "") {
+									alert("房间号不能为空");
+									return false;
+								}
+								$.ajax({
+									type:"post",
+									url:"/root/checkoutList",
+									async:false,
+									data: {
+										roomID : roomID
+									},
+									dataType:"json",
+									success:function(res) {
+										var display = $("#checkOutContent");
+										display.empty();
+										$.each(res, function(i, rwi) {
+											var line1 = "<p>订单号：" + rwi.indent.indentId + 
+														"    住房日期：" + formatDate(new Date(rwi.indent.startTime)) + 
+														" 至 " + formatDate(new Date(rwi.indent.endTime)) + "</p>";
+											var line2 = "<p>房间号：" + rwi.indent.roomId + 
+														"      预订人电话：" + rwi.indent.tel + 
+														"      ￥" + rwi.indent.cost + "          " + rwi.room.roomType + 
+														"<input id='checkOutVerify' type='button' value='确认退房' data-indent-id='" + 
+														rwi.indent.indentId + "' ></input></p><br>";
+											display.append(line1, line2);
+										});
+									},
+									error:function() {
+										alert("查询失败");
+									}
+								})
+
+							});
+
+							$(document).on("click", "#checkInVerify", function() {
+								var indentID = $(this).attr("data-indent-id");
+								$.ajax({
+									type:"post",
+									url:"/root/checkin",
+									async:false,
+									date:{
+										indentID:indentID
+									},
+									dataType:"json",
+									success: function(res) {
+										if(res == 1)
+											alert("入住成功");
+										else
+											alert("入住失败");
+									},
+									error: function() {
+										alert("入住失败");
+									},
+								})
 							})
 
-							var roomId = null;
-
-							$("#checkRoom")
-									.click(
-											function() {
-												roomId = $("#checkRoomId").value;
-												$
-														.post(
-																"/root/checkRoom",
-																{
-																	beginDate : $("#checkRoomBegin").value,
-																	endDate : $("#checkRoomEnd").value,
-																	roomID : $("#checkRoomId").value
-																},
-																function(res) {
-																	//当订单不存在时，可修改价格和状态
-																	if (res.haveIndent == 0) {
-																		var display = $("#status-view-change-view displayContent");
-																		display
-																				.empty();
-																		var setPrice = "修改价格：<input id='setPrice' type='text'>";
-																		var setPriceButton = "<input id='setPriceButton' type='button'><br>";
-																		var setStatus = "修改状态：<input id='setStatus' type='text'>";
-																		var setStatusButton = "<input id='setStatusButton' type='button'><br>";
-
-																		display
-																				.append(
-																						setPrice,
-																						setStatus,
-																						button);
-																	} else {
-																		var display = $("#status-view-change-view displayContent");
-																		display
-																				.empty();
-
-																		var bookDate = "<p>预定日期"
-																				+ res.indent.startTime
-																				+ "</p>";
-																		var tel = "<p>预定人电话："
-																				+ res.indent.tel
-																				+ "</p>";
-																		var checkoutDate = null;
-																		if (res.indent.endTile != null) {
-																			checkoutDate = "<p>退房日期："
-																					+ res.indent.endTime
-																					+ "</p>"
-																		}
-
-																		display
-																				.append(
-																						bookDate,
-																						tel,
-																						checkoutDate);
-																	}
-																}, "json");
-											})
-
-							$("#setPriceButton").click(function () {
-								$.post("/root/modifyRoomPrice", {
-									curDate : new Date(),
-									roomID : roomId,
-									newPrice : $("#setPrice").value
-
-								}, function(res) {
-									alert("修改成功");
-								}, "json");
+							$(document).on("click", "#checkOutVerify", function() {
+								var indentID = $(this).attr("data-indent-id");
+								$.ajax({
+									type:"post",
+									url:"/root/checkout",
+									async:false,
+									date:{
+										indentID:indentID
+									},
+									dataType:"json",
+									success: function() {
+										if(res == 1)
+											alert("退房成功");
+										else
+											alert("退房失败");
+									},
+									error: function() {
+										alert("退房失败");
+									},
+								})
 							})
+
+							$(document).on("click", "#checkRoom", function() {
+								var roomId = $("#checkRoomId").val();
+								$.ajax({
+									type:"post",
+									url:"/root/checkRoom",
+									async:false,
+									data:{
+										"beginDate" : $("#checkRoomBegin").val(),
+										"endDate" : $("#checkRoomEnd").val(),
+										"roomID": $("#checkRoomId").val()
+									},
+									dataType:"json",
+									success:function(res) {
+										//当订单不存在时，可修改价格和状态
+										var display = $("#checkRoomContent");
+
+										display.empty();
+										//for( ; bgn <= end; bgn.setDate(bgn.getDate + 1)) {
+										$.each(res, function(i, rwi) {
+											var flag = 0;
+											var setTitle =  "<p>房间号：" + roomId +
+															"  日期：" + rwi.date;
+											var setData = "<p>房间类型：" + rwi.room.roomType +
+														"        房间价格" + rwi.room.price;
+											var setPR = "";
+											if(rwi.haveIndent == 1) {
+												setTitle = setTitle + "(预定日期：" + formatDate(new Date(rwi.indent.startTime)) + 
+														",    退房日期：" + formatDate(new Date(rwi.indent.endTime)) + ")</p>";
+												setData = setData + "房间状态：不可预定       预定人电话：" + rwi.indent.tel +
+															"</p><br>";
+											}
+											else {
+												setTitle = setTitle + "</p>"
+												setData = setData + "房间状态：可预定</p>";
+												setPR = setPR + "<p>房间价格：<input id='setPrice' type='text' />" + 
+														"<input id='setPriceButton' type='button' >修改</input>" +
+														"房间状态：<select class='sub_button' name='p'>" + 
+														"<option value='canBook'>可预订</option>" + 
+														"<option value='cantBook'>不可预定</option>" +
+														"<input id='setStatusButton' type='submit' >修改</input>" + 
+														"</select></p><br>";
+											}
+
+											display.append(setTitle, setData, setPR);
+											
+										})
+										//}
+									},
+									error:function() {
+										alert("查询错误!");
+									}
+									});
+								});
+
+							$(document).on("click", "#setPriceButton", function() {
+								var roomId = $("#checkRoomId").val();
+								$.ajax({
+									type:"post",
+									url:"/root/modifyRoomPrice",
+									async:false,
+									data:{
+										curDate : formatDate(new Date()),
+										roomID : roomId,
+										newPrice : $("#setPrice").val()
+									}, 
+									dataType:"json",
+									success:function(res) {
+										alert("修改成功");
+									},
+									error:function() {
+										alert("修改失败");
+									},
+								});
+							});
 							
 
-							$("#setStatusButton").click(function () {
-								$.post("/root/modifyRoomState", {
-									curDate : new Date(),
-									roomID : roomId,
-								//newPrice:$("#setPrice").value
-								}, function(res) {
-									alert("修改成功");
-								}, "json");
+							$(document).on("click", "#setStatusButton", function() {				
+								var roomId = $("#checkRoomId").val();
+								$.ajax({
+									type:"post",
+									url:"/root/modifyRoomState", 
+									async:false,
+									data:{
+										curDate : formatDate(new Date()),
+										roomID : roomId,
+										//newPrice:$("#setPrice").value
+									}, 
+									dataType:"json",
+									success:function(res) {
+										alert("修改成功");
+									},
+									error:function() {
+										alert("修改失败");
+									},
+								});
 							})
 							
+							$(document).on("click", "#checkIndentBtn", function() {
+								var indentID = $("#checkIndentId").val();
+								$.ajax({
+									type:"post",
+									url:"/root/checkIndent",
+									async:false,
+									data:{
+										indentID : indentID
+									},
+									dataType:"json",
+									success:function(indent) {
+										var display = $("#checkIndentContent");
+										display.empty();
+
+										var line1 = "<p>订单号：" + indent.indentId + 
+													"    入住时间：" + formatDate(new Date(indent.startTime)) + 
+													"    退房时间：" + formatDate(new Date(indent.endTime)) + "</p>";
+										var line2 = "<p>预订人电话：" + indent.tel + 
+													"        ￥" + indent.cost + 
+													"        房间号：" + indent.roomId + 
+													"        订单状态：" + indent.indentType + "</p><br>";
+
+										display.add(line1 + line2);
+									},
+									error:function() {
+										alert("查询失败");
+									},
+								})
+							});
 
 							$("#getDetil").click(function () {
-								$.post("/root/getDetil", {
+								$.post("/root/getBill", {
 									curDate : new Date(),
 									roomID : roomId,
 								//newPrice:$("#setPrice").value
