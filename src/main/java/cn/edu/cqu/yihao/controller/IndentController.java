@@ -199,7 +199,7 @@ public class IndentController {
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date utilDate = sdf1.parse(checkInDate);
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		bookkey.setBookDate(sqlDate);
+		bookkey.setBookdate(sqlDate);
 		int bookRow = bookservice.dropBook(bookkey);
 		Calendar cld = Calendar.getInstance();
 		cld.setTime(utilDate);
@@ -208,7 +208,7 @@ public class IndentController {
 		while (!sqlDate.toString().equals(checkOutDate))
 		{
 			sqlDate = new java.sql.Date(utilDate.getTime());
-			bookkey.setBookDate(sqlDate);
+			bookkey.setBookdate(sqlDate);
 			bookRow = bookservice.dropBook(bookkey);
 			cld.setTime(utilDate);
 			cld.add(Calendar.DATE, 1);

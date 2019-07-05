@@ -69,7 +69,7 @@
 						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
-							<li class="header-top-contact"><a href="/log/goregister">注册</a></li>
+							<li class="header-top-contact"><a href="/log/register">注册</a></li>
 						</c:if>
 
 						<c:if test="${!login}">
@@ -111,7 +111,7 @@
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=""><a id="home" class="active" href="#">银行卡支付</a></li>
+							<li class=""><a id="home" class="active" href="#">支付方式</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -133,19 +133,48 @@
 		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
-				<h2>银行卡支付</h2>
+				<h2>支付方式选择</h2>
 				<hr>
-				
-				<h2>你共需支付：</h2>
-				<h2><c:out value="${cost}"/>元</h2>
-				
-				<form action="/pay/debit_card" method="post">
-				<input type="hidden" name="cost" value="${cost }">
-				<input type="hidden" name="price" value="${price }">
-				<input type="hidden" name="indent_id" value="${indent_id }">
-				<button class="welcome-hero-btn" style="display:inline-block;">确认支付</button>
+				<h2>
+					订单号：
+					<c:out value="${result.currentIndentId }"></c:out>
+				</h2>
+				<h2>
+					原价：
+					<c:out value="${result.price }"></c:out>
+					元
+				</h2>
+				<h2>
+					您是尊贵的
+					<c:out value="${result.vipLevel }" />
+					会员，享
+					<c:out value="${result.discount }" />
+					折，需支付：
+				</h2>
+				<br>
+
+				<h2>
+					<c:out value="${result.cost }" />
+					元
+				</h2>
+				<form action="/pay/choose" method="post">
+					<input name="submit" type="hidden" value="银行卡支付"> <input
+						name="indent_id" type="hidden" value="${result.currentIndentId }">
+					<input name="price" type="hidden" value="${result.price }">
+					<input name="cost" type="hidden" value="${result.cost }">
+					<button class="welcome-hero-btn" style="display: inline-block;">银行卡支付
+					</button>
 				</form>
-				
+
+				<form action="/pay/choose" method="post">
+					<input name="submit" type="hidden" value="积分支付"> <input
+						name="indent_id" type="hidden" value="${result.currentIndentId }">
+					<input name="price" type="hidden" value="${result.price }">
+					<input name="cost" type="hidden" value="${result.cost }">
+					<button class="welcome-hero-btn" style="display: inline-block;">
+						积分支付
+					</button>
+				</form>
 			</div>
 
 		</div>

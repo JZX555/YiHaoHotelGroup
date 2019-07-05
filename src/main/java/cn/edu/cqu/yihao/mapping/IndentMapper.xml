@@ -61,8 +61,17 @@
 	from indent
 	where indent_type = #{type, jdbcType=INTEGER} and
 		to_days(end_time) &lt;= to_days(#{end, jdbcType=VARCHAR}) and
-		to_days(end_time) &gt;= to_days(#{start, jdbcType=VARCHAR}) 
+		to_days(end_time) &gt;= to_days(#{begin, jdbcType=VARCHAR}) 
   </select>
+  <select id="selectBetweenDate" resultMap="BaseResultMap">
+	select 
+	<include refid="Base_Column_List" />
+	from indent
+	where (to_days(start_time) &lt;= to_days(#{begin, jdbcType=VARCHAR}) and
+		to_days(end_time) &gt;= to_days(#{begin, jdbcType=VARCHAR})) or 
+		(to_days(start_time) &lt;= to_days(#{end, jdbcType=VARCHAR}) and
+		to_days(end_time) &gt;= to_days(#{end, jdbcType=VARCHAR}))
+  </select>  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from indent
     where indent_id = #{indentId,jdbcType=VARCHAR}

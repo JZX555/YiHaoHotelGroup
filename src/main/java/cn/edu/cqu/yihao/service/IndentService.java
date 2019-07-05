@@ -22,4 +22,6 @@ public interface IndentService {
 	public int dropIndent(String indentId);
 
 	public Indent[] getCompleteBetweenDate(int type, String beginDate, String endDate);
+	
+	public Indent[] getBetweenDate(String beginDate, String endDate);
 }

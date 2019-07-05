@@ -128,11 +128,12 @@
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">sign
 									in</a></li>
-							<li class="header-top-contact"><a href="/log/goregister">register</a></li>
+							<li class="header-top-contact"><a href="/log/register">register</a></li>
 						</c:if>
 
 						<c:if test="${!login}">
 							<li class="header-top-contact"><a href="#">会员中心</a></li>
+							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -169,9 +170,7 @@
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="#home">我们的品牌</a></li>
-							<li class="scroll"><a href="#roomTypes">房间类型</a></li>
-							<li class="scroll"><a href="#surronding">周边精彩</a></li>
+							<li class=" scroll active"><a href="#home">用户中心</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -191,27 +190,31 @@
 	
 	
 	<section id="home" class="welcome-hero" style="padding-top: 100px;">
+<<<<<<< HEAD
 	<div>
-		<div class="geren person">
-			<div id="welcome" style="padding-top: 10px; margin-bottom: 10px;" >
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的账号</br>
-				欢迎您，
-			</div>
-			<div class ="manage" style="margin-bottom: 10px;">
-				<div class="ha"><a href="/">个人信息</a></div>
-				<div class="ha"><a href="/">我的订单</a></div>
-			</br>
-				<div class="ha"><a href="/">会员中心</a></div>
-				<div class="ha"><a href="/">注销</a></div>
-			</div>
-			<div class="vip" >
-				<img src="/assets/images/personalcenter/1.png">
+		
+
+	<div class="geren person">
+		<div id="welcome" style="padding-top: 10px; margin-bottom: 10px;" >
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${cookie.loginTel.value}</br>
+			欢迎您，
+		</div>
+		<div class ="manage" style="margin-bottom: 10px;">
+			<div class="ha"><a href="/">个人信息</a></div>
+			<div class="ha"><a href="/">我的订单</a></div>
+		</br>
+			<div class="ha"><a href="/">会员中心</a></div>
+			<div class="ha"><a href="/">注销</a></div>
+		</div>
+		<div class="vip" >
+			<img src="/assets/images/personalcenter/1.png">
+
 			
 				<p>您有        可用积分</p></br>
 				<p>您已累计             积分</p></br>
 				<p>距离升级下一等级会员还需           积分</p></br>
 				<p>会员特权请点击会员中心进行查看</p></br>
-			</div>
+		</div>
 		</div>
 		<div class="person">
 			<div style="width: 520px;height: 290px;margin-left: 100px;">

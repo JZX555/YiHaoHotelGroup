@@ -29,4 +29,6 @@ public interface IndentMapper {
 	Indent selectByRoomandOneDate(@Param("room")String room, @Param("date")String date);
 	
 	Indent[] selectCompleteBetweenDate(@Param("type")int type, @Param("begin")String beginDate, @Param("end")String endDate);
+	
+	Indent[] selectBetweenDate(@Param("begin")String beginDate, @Param("end")String endDate);
 }

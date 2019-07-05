@@ -69,12 +69,11 @@
 						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
-							<li class="header-top-contact"><a href="/log/goregister">注册</a></li>
+							<li class="header-top-contact"><a href="/log/register">注册</a></li>
 						</c:if>
 
 						<c:if test="${!login}">
 							<li class="header-top-contact"><a href="#">会员中心</a></li>
-							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -100,23 +99,22 @@
 							data-target="#navbar-menu">
 							<i class="fa fa-bars"></i>
 						</button>
-						<a class="navbar-brand" href="/index.jsp">yi<span>hao</span></a>
+						<a class="navbar-brand" href="/index.jsp">Yihao<span>Hotel</span></a>
 
 					</div>
 					<!--/.navbar-header-->
 					<!-- End Header Navigation -->
-
-					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse menu-ui-design"
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=""><a id="home" class="active" href="#">积分支付</a></li>
+							<li class=""><a id="payed" href="#">已付款</a></li>
+							<li class=""><a id="finished" href="#">已完成</a></li>
+							<li class=""><a id="unpay" href="#">未付款</a></li>
+							<li class=""><a id="refund" href="#">已退款/取消</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
-					<!-- /.navbar-collapse -->
-
 
 				</div>
 				<!--/.container-->
@@ -128,36 +126,21 @@
 		<div class="clearfix"></div>
 	</section>
 
-	<!-- 房间状态改变 -->
-	<section id="status-view-change-view" class="explore rootview"
+	<section id="content" class="explore rootview"
 		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
-				<h2>银行卡支付</h2>
-				<hr>
+				<table id="indentlist">
+					<thead>
+					</thead>
+					<tbody>
+					</tbody>
 
-				<h2>
-					剩余积分：
-					<c:out value="${remain_point}" />
-				</h2>
-				<br>
-				<h2>
-					需要支付的积分：
-					<c:out value="${need_point }" />
-				</h2>
-
-				<form action="/pay/point" method="post">
-					<input type="hidden" name="indent_id" value="${indent_id }">
-					<input type="hidden" name="need_point" value="${need_point }">
-					<input type="hidden" name="price" value="${price }">
-					<button class="welcome-hero-btn" style="display: inline-block;">确认支付</button>
-				</form>
-
+				</table>
 			</div>
 
 		</div>
 	</section>
-
 
 
 	<footer id="footer" class="footer">
@@ -209,6 +192,97 @@
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
 
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#payed").click(function() {
+				alert("test");
+				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>预定人电话</th><th>价格</th><th>退款</th></tr>")
+				$.post("/indents/show_indents1", function(data) {
+					var tbody= $("table > tbody").empty();
+					$.each(data,function(i,item){
+						var tr = $("<tr/>");
+						var indentId = $("<td/>").html(item.indent.indentId);
+						var bookDate = $("<td/>").html(item.indent.startTime);
+						var tel = $("<td/>").html(item.indent.customerId);
+						var price = $("<td/>").html(item.indent.cost);
+						var button = $("<td/>").html("退款");
+						
+						tr.append(indentId,bookDate,tel,price,button).appendTo(tbody);
+			})
+
+				}, "json");
+
+			})
+			
+			$("#finished").click(function() {
+				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th>th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+				$.post("/indents/show_indents2", function(data) {
+					var tbody= $("table > tbody").empty();
+					$.each(data,function(i,item){
+						var tr = $("<tr/>");
+						var indentId = $("<td/>").html(item.indent.indentId);
+						var bookDate = $("<td/>").html(item.indent.startTime);
+						var endDate = $("<td/>").html(item.indent.endTime);
+						var tel = $("<td/>").html(item.indent.customerId);
+						var price = $("<td/>").html(item.indent.cost);
+						var button = null;
+						if(item.havePost == 0){
+							button = $("<td/>").html("<form action='/indents/addComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='去评价'></form>");
+						}
+						else{
+							button = $("<td/>").html("<form action='/indents/showComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='查看评价'></form>");
+						}
+						
+						
+						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
+			})
+
+				}, "json");
+
+			})
+			
+			$("#unpay").click(function() {
+				$("table>thead").html("<tr><th>订单号</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+				$.post("/indents/show_indents3", function(data) {
+					var tbody= $("table > tbody").empty();
+					$.each(data,function(i,item){
+						var tr = $("<tr/>");
+						var indentId = $("<td/>").html(item.indent.indentId);
+						var tel = $("<td/>").html(item.indent.customerId);
+						var price = $("<td/>").html(item.indent.cost);
+						var button = $("<td/>").html("去支付");
+						
+						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
+			})
+
+				}, "json");
+
+			})
+			
+			$("#refund").click(function() {
+				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+				$.post("/indents/show_indents4", function(data) {
+					var tbody= $("table > tbody").empty();
+					$.each(data,function(i,item){
+						var tr = $("<tr/>");
+						var indentId = $("<td/>").html(item.indent.indentId);
+						var bookDate = $("<td/>").html(item.indent.startTime);
+						var refundDate = $("<td/>").html(item.indent.endTime);
+						var tel = $("<td/>").html(item.indent.customerId);
+						var price = $("<td/>").html(item.indent.cost);
+						var button = $("<td/>").html("去支付");
+						
+						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
+			})
+
+				}, "json");
+
+			})
+			
+
+		})
+	</script>
+
+
 </body>
-</html>
 </html>

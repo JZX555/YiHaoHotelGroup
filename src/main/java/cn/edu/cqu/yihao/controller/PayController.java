@@ -141,6 +141,7 @@ public class PayController {
 	@RequestMapping("/refund")
 	public String refund( @RequestParam("pay_type")Integer pay_type) {
 		String res="";
+		
 		if(pay_type==1) {
 			res= "forward:/refunnbyDB";
 		}
@@ -153,7 +154,7 @@ public class PayController {
 	public int  refunnbyDB(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
 		int flag=0;
 		String card_id=(String)req.getParameter("card_id"); 
-		String password=(String)req.getParameter("password");
+		//String password=(String)req.getParameter("password");
 		Double  cost = Double.parseDouble((String)req.getParameter("cost"));
 		//int  price = Integer.parseInt((String)req.getParameter("price"));
 		String indent_id=(String)req.getParameter("indent_id");
@@ -171,7 +172,7 @@ public class PayController {
 		indent.setIndentId(indent_id);
 
 		
-		if(db_card.getPassword().equals(password)) {
+		if(db_card != null) {
 			dbcService.add(card_id, cost);//卡上余额增加
 			indent.setIndentType(5);//更改订单状态
 			inService.updateSelect(indent);
@@ -211,10 +212,6 @@ public class PayController {
 		
 		return curpoint;  //返回当前积分
 	}
-	
-	
-	
-	
 
 }
 

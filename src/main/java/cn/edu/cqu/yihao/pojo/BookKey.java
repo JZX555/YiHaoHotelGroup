@@ -7,7 +7,7 @@ public class BookKey {
 
     private String roomId;
     
-    private Date bookDate;
+    private Date bookdate;
 
 	public String getTel()
 	{
@@ -29,13 +29,13 @@ public class BookKey {
 		this.roomId = roomId;
 	}
 
-	public Date getBookDate()
+	public Date getBookdate()
 	{
-		return bookDate;
+		return bookdate;
 	}
 
-	public void setBookDate(Date bookDate)
+	public void setBookdate(Date bookdate)
 	{
-		this.bookDate = bookDate;
+		this.bookdate = bookdate;
 	}
 }
