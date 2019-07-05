@@ -152,20 +152,24 @@ public class IndentController {
 	
 
 	@RequestMapping("/addComment")//添加评价
-	@ResponseBody
-	public IndentWithPost addComment(HttpServletRequest request, Model model) {
-		String indent_id=(String)request.getParameter("indent_id");//创建一条评论
+	
+	public int addComment(HttpServletRequest request, Model model) {
+		int flag=0;
+		String indent_id=(String)request.getParameter("indent_id");//需要传给我indent_id,score,comment
 		Double score=Double.parseDouble((String)request.getParameter("score"));
 		String comment=(String)request.getParameter("comment");
-		int res=pService.addPost(indent_id, score, comment);
-		Indent indent=inService.getById(indent_id); //更新该条订单对应的IndentWithPost结构
-		Post post=pService.getById(indent_id);
-		IndentWithPost iwp=new IndentWithPost();
-		iwp.setIndent(indent);
-		iwp.setPost(post);
-		iwp.setHavePost(1);
+		int res=pService.addPost(indent_id, score, comment);//更新该条订单对应的Post结构
+		if(res==1)
+			flag=1;
 		
-		return iwp;		
+//		Indent indent=inService.getById(indent_id); 
+//		Post post=pService.getById(indent_id);
+//		IndentWithPost iwp=new IndentWithPost();
+//		iwp.setIndent(indent);
+//		iwp.setPost(post);
+//		iwp.setHavePost(1);
+		
+		return flag;		
 	}
 	@RequestMapping("/showComment")//查看评价
 	public String changeComment(HttpServletRequest request, Model model) {
@@ -199,7 +203,7 @@ public class IndentController {
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date utilDate = sdf1.parse(checkInDate);
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		bookkey.setBookdate(sqlDate);
+		bookkey.setBookDate(sqlDate);
 		int bookRow = bookservice.dropBook(bookkey);
 		Calendar cld = Calendar.getInstance();
 		cld.setTime(utilDate);
@@ -208,7 +212,7 @@ public class IndentController {
 		while (!sqlDate.toString().equals(checkOutDate))
 		{
 			sqlDate = new java.sql.Date(utilDate.getTime());
-			bookkey.setBookdate(sqlDate);
+			bookkey.setBookDate(sqlDate);
 			bookRow = bookservice.dropBook(bookkey);
 			cld.setTime(utilDate);
 			cld.add(Calendar.DATE, 1);
