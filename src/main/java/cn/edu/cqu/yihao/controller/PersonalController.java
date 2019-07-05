@@ -48,7 +48,7 @@ public class PersonalController {
 			res="/VIPcenter";
 		}
 		if(action.equals("注销")) {
-			res="/log/logout";
+			res="forward:/log/logout";
 		}
 		if(action.equals("预订"))
 			res="redirect:/";
