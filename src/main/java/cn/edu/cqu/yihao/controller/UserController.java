@@ -123,7 +123,7 @@ public class UserController
 			 * model.addAttribute("cost",result.cost);//传回折后价
 			 */
 			model.addAttribute("result", result);
-			System.out.println("indenttId"+result.currentIndentId+"checkInDatecost"+result.checkInDate+"checkOutDatecost"+result.checkOutDate+"roomType"+result.roomType+"customerName"+result.customerName+"customerId"+result.customerId+"price"+result.price+"vipLevel"+result.vipLevel+"discount"+result.discount+"cost"+result.cost);
+			System.out.println("indentId"+result.currentIndentId+"checkInDatecost"+result.checkInDate+"checkOutDatecost"+result.checkOutDate+"roomType"+result.roomType+"customerName"+result.customerName+"customerId"+result.customerId+"price"+result.price+"vipLevel"+result.vipLevel+"discount"+result.discount+"cost"+result.cost);
 			System.out.println("返回到支付界面");
 			// 返回到支付界面
 			return "/payment";
