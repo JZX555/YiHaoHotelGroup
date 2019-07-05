@@ -50,13 +50,13 @@ public class PayController {
 			model.addAttribute("need_point", need_point*10);
 			model.addAttribute("indent_id", indent_id); 
 			model.addAttribute("price", price); 
-			res="point";
+			res="pointpayment";
 		}
 		if(action.equals("银行卡支付")){  //需要传给下一个页面cost，price，indent_id
 			model.addAttribute("cost",cost);
 			model.addAttribute("price", price);
 			model.addAttribute("indent_id", indent_id);
-			res="debit_card";
+			res="cardpayment";
 		}	
 		return res;
 	}
@@ -185,9 +185,9 @@ public class PayController {
 	}
 	
 	@RequestMapping("/refunnbyP")
-	@ResponseBody
-	public int  refunnbyP(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {//减去原价对应的积分，加上折扣价对应的积分
 	
+	public int  refunnbyP(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {//减去原价对应的积分，加上折扣价对应的积分
+		int flag=0;
 		int  cost =  Integer.parseInt((String)req.getParameter("cost"));
 		//int  price = Integer.parseInt((String)req.getParameter("price"));
 		String indent_id=(String)req.getParameter("indent_id");
@@ -209,8 +209,9 @@ public class PayController {
 		int curpoint = account.getMaxpoint(); // 修改会员等级
 		changeViplevel(curpoint, tel);
 		
-		
-		return curpoint;  //返回当前积分
+		if(r1==1 && r2==1)
+			flag=1;
+		return flag;  
 	}
 
 }

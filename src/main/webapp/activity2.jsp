@@ -55,63 +55,7 @@
 	padding-left: 50px;
 }
 </style>
-<style type="text/css">
-		
-		#welcome{
-			height: 40px;
-			width:100px;
-			margin-left:23%;
-			
-		}
-		.manage{
-			padding: 2px;
-			width:200px;
-    		height:200px;
-     		margin-left:14%; 
 
-		}
-		.ha{
-			background: url("/assets/images/personalcenter/button.png");
-			
-			display: inline-block;
-			width: 94px;
-			height: 98px;
-			line-height: 98px;
-			text-align: center;
-			border-radius:20px;
-		}
-		.vip{
-			background: url("/assets/images/personalcenter/login_m_bg.png");
-			background: rgba(0, 0, 0, 0.5);
-			padding: 20px;
-			height: 260px;
-			width:282px;
-			/* margin-left: 3.6%; */
-			border-radius:20px;
-		}
-		p{
-			text-align: center;
-			height:5px;
-		}
-		 .geren{
-		width:282px;
-		height:520px;
-		background:url("/assets/images/personalcenter/2.png");
-		/* filter:alpha(Opacity=60);-moz-opacity:0.6;opacity: 0.7; */
-		background: rgba(0, 0, 0, 0.5);
-		margin-left:27%;
-		border-radius:20px;
-		
-		} 
-		.person{
-		float:left;
-		display: inline-block;
-		
-		}
-		a>img{
-		opacity: 0.7;
-		}
-	</style>
 
 </head>
 <body>
@@ -128,12 +72,11 @@
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">sign
 									in</a></li>
-							<li class="header-top-contact"><a href="/log/register">register</a></li>
+							<li class="header-top-contact"><a href="/log/goregister">register</a></li>
 						</c:if>
 
 						<c:if test="${!login}">
 							<li class="header-top-contact"><a href="#">会员中心</a></li>
-							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -170,7 +113,9 @@
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="#home">用户中心</a></li>
+							<li class=" scroll active"><a href="#home">我们的品牌</a></li>
+							<li class="scroll"><a href="#roomTypes">房间类型</a></li>
+							<li class="scroll"><a href="#surronding">周边精彩</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -189,46 +134,19 @@
 	
 	
 	
-	<section id="home" class="welcome-hero" style="padding-top: 100px;">
-<<<<<<< HEAD
-	<div>
-		
-
-	<div class="geren person">
-		<div id="welcome" style="padding-top: 10px; margin-bottom: 10px;" >
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${cookie.loginTel.value}</br>
-			欢迎您，
-		</div>
-		<div class ="manage" style="margin-bottom: 10px;">
-			<div class="ha"><a href="/">个人信息</a></div>
-			<div class="ha"><a href="/">我的订单</a></div>
-		</br>
-			<div class="ha"><a href="/">会员中心</a></div>
-			<div class="ha"><a href="/">注销</a></div>
-		</div>
-		<div class="vip" >
-			<img src="/assets/images/personalcenter/1.png">
-
-			
-				<p>您有        可用积分</p></br>
-				<p>您已累计             积分</p></br>
-				<p>距离升级下一等级会员还需           积分</p></br>
-				<p>会员特权请点击会员中心进行查看</p></br>
-		</div>
-		</div>
-		<div class="person">
-			<div style="width: 520px;height: 290px;margin-left: 100px;">
-				<a href="/">
-					<img src="/assets/images/personalcenter/activity1.png" style="border-radius: 10px;">
-				</a>
+<section id="home" class="welcome-hero" >
+		<img src="/assets/images/personalcenter/activity2-2.png">
+			<div style="font-size:48px;color:ffffff;">
+				亿豪未来四周周末入住享指定酒店7折<br/>
+				预定时间：本周开始未来四周周末<br/>
+				适用入住日期：周五、周六、周天<br/>
+				折扣优惠限量提供，先到先得<br/>
+				亿豪欢迎您的光临！<br/>
 			</div>
-			<div style="width: 520px;height: 260px;margin-left: 100px;">
-				<a href="/">
-					<img src="/assets/images/personalcenter/activity2.png" style="margin-top: 10px;border-radius: 10px;">
-				</a>
+			<div style="margin-top: 80px;">
+				本活动最终解释权归亿豪集团所属
 			</div>
-		</div>
-	</div>
+
 	</section>
 	
 

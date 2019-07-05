@@ -56,61 +56,32 @@
 }
 </style>
 <style type="text/css">
-		
-		#welcome{
-			height: 40px;
-			width:100px;
-			margin-left:23%;
-			
-		}
-		.manage{
-			padding: 2px;
-			width:200px;
-    		height:200px;
-     		margin-left:14%; 
-
-		}
-		.ha{
-			background: url("/assets/images/personalcenter/button.png");
-			
-			display: inline-block;
-			width: 94px;
-			height: 98px;
-			line-height: 98px;
+h1{/*派生*/
+				font-size: 40px;
+			    font-weight: 300;}
+			 form{padding: 20px 0;}
+			 form input{border: 1px solid #FFF;
+			 width: 220px;
+			 padding: 10px 15px;
+			 display: block;
+			 margin: 0 auto 10px auto;
+			 border-radius: 30px;/*圆角*/
+			font-size: 18px;
+			font-weight: 300;
 			text-align: center;
-			border-radius:20px;
-		}
-		.vip{
-			background: url("/assets/images/personalcenter/login_m_bg.png");
-			background: rgba(0, 0, 0, 0.5);
-			padding: 20px;
-			height: 260px;
-			width:282px;
-			/* margin-left: 3.6%; */
-			border-radius:20px;
-		}
-		p{
-			text-align: center;
-			height:5px;
-		}
-		 .geren{
-		width:282px;
-		height:520px;
-		background:url("/assets/images/personalcenter/2.png");
-		/* filter:alpha(Opacity=60);-moz-opacity:0.6;opacity: 0.7; */
-		background: rgba(0, 0, 0, 0.5);
-		margin-left:27%;
-		border-radius:20px;
-		
-		} 
-		.person{
-		float:left;
-		display: inline-block;
-		
-		}
-		a>img{
-		opacity: 0.7;
-		}
+			 }
+			 form button{
+			 	background: white;
+			 	border: 0;
+			 	padding: 10px 15px;
+			 	color: green;
+			 	 border-radius: 8px;
+			 	 width: 250px;
+			 	font-size: 16px;
+			 }
+			 form button:hover{
+			 	background:#CCC; /*鼠标移动上去按钮颜色变灰色*/
+			 }
 	</style>
 
 </head>
@@ -128,12 +99,11 @@
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">sign
 									in</a></li>
-							<li class="header-top-contact"><a href="/log/register">register</a></li>
+							<li class="header-top-contact"><a href="/log/goregister">register</a></li>
 						</c:if>
 
 						<c:if test="${!login}">
 							<li class="header-top-contact"><a href="#">会员中心</a></li>
-							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
 				</div>
@@ -170,7 +140,9 @@
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="#home">用户中心</a></li>
+							<li class=" scroll active"><a href="#home">我们的品牌</a></li>
+							<li class="scroll"><a href="#roomTypes">房间类型</a></li>
+							<li class="scroll"><a href="#surronding">周边精彩</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -189,46 +161,22 @@
 	
 	
 	
-	<section id="home" class="welcome-hero" style="padding-top: 100px;">
-<<<<<<< HEAD
-	<div>
-		
-
-	<div class="geren person">
-		<div id="welcome" style="padding-top: 10px; margin-bottom: 10px;" >
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${cookie.loginTel.value}</br>
-			欢迎您，
-		</div>
-		<div class ="manage" style="margin-bottom: 10px;">
-			<div class="ha"><a href="/">个人信息</a></div>
-			<div class="ha"><a href="/">我的订单</a></div>
-		</br>
-			<div class="ha"><a href="/">会员中心</a></div>
-			<div class="ha"><a href="/">注销</a></div>
-		</div>
-		<div class="vip" >
-			<img src="/assets/images/personalcenter/1.png">
-
-			
-				<p>您有        可用积分</p></br>
-				<p>您已累计             积分</p></br>
-				<p>距离升级下一等级会员还需           积分</p></br>
-				<p>会员特权请点击会员中心进行查看</p></br>
-		</div>
-		</div>
-		<div class="person">
-			<div style="width: 520px;height: 290px;margin-left: 100px;">
-				<a href="/">
-					<img src="/assets/images/personalcenter/activity1.png" style="border-radius: 10px;">
-				</a>
+	<section id="home" class="welcome-hero" >
+		<div class="context">
+			<div class="container">
+				<h1 style="margin-top: 100px;">修改密码</h1>
+				<form action="" method="get">
+					<input type="password"  name="oldpass" placeholder="请输入旧密码"/>
+					<input type="password" id="newpass" name="newpass" placeholder="请输入新密码"/>
+					<input type="password" id="newpass2" name="newpass" placeholder="请重新输入新密码"/>
+					<button type="submit">确定修改</button>	
+				</form>
 			</div>
-			<div style="width: 520px;height: 260px;margin-left: 100px;">
-				<a href="/">
-					<img src="/assets/images/personalcenter/activity2.png" style="margin-top: 10px;border-radius: 10px;">
-				</a>
-			</div>
-		</div>
-	</div>
+		</div>	
+	
+
+
+
 	</section>
 	
 
@@ -282,6 +230,17 @@
 
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#newpass2").blur(function() {
+				if($("#newpass").val()!=$("#newpass2").val()){
+					alert("密码不一致");
+				}
+			});
+		});
+		</script>
 
 
 </body>
