@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.cqu.yihao.pojo.Account;
 import cn.edu.cqu.yihao.pojo.Vip;
 import cn.edu.cqu.yihao.service.AccountService;
+import cn.edu.cqu.yihao.service.EmailService;
 import cn.edu.cqu.yihao.service.VipService;
 
 @Controller("/Personal")
@@ -23,6 +25,8 @@ public class PersonalController {
 	private AccountService acService;
 	@Autowired
 	private VipService vService;
+	@Autowired
+	private EmailService emailService;
 	
 	@RequestMapping("/functionchose")
 	public String functionchose(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel)
@@ -84,5 +88,46 @@ public class PersonalController {
 		return flag;
 	}
 	
+	@RequestMapping("/goEmail")
+	public String validateEmail(HttpServletRequest request, Model model) {
+		String email = request.getParameter("email");
+		model.addAttribute("email", email);
+		
+		return "changecode";
+	}
 	
+	@RequestMapping("/sendEmail")
+	@ResponseBody
+	public String sendEmail(HttpServletRequest request, Model model) {
+		String tel = request.getParameter("tel");
+		Account account = this.acService.getAccountByTel(tel);
+		String email = account.getEmail();
+		
+		String msg = this.emailService.getValCode(6);
+		msg = "您的验证码为：" + msg;
+		this.emailService.sendEmail(email, msg);
+		
+		return msg;
+	}
+	
+	@RequestMapping("/goChangePassword")
+	public String goChangePassword(HttpServletRequest request, Model model) {	
+		return "changecode2";
+	}
+	
+	@RequestMapping("/changePassword")
+	@ResponseBody
+	public int changePassword(HttpServletRequest request, Model model) {
+		int flag = 0;
+		Account account = new Account();
+		String tel = request.getParameter("tel");
+		String password = request.getParameter("password");
+		
+		account.setTel(tel);
+		account.setPassword(password);
+		
+		flag = this.acService.updateSelect(account);
+		
+		return flag;
+	}
 }
