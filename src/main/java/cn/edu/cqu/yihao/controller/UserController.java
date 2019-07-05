@@ -85,7 +85,7 @@ public class UserController
 			model.addAttribute("checkInDate", checkInDate);
 			model.addAttribute("checkOutDate", checkOutDate);
 			// 返回到一个选择房型的页面
-			return "选择房型的页面";
+			return "roomtype";
 		}
 	}
 
@@ -185,7 +185,7 @@ public class UserController
 			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date utilDate = sdf1.parse(checkInDate);
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			book.setBookDate(sqlDate);
+			book.setBookdate(sqlDate);
 			int bookRow = bookservice.addBook(book);
 			Calendar cld = Calendar.getInstance();
 			cld.setTime(utilDate);
@@ -194,7 +194,7 @@ public class UserController
 			while (!sqlDate.toString().equals(checkOutDate))
 			{
 				sqlDate = new java.sql.Date(utilDate.getTime());
-				book.setBookDate(sqlDate);
+				book.setBookdate(sqlDate);
 				bookRow = bookservice.addBook(book);
 				cld.setTime(utilDate);
 				cld.add(Calendar.DATE, 1);

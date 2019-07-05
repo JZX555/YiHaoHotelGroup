@@ -141,6 +141,7 @@ public class PayController {
 	@RequestMapping("/refund")
 	public String refund( @RequestParam("pay_type")Integer pay_type) {
 		String res="";
+		
 		if(pay_type==1) {
 			res= "forward:/refunnbyDB";
 		}

@@ -17,22 +17,22 @@
 <title>亿豪酒店</title>
 
 <!-- For favicon png -->
-<link rel="shortcut icon" type="image/icon" href="assets/logo/logo.PNG" />
+<link rel="shortcut icon" type="image/icon" href="/assets/logo/logo.PNG" />
 
 <!--font-awesome.min.css-->
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css">
 
 <!--linear icon css-->
-<link rel="stylesheet" href="assets/css/linearicons.css">
+<link rel="stylesheet" href="/assets/css/linearicons.css">
 
 <!--animate.css-->
-<link rel="stylesheet" href="assets/css/animate.css">
+<link rel="stylesheet" href="/assets/css/animate.css">
 
 <!--flaticon.css-->
-<link rel="stylesheet" href="assets/css/flaticon.css">
+<link rel="stylesheet" href="/assets/css/flaticon.css">
 
 <!--slick.css-->
-<link rel="stylesheet" href="assets/css/slick.css">
+<link rel="stylesheet" href="/assets/css/slick.css">
 <link rel="stylesheet" href="/assets/css/slick-theme.css">
 
 <!--bootstrap.min.css-->
@@ -149,14 +149,14 @@
 						<img alt=""
 							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 						<p class="section-header">大床房</p>
-						<c:if test="${roomtype1}!=0">
+						<c:if test="${roomtype1!=0}">
 							<button
 								class="welcome-hero-btn book-button select-breakfast-button"
 								value="1">
 								立即预定 <i data-feather="search"></i>
 							</button>
 						</c:if>
-						<c:if test="${roomtype1}==0">
+						<c:if test="${roomtype1==0}">
 							<div class="welcome-hero-btn">
 								无余房<i data-feather="search"></i>
 							</div>
@@ -168,16 +168,16 @@
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">2</p>
-							<c:if test="${roomtype1}!=0">
+							<c:if test="${roomtype1!=0}">
 								<button
 									class="welcome-hero-btn book-button select-breakfast-button"
 									value="2">
 									立即预定 <i data-feather="search"></i>
 								</button>
 							</c:if>
-							<c:if test="${roomtype1}==0">
+							<c:if test="${roomtype1==0}">
 								<div class="welcome-hero-btn">
 									无余房<i data-feather="search"></i>
 								</div>
@@ -190,16 +190,16 @@
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">3</p>
-							<c:if test="${roomtype1}!=0">
+							<c:if test="${roomtype1!=0}">
 								<button
 									class="welcome-hero-btn book-button select-breakfast-button"
 									value="3">
 									立即预定 <i data-feather="search"></i>
 								</button>
 							</c:if>
-							<c:if test="${roomtype1}==0">
+							<c:if test="${roomtype1==0}">
 								<div class="welcome-hero-btn">
 									无余房<i data-feather="search"></i>
 								</div>
@@ -212,7 +212,7 @@
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">大床房</p>
 							<c:if test="${roomtype1}!=0">
 								<button
@@ -234,7 +234,7 @@
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">5</p>
 							<c:if test="${roomtype1}!=0">
 								<button
@@ -309,6 +309,7 @@
 						<div class="single-explore-item">
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								<p class="section-header">双早</p>
 							<button value="2" class="welcome-hero-btn book"
 								style="width: 170px; height: 40px; margin: auto;">
 								立即预定 <i data-feather="search"></i>
@@ -326,14 +327,14 @@
 	<div id="information" class="explore"
 		style="display: none; position: fixed; width: 90%; left: 5%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
 		<div class="section-header">
-			<form action="/user/ready">
+			<form action="/user/ready" method="post">
 				<input type="text" name="customerName" placeholder="姓名"><br>
 				<input type="text" name="customerId" placeholder="身份证号"><br>
 				<input type="text" name="tel" placeholder="电话号码"><br>
 				<input type="hidden" id="roomType" name="roomType"> 
 				<input type="hidden" id="strategyType" name="strategyType"> 
-				<input type="hidden" name="checkInDate" value="${checkInDate }"> 
-				<input type="hidden" name="checkOutDate" value="${checkOutDate }"> 
+				<input type="hidden" name="checkInDate" value="${checkInDate}"> 
+				<input type="hidden" name="checkOutDate" value="${checkOutDate}"> 
 				<input type="submit" value="预定 ">
 			</form>
 		</div>
@@ -342,33 +343,33 @@
 
 
 
-	<script src="assets/js/jquery.js"></script>
+	<script src="/assets/js/jquery.js"></script>
 
 	<!--modernizr.min.js-->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
 	<!--bootstrap.min.js-->
-	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="/assets/js/bootstrap.min.js"></script>
 
 	<!-- bootsnav js -->
-	<script src="assets/js/bootsnav.js"></script>
+	<script src="/assets/js/bootsnav.js"></script>
 
 	<!--feather.min.js-->
-	<script src="assets/js/feather.min.js"></script>
+	<script src="/assets/js/feather.min.js"></script>
 
 	<!-- counter js -->
-	<script src="assets/js/jquery.counterup.min.js"></script>
-	<script src="assets/js/waypoints.min.js"></script>
+	<script src="/assets/js/jquery.counterup.min.js"></script>
+	<script src="/assets/js/waypoints.min.js"></script>
 
 	<!--slick.min.js-->
-	<script src="assets/js/slick.min.js"></script>
+	<script src="/assets/js/slick.min.js"></script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
 	<!--Custom JS-->
-	<script src="assets/js/custom.js"></script>
+	<script src="/assets/js/custom.js"></script>
 
 	<script type="text/javascript">
 		var roomtype = null;
