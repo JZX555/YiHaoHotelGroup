@@ -157,6 +157,8 @@
 					<c:out value="${result.cost }" />
 					元
 				</h2>
+				<h2><c:out value="${result.checkInDate }" /></h2>
+				<h2><c:out value="${result.checkOutDate }" /></h2>
 				<form action="/pay/choose" method="post">
 					<input name="submit" type="hidden" value="银行卡支付"> <input
 						name="indent_id" type="hidden" value="${result.currentIndentId }">

@@ -224,5 +224,4 @@ public class IndentController {
 		map.put("checkOutDate", checkOutDate);
 		return map;
 	}
-		
 }
