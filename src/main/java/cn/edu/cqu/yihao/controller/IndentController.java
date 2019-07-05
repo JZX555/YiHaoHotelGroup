@@ -202,17 +202,17 @@ public class IndentController {
 		bookkey.setRoomId(roomId);
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date utilDate = sdf1.parse(checkInDate);
-		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		bookkey.setBookDate(sqlDate);
+		//java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		bookkey.setBookdate(utilDate);
 		int bookRow = bookservice.dropBook(bookkey);
 		Calendar cld = Calendar.getInstance();
 		cld.setTime(utilDate);
 		cld.add(Calendar.DATE, 1);
 		utilDate = cld.getTime();
-		while (!sqlDate.toString().equals(checkOutDate))
+		while (!utilDate.toString().equals(checkOutDate))
 		{
-			sqlDate = new java.sql.Date(utilDate.getTime());
-			bookkey.setBookDate(sqlDate);
+			//sqlDate = new java.sql.Date(utilDate.getTime());
+			bookkey.setBookdate(utilDate);
 			bookRow = bookservice.dropBook(bookkey);
 			cld.setTime(utilDate);
 			cld.add(Calendar.DATE, 1);
