@@ -19,7 +19,8 @@ import cn.edu.cqu.yihao.service.Debit_cardService;
 import cn.edu.cqu.yihao.service.IndentService;
 import cn.edu.cqu.yihao.service.VipService;
 
-@Controller("/pay")
+@Controller
+@RequestMapping("/pay")
 public class PayController {
 	
 	@Autowired
@@ -33,7 +34,7 @@ public class PayController {
 	
 	
 	@RequestMapping("/choose")
-	public String choosePay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {		
+	public String choosePay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {	
 		String res="";
 		String action = req.getParameter("submit"); 
 		String indent_id=(String)req.getParameter("indent_id");  //需要传给我indent_id,price,cost
