@@ -5,7 +5,7 @@ import cn.edu.cqu.yihao.pojo.Room;
 public interface RoomService {
 	public Room getById(String id);
 	
-	public int getPriceByType(String roomType);
+	public int getPriceByType(int roomType);
 
 	public int addRoom(Room room);
 	

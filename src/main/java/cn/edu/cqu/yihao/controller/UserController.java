@@ -54,21 +54,21 @@ public class UserController
 	// -------------------------------------------------------------------------------------
 	// 用户选择入住和退房时间->用户点击预订
 	@RequestMapping(value = "/date", method = RequestMethod.POST)
-	public synchronized String getRoom(HttpServletRequest request, HttpServletResponse response, Model model) throws ParseException
+	public synchronized String getRoom(HttpServletRequest request, HttpServletResponse response, Model model)
+			throws ParseException
 	{
 		// 接收两个用户输入，入住时间和退房时间
 		String checkInDate = request.getParameter("checkInDate");// 接收入住时间
 		String checkOutDate = request.getParameter("checkOutDate"); // 接收退房时间
-		//判断入住日期是否小于等于退房日期，如果大于，返回初始页面并设置错误参数
+		// 判断入住日期是否小于等于退房日期，如果大于，返回初始页面并设置错误参数
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date utilCheckInDate = sdf.parse(checkInDate);
 		java.util.Date utilCheckOutDate = sdf.parse(checkOutDate);
-		if(utilCheckInDate.compareTo(utilCheckOutDate)==1)
+		if (utilCheckInDate.compareTo(utilCheckOutDate) == 1)
 		{
 			model.addAttribute("errorFlag", 0);
 			return "forward:/index.jsp";
-		}
-		else
+		} else
 		{
 			// 计算不同房型的可用房间数
 			int resultLength1 = bookservice.getAvailRoomBetween(1, checkInDate, checkOutDate).length;
@@ -95,13 +95,13 @@ public class UserController
 			throws ParseException
 	{
 		// 接收七个用户输入，入住时间(checkInDate)和退房时间(checkOutDate)，房型(roomType)，订房策略(strategyType)，住户姓名(customerName)，住户身份证号(customerId)，账户电话号码(tel)
-		String checkInDate = (String)request.getParameter("checkInDate");// 接收入住时间
-		String checkOutDate = (String)request.getParameter("checkOutDate");// 接收退房时间
-		String roomType = (String)request.getParameter("roomType");// 接收房型
-		int strategyType = Integer.parseInt((String)request.getParameter("strategyType"));// 接收订房策略
-		String customerName = (String)request.getParameter("customerName");// 接收住户姓名
-		String customerId = (String)request.getParameter("customerId");// 接收住户身份证号
-		String tel = (String)request.getParameter("tel");// 接收账户电话号码
+		String checkInDate = (String) request.getParameter("checkInDate");// 接收入住时间
+		String checkOutDate = (String) request.getParameter("checkOutDate");// 接收退房时间
+		int roomType = Integer.parseInt((String) request.getParameter("roomType"));// 接收房型
+		int strategyType = Integer.parseInt((String) request.getParameter("strategyType"));// 接收订房策略
+		String customerName = (String) request.getParameter("customerName");// 接收住户姓名
+		String customerId = (String) request.getParameter("customerId");// 接收住户身份证号
+		String tel = (String) request.getParameter("tel");// 接收账户电话号码
 		Result result = new Result();
 		result = Work(checkInDate, checkOutDate, roomType, strategyType, customerName, customerId, tel);
 		if (result.flag == 0)
@@ -119,10 +119,12 @@ public class UserController
 			 * model.addAttribute("customerId",result.customerId);//传回身份证号
 			 * model.addAttribute("price",result.price);//传回原价
 			 * model.addAttribute("vipLevel",result.vipLevel);//传回VIP等级
-			 * model.addAttribute("discount", result.discount);//传回折扣
-			 * model.addAttribute("cost", result.cost);//传回折后价
+			 * model.addAttribute("discount",result.discount);//传回折扣
+			 * model.addAttribute("cost",result.cost);//传回折后价
 			 */
 			model.addAttribute("result", result);
+			System.out.println("indenttId"+result.currentIndentId+"checkInDatecost"+result.checkInDate+"checkOutDatecost"+result.checkOutDate+"roomType"+result.roomType+"customerName"+result.customerName+"customerId"+result.customerId+"price"+result.price+"vipLevel"+result.vipLevel+"discount"+result.discount+"cost"+result.cost);
+			System.out.println("返回到支付界面");
 			// 返回到支付界面
 			return "/payment";
 		}
@@ -143,26 +145,11 @@ public class UserController
 		}
 	}
 
-	public class Result
-	{
-		int flag = 1;
-		public String currentIndentId;// 订单号
-		public String checkInDate;// 入住时间
-		public String checkOutDate;// 退房时间
-		public String roomType;// 房间类型
-		public String customerName;// 住户姓名
-		public String customerId;// 身份证号
-		int price;// 原价
-		int vipLevel;// VIP等级
-		float discount;// 折扣
-		double cost;// 折后价
-	}
-
-	public synchronized Result Work(String checkInDate, String checkOutDate, String roomType, int strategyType,
+	public synchronized Result Work(String checkInDate, String checkOutDate, int roomType, int strategyType,
 			String customerName, String customerId, String tel) throws ParseException
 	{
 		// 计算该房型是否有剩余的房间
-		int roomFlag = bookservice.getAvailRoomBetween(Integer.parseInt(roomType), checkInDate, checkOutDate).length;
+		int roomFlag = bookservice.getAvailRoomBetween(roomType, checkInDate, checkOutDate).length;
 		if (roomFlag == 0)
 		{
 			// 返回提示预订失败的页面（原因是该房型可用预订数为零）
@@ -171,9 +158,14 @@ public class UserController
 			return result;
 		} else
 		{
+			// 计算原价
+			System.out.println("checkInDate" + checkInDate + "  checkOutDate" + checkOutDate + "  roomType" + roomType
+					+ "  strategyType" + strategyType + "  customerName" + customerName + "  customerId" + customerId
+					+ "  tel" + tel);
 			int price = roomservice.getPriceByType(roomType) + toPrice(strategyType);
+			System.out.println("price=" + price);
 			// 随机选择一个该房型下的可用房间的room_id(即选择该房间)
-			String Room[] = bookservice.getAvailRoomBetween(Integer.parseInt(roomType), checkInDate, checkOutDate);
+			String Room[] = bookservice.getAvailRoomBetween(roomType, checkInDate, checkOutDate);
 			Random random = new Random();
 			int subscript = random.nextInt(Room.length);
 			String currentRoomId = Room[subscript];
@@ -200,6 +192,7 @@ public class UserController
 				cld.add(Calendar.DATE, 1);
 				utilDate = cld.getTime();
 			}
+			System.out.println("book插入完成");
 			// 创建订单
 			Indent indent = new Indent();
 			// 生成并设置indent_id
@@ -236,6 +229,10 @@ public class UserController
 			indent.setCost(cost);
 			// 此时记录的所有属性都设置完毕，可以插入indent表中
 			int indentRow = indentservice.addIndent(indent);
+			System.out.println("indentId:" + indent.getIndentId() + "tel:" + indent.getTel() + "startTime:"
+					+ indent.getStartTime() + "endTime:" + indent.getEndTime() + "roomId:" + indent.getRoomId()
+					+ "indentType:" + indent.getIndentType() + "customerId:" + indent.getCustomerId() + "tel:"
+					+ indent.getTel() + "payType:" + indent.getPayType());
 			Result result = new Result();
 			result.currentIndentId = currentIndentId;// 传回订单号
 			result.checkInDate = checkInDate;// 传回入住时间
@@ -249,5 +246,6 @@ public class UserController
 			result.cost = cost;// 传回折后价
 			return result;
 		}
+
 	}
 }

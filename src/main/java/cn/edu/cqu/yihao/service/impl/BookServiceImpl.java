@@ -21,8 +21,7 @@ public class BookServiceImpl implements BookService {
 	public Book getByKey(String tel, String roomId) {
 		BookKey key = new BookKey();
 		key.setTel(tel);
-		key.setRoomId(roomId);
-		
+		key.setRoomId(roomId);		
 		return bookDao.selectByPrimaryKey(key);
 	}
 
@@ -42,7 +41,7 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
-	public int getPriceByType(String roomType)
+	public int getPriceByType(int roomType)
 	{
 		return roomDao.selectPriceByType(roomType);
 	}
