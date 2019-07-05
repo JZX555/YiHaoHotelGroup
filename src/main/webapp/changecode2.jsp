@@ -162,18 +162,18 @@ h1{/*派生*/
 	
 	
 	<section id="home" class="welcome-hero" >
-<div class="context">
+		<div class="context">
 			<div class="container">
 				<h1 style="margin-top: 100px;">修改密码</h1>
 				<form action="" method="get">
 					<input type="password"  name="oldpass" placeholder="请输入旧密码"/>
-					<input type="password"  name="newpass" placeholder="请输入新密码"/>
-					<input type="password"  name="newpass" placeholder="请重新输入新密码"/>
+					<input type="password" id="newpass" name="newpass" placeholder="请输入新密码"/>
+					<input type="password" id="newpass2" name="newpass" placeholder="请重新输入新密码"/>
 					<button type="submit">确定修改</button>	
 				</form>
 			</div>
 		</div>	
-
+	
 
 
 
@@ -230,6 +230,17 @@ h1{/*派生*/
 
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#newpass2").blur(function() {
+				if($("#newpass").val()!=$("#newpass2").val()){
+					alert("密码不一致");
+				}
+			});
+		});
+		</script>
 
 
 </body>
