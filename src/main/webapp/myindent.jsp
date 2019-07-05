@@ -161,6 +161,19 @@
 
 	</footer>
 	<!--/.footer-->
+	
+	<div id="cardPayDisplay" class="explore"
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		<div class="section-header">
+			<form action="/pay/refundByDB" method="post">
+				<input type="text" name="card_id" placeholder="请输入银行卡号码"><br>
+				<input type="hidden" id="card_cost" name="cost"> 
+				<input type="hidden" id="card_indent_id" name="indent_id">  
+				<input type="submit" value="确定退款 ">
+			</form>
+		</div>
+
+	</div>
 
 
 
@@ -194,24 +207,50 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			var cost = null;
+			var indent_id = null
 			$("#payed").click(function() {
-				alert("test");
 				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>预定人电话</th><th>价格</th><th>退款</th></tr>")
+				var tbody= $("table > tbody").empty();
 				$.post("/indents/show_indents1", function(data) {
-					var tbody= $("table > tbody").empty();
+					
 					$.each(data,function(i,item){
 						var tr = $("<tr/>");
 						var indentId = $("<td/>").html(item.indent.indentId);
 						var bookDate = $("<td/>").html(item.indent.startTime);
 						var tel = $("<td/>").html(item.indent.customerId);
 						var price = $("<td/>").html(item.indent.cost);
-						var button = $("<td/>").html("退款");
+						var button = $("<td/>");
+						if(item.indent.payType==1){
+							button.html("<button class='cardRefund'>退款</button>")
+						}else{
+							button.html("<button class='pointRefund'>退积分</button>")
+						}
+						button.attr({"indent_id":item.indent.indentId,"cost":item.indent.cost});
 						
 						tr.append(indentId,bookDate,tel,price,button).appendTo(tbody);
 			})
 
 				}, "json");
 
+			})
+			//退款
+			//银行卡退款
+			$(".cardRefund").click(function () {
+				#("#cardPayDisplay").show();
+				$("#card_cost").val($(this).attr("cost"));
+				$("#card_indent_id").val($(this).attr("indent_id"))
+			});
+			
+			$(".pointRefund").click(function(){
+				$.post("/pay/refundByP",
+						  {
+						    cost:$(this).attr("cost"),
+						    indent_id:$(this).attr("indent_id")
+						  },
+						  function(data){
+						    alert("退款成功，你当前还有"+data+"分");
+						  },"json");
 			})
 			
 			$("#finished").click(function() {
@@ -241,6 +280,8 @@
 
 			})
 			
+			
+			
 			$("#unpay").click(function() {
 				$("table>thead").html("<tr><th>订单号</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
 				$.post("/indents/show_indents3", function(data) {
@@ -259,6 +300,8 @@
 
 			})
 			
+			
+			
 			$("#refund").click(function() {
 				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
 				$.post("/indents/show_indents4", function(data) {
@@ -270,7 +313,7 @@
 						var refundDate = $("<td/>").html(item.indent.endTime);
 						var tel = $("<td/>").html(item.indent.customerId);
 						var price = $("<td/>").html(item.indent.cost);
-						var button = $("<td/>").html("去支付");
+						var button = $("<td/>").html("已完成");
 						
 						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
 			})
