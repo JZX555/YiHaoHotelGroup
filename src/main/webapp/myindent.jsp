@@ -161,18 +161,32 @@
 
 	</footer>
 	<!--/.footer-->
-	
+
 	<div id="cardPayDisplay" class="explore"
-		style="display: none; position: fixed; width: 90%; left: 5%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 20%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
 		<div class="section-header">
-			<form action="/pay/refundByDB" method="post">
+			<form action="/pay/refundByDB" method="get">
 				<input type="text" name="card_id" placeholder="请输入银行卡号码"><br>
-				<input type="hidden" id="card_cost" name="cost"> 
-				<input type="hidden" id="card_indent_id" name="indent_id">  
-				<input type="submit" value="确定退款 ">
+				<input type="hidden" id="card_cost" name="cost"> <input
+					type="hidden" id="card_indent_id" name="indent_id"> <input
+					type="submit" value="确定退款 ">
 			</form>
 		</div>
 
+	</div>
+	<!-- 未付款支付 -->
+	<div id="goPay" class="explore"
+		style="display: none; margin-tp:'25%'; position: fixed; width: 90%; left: 5%; top: 25%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		<div class="section-header">
+			
+			<form action="/pay/choose" method="post">
+				<input type="hidden" id="goPayIndentId" name="indent_id"><br>
+				<input type="hidden" id="goPayCost" name="cost"> 
+				<input type="hidden" id="goPayPrice" name="price">
+				 <input type="submit" name="submit" value="积分支付"><br>
+				 <input type="submit" name="submit" value="银行卡支付">
+			</form>
+		</div>
 	</div>
 
 
@@ -207,8 +221,7 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var cost = null;
-			var indent_id = null
+			//$("#cardPayDisplay").show();
 			$("#payed").click(function() {
 				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>预定人电话</th><th>价格</th><th>退款</th></tr>")
 				var tbody= $("table > tbody").empty();
@@ -222,11 +235,11 @@
 						var price = $("<td/>").html(item.indent.cost);
 						var button = $("<td/>");
 						if(item.indent.payType==1){
-							button.html("<button class='cardRefund'>退款</button>")
+							button.html("<input type='button' id='cardRefund' value='退款'>")
 						}else{
-							button.html("<button class='pointRefund'>退积分</button>")
+							button.html("<input type='button' id='pointRefund' value='退积分'>")
 						}
-						button.attr({"indent_id":item.indent.indentId,"cost":item.indent.cost});
+						button.children("input").attr({"indent_id":item.indent.indentId,"cost":item.indent.cost});
 						
 						tr.append(indentId,bookDate,tel,price,button).appendTo(tbody);
 			})
@@ -236,13 +249,14 @@
 			})
 			//退款
 			//银行卡退款
-			$(".cardRefund").click(function () {
-				#("#cardPayDisplay").show();
+			$(document).on("click","#cardRefund",function(){
+				alert("hello");
+				$("#cardPayDisplay").show();
 				$("#card_cost").val($(this).attr("cost"));
 				$("#card_indent_id").val($(this).attr("indent_id"))
 			});
-			
-			$(".pointRefund").click(function(){
+			//积分退款
+			$(document).on("click","#pointRefund",function(){
 				$.post("/pay/refundByP",
 						  {
 						    cost:$(this).attr("cost"),
@@ -291,13 +305,20 @@
 						var indentId = $("<td/>").html(item.indent.indentId);
 						var tel = $("<td/>").html(item.indent.customerId);
 						var price = $("<td/>").html(item.indent.cost);
-						var button = $("<td/>").html("去支付");
-						
+						var button = $("<td/>").html("<button id='goPayButton'>去支付</button>");
+						button.attr({"indent_id":item.indent.indentId,"price":item.indent.price,"cost":item.indent.cost});	
 						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
 			})
 
 				}, "json");
 
+			})
+			//去支付
+			$("#goPayButton").click(function () {
+				$("#goPayIndentId").val($(this).attr("indent_id"));
+				$("#goPayPrice").val($(this).attr("price"));
+				$("#goPayCost").val($(this).attr("cost"));
+				$("#goPay").show();
 			})
 			
 			
@@ -322,7 +343,7 @@
 
 			})
 			
-
+			$("#payed").click();
 		})
 	</script>
 
