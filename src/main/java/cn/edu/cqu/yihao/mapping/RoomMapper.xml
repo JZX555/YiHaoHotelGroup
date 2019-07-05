@@ -19,7 +19,7 @@
 		from room
 		where room_id = #{roomId,jdbcType=VARCHAR}
 	</select>
-	<select id="selectPriceByType" parameterType="java.lang.Integer">
+	<select id="selectPriceByType" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		select distinct price
 		from room
 		where room_type = #{roomType,jdbcType=INTEGER}
