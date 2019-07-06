@@ -133,9 +133,9 @@
   </update>
   <update id="subPoint">
   	update account
-  	set point = #{point, jdbcType=INTEGER} - point
+  	set point = point - #{point, jdbcType=INTEGER}
   		where tel = #{tel,jdbcType=VARCHAR} and
-  			#{point, jdbcType=INTEGER} &lt; point
+  			#{point, jdbcType=INTEGER} &lt;= point
   </update>
   <update id="updatePassword">
   	update account
