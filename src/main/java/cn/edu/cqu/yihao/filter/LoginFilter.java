@@ -13,6 +13,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -47,15 +48,13 @@ public class LoginFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		resp.setContentType("text/html;charset=utf-8");
 		List<String> list= new ArrayList<String>(); //将不需要过滤的请求存放到集合中
-		list.add("index.jsp");
-		list.add("/log/login");
-		//list.add("/log/login");//跳转至登录页面请求
-		list.add("/log/register");//注册页面
-		list.add("validate");
-		//list.add("/login");//登录页面
-		//list.add("/isname");//是否存在用户名请求
-		//list.add("/toregister");//跳转到注册页面请求
+		list.add("/index.jsp");
+		list.add("/log/login");//登录页面
+		list.add("/log/register");//跳转到注册页面请求
+		list.add("/validate");
+		list.add("/assets");
 		String path = req.getServletPath();//得到请求的url
+		System.out.println("uri:"+path);
 		//循环集合把不需要过滤的请求放行
 		for(String l : list){
 			if(path.endsWith(l)){
@@ -63,7 +62,6 @@ public class LoginFilter implements Filter {
 				return;
 			}
 		}
-		//查看session是否存在对象，有对象的话也不需要过滤
 		Cookie[] cookies = req.getCookies();//这样便可以获取一个cookie数组
 		int flag=0;
 		for(Cookie cookie : cookies)
@@ -76,6 +74,9 @@ public class LoginFilter implements Filter {
 		}
 		if(flag==0){
 			//session没有对象就跳转到登录页面
+            HttpSession session = req.getSession(true); 
+            String requestUri = req.getRequestURI();//得到请求的uri
+            session.setAttribute("requestUri", requestUri);
 			System.out.println("无用户");
 			resp.sendRedirect("/log/login");
 		}
