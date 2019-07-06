@@ -170,14 +170,14 @@
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">2</p>
-							<c:if test="${roomtype1!=0}">
+							<c:if test="${roomtype2!=0}">
 								<button
 									class="welcome-hero-btn book-button select-breakfast-button"
 									value="2">
 									立即预定 <i data-feather="search"></i>
 								</button>
 							</c:if>
-							<c:if test="${roomtype1==0}">
+							<c:if test="${roomtype2==0}">
 								<div class="welcome-hero-btn">
 									无余房<i data-feather="search"></i>
 								</div>
@@ -192,14 +192,14 @@
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">3</p>
-							<c:if test="${roomtype1!=0}">
+							<c:if test="${roomtype3!=0}">
 								<button
 									class="welcome-hero-btn book-button select-breakfast-button"
 									value="3">
 									立即预定 <i data-feather="search"></i>
 								</button>
 							</c:if>
-							<c:if test="${roomtype1==0}">
+							<c:if test="${roomtype3==0}">
 								<div class="welcome-hero-btn">
 									无余房<i data-feather="search"></i>
 								</div>
@@ -214,14 +214,14 @@
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">大床房</p>
-							<c:if test="${roomtype1}!=0">
+							<c:if test="${roomtype4!=0}">
 								<button
 									class="welcome-hero-btn book-button select-breakfast-button"
 									value="4">
 									立即预定 <i data-feather="search"></i>
 								</button>
 							</c:if>
-							<c:if test="${roomtype1}==0">
+							<c:if test="${roomtype4}==0">
 								<div class="welcome-hero-btn">
 									无余房<i data-feather="search"></i>
 								</div>
@@ -236,7 +236,7 @@
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">5</p>
-							<c:if test="${roomtype1}!=0">
+							<c:if test="${roomtype5!=0}">
 								<button
 									class="welcome-hero-btn book-button select-breakfast-button"
 									value="5">
@@ -244,7 +244,7 @@
 								</button>
 							</c:if>
 
-							<c:if test="${roomtype1}==0">
+							<c:if test="${roomtype5==0}">
 								<div class="welcome-hero-btn">
 									无余房<i data-feather="search"></i>
 								</div>
@@ -276,7 +276,7 @@
 	</footer>
 	<!--/.footer-->
 	<div id="breakfast" class="explore"
-		style="display: none; position: fixed; width: 90%; left: 5%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 25%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
 		<div class="explore-content">
 			<div class="section-header">
 				<h2>选择早餐类型</h2>
