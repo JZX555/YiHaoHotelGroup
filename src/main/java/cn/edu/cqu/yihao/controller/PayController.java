@@ -114,8 +114,8 @@ public class PayController {
 	
 	}
 	@RequestMapping("/point")
-	public int pointWay(HttpServletRequest req,@CookieValue("loginTel") String tel) {
-		int resflag=0;
+	public String pointWay(HttpServletRequest req,@CookieValue("loginTel") String tel) {
+		String resflag="faildPay";
 		
 		String s=(String)req.getParameter("need_point"); 	
 		//double dneed_point=Double.parseDouble(s);//need_point是十倍的cost
@@ -147,7 +147,7 @@ public class PayController {
 			int r=acService.addPoint(tel, price); //增加maxpoint
 			int curpoint=account.getMaxpoint();  //修改会员等级
 			changeViplevel(curpoint,tel);
-			resflag=1;
+			resflag="successPay";
 			
 		}
 		return resflag;
@@ -175,8 +175,8 @@ public class PayController {
 		return res;
 	}
 	@RequestMapping("/refunnbyDB")
-	public int  refunnbyDB(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
-		int flag=0;
+	public String  refunnbyDB(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
+		String flag="faildfund";
 		String card_id=(String)req.getParameter("card_id"); 
 		//String password=(String)req.getParameter("password");
 		Double  cost =double2((String)req.getParameter("cost")); //获得花费价格
@@ -204,13 +204,13 @@ public class PayController {
 			int r=acService.addPoint(tel, -price);//修改积分
 			int curpoint=account.getMaxpoint();  //修改会员等级
 			changeViplevel(curpoint,tel);
-			flag=1;
+			flag="successrefund";
 		}
 		return flag;
 	}
 	
 	@RequestMapping("/refunnbyP")
-	
+	@ResponseBody
 	public int  refunnbyP(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {//减去原价对应的积分，加上折扣价对应的积分
 		int flag=0;
 		Double  dcost = Double.parseDouble((String)req.getParameter("cost"));

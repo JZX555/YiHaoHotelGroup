@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.cqu.yihao.pojo.Account;
@@ -150,8 +151,14 @@ public class IndentController {
 		return default_indents;	
 	}
 	
+	@RequestMapping(value="/addComment",method=RequestMethod.GET)
+	public String addCommentj(HttpServletRequest request, Model model) {
+		model.addAttribute("indent_id",(String)request.getParameter("indent_id"));
+		return "addComment";
+	}
+	
 
-	@RequestMapping("/addComment")//添加评价
+	@RequestMapping(value="/addComment",method=RequestMethod.POST)//添加评价
 	
 	public int addComment(HttpServletRequest request, Model model) {
 		int flag=0;
@@ -180,7 +187,7 @@ public class IndentController {
 		model.addAttribute("score",p.getSocre());
 		model.addAttribute("comment", p.getComment());
 		
-		return "/showComment";		
+		return "showComment";		
 	}
 	
 	

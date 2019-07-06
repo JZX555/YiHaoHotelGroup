@@ -182,7 +182,7 @@ th,td{
 	<div id="cardPayDisplay" class="explore"
 		style="display: none; position: fixed; width: 90%; left: 5%; top: 20%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
 		<div class="section-header">
-			<form action="/pay/refundByDB" method="get">
+			<form action="/pay/refunnbyDB" method="post">
 				<input type="text" name="card_id" placeholder="请输入银行卡号码"><br>
 				<input type="hidden" id="card_cost" name="cost"> <input
 					type="hidden" id="card_indent_id" name="indent_id"> <input
@@ -350,7 +350,7 @@ th,td{
 											function() {
 												$("table>thead")
 														.html(
-																"<tr><th>订单号</th><th>预定日期</th>th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+																"<tr><th>订单号</th><th>入住日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
 																var header = $("#header").empty();
 																header.text("已完成订单");
 												$
@@ -370,7 +370,7 @@ th,td{
 																						var indentId = $(
 																								"<td/>")
 																								.html(
-																										item.indent.indentId);
+																										item.indent.tel);
 																						var bookDate = $(
 																								"<td/>")
 																								.html(
@@ -397,7 +397,7 @@ th,td{
 																							button = $(
 																									"<td/>")
 																									.html(
-																											"<form action='/indents/showComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='查看评价'></form>");
+																											"<form action='/indents/showComment' method='post'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='查看评价'></form>");
 																						}
 
 																						tr
@@ -445,7 +445,7 @@ th,td{
 																						var tel = $(
 																								"<td/>")
 																								.html(
-																										item.indent.customerId);
+																										item.indent.tel);
 																						var price = $(
 																								"<td/>")
 																								.html(
@@ -479,7 +479,7 @@ th,td{
 										$("#goPayIndentId").val(
 												$(this).attr("indent_id"));
 										$("#goPayPrice").val(
-												$(this).attr("price"));
+												1000);
 										$("#goPayCost").val(
 												$(this).attr("cost"));
 										$("#goPay").show();
@@ -490,7 +490,7 @@ th,td{
 											function() {
 												$("table>thead")
 														.html(
-																"<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>");
+																"<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>状态</th></tr>");
 												var header = $("#header").empty();
 												header.text("已退款/取消订单");
 												$
@@ -514,15 +514,15 @@ th,td{
 																						var bookDate = $(
 																								"<td/>")
 																								.html(
-																										item.indent.startTime);
+																										formatDate(new Date(item.indent.startTime)));
 																						var refundDate = $(
 																								"<td/>")
 																								.html(
-																										item.indent.endTime);
+																										formatDate(new Date(item.indent.endTime)));
 																						var tel = $(
 																								"<td/>")
 																								.html(
-																										item.indent.customerId);
+																										item.indent.tel);
 																						var price = $(
 																								"<td/>")
 																								.html(
@@ -530,13 +530,13 @@ th,td{
 																						var button = $(
 																								"<td/>")
 																								.html(
-																										"已完成");
+																										"已退款/已取消");
 
 																						tr
 																								.append(
 																										indentId,
 																										bookDate,
-																										endDate,
+																										refundDate,
 																										tel,
 																										price,
 																										button)

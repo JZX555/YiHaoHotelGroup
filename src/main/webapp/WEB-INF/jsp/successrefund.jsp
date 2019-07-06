@@ -111,7 +111,7 @@
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=""><a id="home" class="active" href="#">银行卡支付</a></li>
+							<li class=""><a id="home" class="active" href="#">支付成功</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -133,24 +133,10 @@
 		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
-				<h2>银行卡支付</h2>
-				<hr>
-				
-				<h2>你共需支付：</h2>
-				<h2><c:out value="${cost}"/>元</h2>
-				
-				<form action="/pay/debit_card" method="post">
-				<input type="hidden" name="cost" value="${cost }">
-				<input type="hidden" name="price" value="${price }">
-				<input type="hidden" name="indent_id" value="${indent_id }">
-				<br><br><br>
-				<h2>请输入银行卡账户</h2>
-				<input type="text" name="card_id" placeholder="银行卡账户"><br>
-				<h2>请输入银行卡密码</h2>
-				<input type="text" name="password" placeholder="密码"><br>
-				<button class="welcome-hero-btn" style="display:inline-block;">确认支付</button>
+				<h2>退款成功</h2>
+				<button class="welcome-hero-btn" style="display: inline-block;">
+						<a href="/">返回首页</a>
 				</form>
-				
 			</div>
 
 		</div>
