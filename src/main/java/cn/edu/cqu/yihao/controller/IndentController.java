@@ -171,6 +171,8 @@ public class IndentController {
 		
 		return flag;		
 	}
+	
+	
 	@RequestMapping("/showComment")//查看评价
 	public String changeComment(HttpServletRequest request, Model model) {
 		String indent_id=(String)request.getParameter("indent_id");//需要订单号

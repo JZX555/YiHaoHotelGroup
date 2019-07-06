@@ -54,41 +54,52 @@ public class PersonalController {
 		return "PersonalCenter";
 	}
 	
-	@RequestMapping("/functionchose")
-	public String functionchose(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel)
+	@RequestMapping("/gouserinfo")
+	public String gouserinfo( Model model,@CookieValue("loginTel") String tel)
+	{
+		model.addAttribute("tel", tel);
+		return "userInfo";
+	}
+	@RequestMapping("/goindents")
+	public String goindents( Model model,@CookieValue("loginTel") String tel)
+	{
+		model.addAttribute("tel", tel);
+		return "myindent";
+	}
+	@RequestMapping("/govipcenter")
+	public String govipcenter( Model model,@CookieValue("loginTel") String tel)
 	{
 		Account account=acService.getAccountByTel(tel);
 		int vip_level=account.getVipLevel();
 		Vip vip=vService.getByLevel(vip_level);
 		
-		String res="";
-		String action = req.getParameter("submit"); 
-		if(action.equals("个人信息")) {
-			model.addAttribute("tel", tel);
-			res="userInfo";
-		}
-		if(action.equals("我的订单")) {
-			res="myindent";
-		}
-		if(action.equals("会员中心")) {
-			model.addAttribute("vip_level", vip_level);
-			model.addAttribute("max_point", account.getMaxpoint());
-			model.addAttribute("remain_point", account.getPoint());
-			model.addAttribute("discount", vip.getDiscount());
-			res="VIPcenter";
-		}
-		if(action.equals("注销")) {
-			res="forward:/log/logout";
-		}
-		if(action.equals("预订"))
-			res="redirect:/";
-		if(action.equals("活动一"))
-			res="activity1";
-		if(action.equals("活动二"))
-			res="activity2";
-		return res;
+		model.addAttribute("vip_level", vip_level);
+		model.addAttribute("max_point", account.getMaxpoint());
+		model.addAttribute("remain_point", account.getPoint());
+		model.addAttribute("discount", vip.getDiscount());
+		return "VIPcenter";
 	}
-	
+	@RequestMapping("/gologout")
+	public String gologout()
+	{
+		return "forward:/log/logout";
+	}
+	@RequestMapping("/gobook")
+	public String gobook()
+	{
+		return "redirect:/";
+	}
+	@RequestMapping("/goactivity1")
+	public String goactivity1()
+	{
+		return "activity1";
+	}
+	@RequestMapping("/goactivity2")
+	public String goactivity2()
+	{
+		return "activity2";
+	}
+
 	@RequestMapping("/personal_inf")
 	public int personal_inf(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel)
 	{

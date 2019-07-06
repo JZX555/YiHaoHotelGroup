@@ -104,9 +104,10 @@ public class PayController {
 	public int pointWay(HttpServletRequest req,@CookieValue("loginTel") String tel) {
 		int resflag=0;
 		String s=(String)req.getParameter("need_point"); 		
-		int price = Integer.parseInt( (String)req.getParameter("price") ); //获得原价
-		
-		int need_point=Integer.parseInt(s);//need_point是十倍的cost
+		double dprice = Double.parseDouble( (String)req.getParameter("price") ); //获得原价
+		int price=(int)dprice;
+		double dneed_point=Double.parseDouble(s);//need_point是十倍的cost
+		int need_point=(int)dneed_point;
 		Account account=acService.getAccountByTel(tel);
 		String indent_id=(String)req.getParameter("indent_id");
 		Indent indent= new Indent();
