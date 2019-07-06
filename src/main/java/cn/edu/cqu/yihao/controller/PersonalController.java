@@ -3,6 +3,7 @@ package cn.edu.cqu.yihao.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,19 @@ public class PersonalController {
 	private VipService vipService;
 	
 	@RequestMapping("/goIndex")
-	public String goIndex(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
+	public String goIndex(HttpServletRequest request, Model model) {
+		String tel = "";
+		Cookie[] cookies = request.getCookies();
+		for(Cookie cookie:cookies) {
+			if(cookie.getName().equals("loginTel")) {
+				tel = cookie.getValue();
+				break;
+			}
+		}
+		
+		if(tel.equals(""))
+			return "redirect:/log/logout";
+		
 		Account account = this.acService.getAccountByTel(tel);
 		int needPoint = 0;
 		int maxPoint = account.getMaxpoint();
@@ -55,8 +68,20 @@ public class PersonalController {
 	}
 	
 	@RequestMapping("/gouserinfo")
-	public String gouserinfo( Model model,@CookieValue("loginTel") String tel)
+	public String gouserinfo(HttpServletRequest request, Model model)
 	{
+		String tel = "";
+		Cookie[] cookies = request.getCookies();
+		for(Cookie cookie:cookies) {
+			if(cookie.getName().equals("loginTel")) {
+				tel = cookie.getValue();
+				break;
+			}
+		}
+		
+		if(tel.equals(""))
+			return "redirect:/log/logout";
+		
 		Account account = this.acService.getAccountByTel(tel);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -67,15 +92,39 @@ public class PersonalController {
 		
 		return "userinfo";
 	}
+	
 	@RequestMapping("/goindents")
-	public String goindents( Model model,@CookieValue("loginTel") String tel)
-	{
+	public String goindents(HttpServletRequest request, Model model) {
+		String tel = "";
+		Cookie[] cookies = request.getCookies();
+		for(Cookie cookie:cookies) {
+			if(cookie.getName().equals("loginTel")) {
+				tel = cookie.getValue();
+				break;
+			}
+		}
+		
+		if(tel.equals(""))
+			return "redirect:/log/logout";
+		
 		model.addAttribute("tel", tel);
 		return "myindent";
 	}
+	
 	@RequestMapping("/govipcenter")
-	public String govipcenter( Model model,@CookieValue("loginTel") String tel)
-	{
+	public String govipcenter(HttpServletRequest request, Model model) {
+		String tel = "";
+		Cookie[] cookies = request.getCookies();
+		for(Cookie cookie:cookies) {
+			if(cookie.getName().equals("loginTel")) {
+				tel = cookie.getValue();
+				break;
+			}
+		}
+		
+		if(tel.equals(""))
+			return "redirect:/log/logout";
+		
 		Account account=acService.getAccountByTel(tel);
 		int vip_level=account.getVipLevel();
 		Vip vip=vService.getByLevel(vip_level);
@@ -86,33 +135,41 @@ public class PersonalController {
 		model.addAttribute("discount", vip.getDiscount());
 		return "VipRights";
 	}
+	
 	@RequestMapping("/gologout")
-	public String gologout()
-	{
+	public String gologout() {
 		return "forward:/log/logout";
 	}
+	
 	@RequestMapping("/gobook")
-	public String gobook()
-	{
+	public String gobook() {
 		return "redirect:/";
 	}
+	
 	@RequestMapping("/goactivity1")
-	public String goactivity1()
-	{
+	public String goactivity1() {
 		return "activity1";
 	}
+	
 	@RequestMapping("/goactivity2")
-	public String goactivity2()
-	{
+	public String goactivity2() {
 		return "activity2";
 	}
 
 	@RequestMapping("/personal_inf")
 	@ResponseBody
-	public int personal_inf(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel)
-	{
+	public int personal_inf(HttpServletRequest request, Model model) {
 		int flag=0;
-		String birthday=(String)req.getParameter("birthday");
+		String tel = "";
+		Cookie[] cookies = request.getCookies();
+		for(Cookie cookie:cookies) {
+			if(cookie.getName().equals("loginTel")) {
+				tel = cookie.getValue();
+				break;
+			}
+		}
+		
+		String birthday=(String)request.getParameter("birthday");
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date Birthday = null;
 		try {
@@ -121,7 +178,7 @@ public class PersonalController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String email=(String)req.getParameter("email"); 
+		String email=(String)request.getParameter("email"); 
 		Account account = new Account();
 		account.setTel(tel);
 		account.setEmail(email);
@@ -161,21 +218,34 @@ public class PersonalController {
 	
 	@RequestMapping("/changePassword")
 	@ResponseBody
-	public int changePassword(HttpServletRequest request, @CookieValue("loginTel") String tel, Model model) {
+	public int changePassword(HttpServletRequest request, Model model) {
 		int flag = 0;
+		String tel = "";
+		Cookie[] cookies = request.getCookies();
+		for(Cookie cookie:cookies) {
+			if(cookie.getName().equals("loginTel")) {
+				tel = cookie.getValue();
+				break;
+			}
+		}
+		
 		Account account = new Account();
 		String oldPassword = request.getParameter("oldPassword");
 		String newPassword = request.getParameter("newPassword");
 		
-		Account old = this.acService.getAccountByTel(tel);
-		if(old.getPassword().equals(oldPassword)) {
-			account.setTel(tel);
-			account.setPassword(newPassword);
-			
-			flag = this.acService.updateSelect(account);
-		}
-		else
+		if(tel.equals(""))
 			flag = -1;
+		else {
+			Account old = this.acService.getAccountByTel(tel);
+			if(old.getPassword().equals(oldPassword)) {
+				account.setTel(tel);
+				account.setPassword(newPassword);
+				
+				flag = this.acService.updateSelect(account);
+			}
+			else
+				flag = -1;
+		}
 		
 		return flag;
 	}
