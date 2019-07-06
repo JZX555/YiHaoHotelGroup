@@ -220,6 +220,7 @@ public class UserController
 			indent.setIndentType(0);
 			indent.setCustomerId(customerId);
 			indent.setPayType(0);
+			indent.setPayType(0);
 			// 通过price计算并设置cost
 			Account currentAccount = accountservice.getAccountByTel(tel);
 			int vipLevel = currentAccount.getVipLevel();// 获取VIP等级

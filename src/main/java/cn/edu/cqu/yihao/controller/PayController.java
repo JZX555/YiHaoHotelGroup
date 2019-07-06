@@ -2,6 +2,7 @@ package cn.edu.cqu.yihao.controller;
 
 import java.text.DecimalFormat;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +41,25 @@ public class PayController {
 		String res="";
 		String action = req.getParameter("submit"); 
 		String indent_id=(String)req.getParameter("indent_id");  //需要传给我indent_id,price,cost
-		Double  price = Double.parseDouble((String)req.getParameter("price"));
-		System.out.println("获得price"+price);
+		//Double  price = Double.parseDouble((String)req.getParameter("price"));
+		//System.out.println("获得price"+price);
+		
 		Double  cost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
 		System.out.println("获得cost"+cost);
+		
+		Account account=acService.getAccountByTel(tel);
+		int vip_level=account.getVipLevel();
+		Vip vip=vService.getByLevel(vip_level);
+		double discount=vip.getDiscount();
+		double dprice=(double)cost/discount;
+		int price=(int)dprice;
+		
+		
+		
 		if(action.equals("积分支付")) { 
 			
 			
-			Account account=acService.getAccountByTel(tel);
+			
 			int  need_point = cost.intValue();//需要的积分是折扣价的十倍
 			System.out.println("获得cost"+need_point);
 			int point=account.getPoint();   //剩余积分
@@ -116,7 +128,7 @@ public class PayController {
 	@RequestMapping("/point")
 	public String pointWay(HttpServletRequest req,@CookieValue("loginTel") String tel) {
 		String resflag="faildPay";
-		
+
 		String s=(String)req.getParameter("need_point"); 	
 		//double dneed_point=Double.parseDouble(s);//need_point是十倍的cost
 		//int need_point=(int)dneed_point;
@@ -217,12 +229,14 @@ public class PayController {
 		int cost=dcost.intValue();
 		//int  price = Integer.parseInt((String)req.getParameter("price"));
 		String indent_id=(String)req.getParameter("indent_id");
+		
 		Account account=acService.getAccountByTel(tel);
 		int vip_level=account.getVipLevel();
 		Vip vip=vService.getByLevel(vip_level);
 		double discount=vip.getDiscount();
 		double dprice=(double)cost/discount;
 		int price=(int)dprice;
+		
 		Indent indent= new Indent();
 		indent.setIndentId(indent_id);
 		indent.setIndentType(5);// 更改订单状态
