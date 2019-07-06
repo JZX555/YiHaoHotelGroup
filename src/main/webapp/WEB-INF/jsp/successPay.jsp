@@ -111,7 +111,7 @@
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=""><a id="home" class="active" href="#">支付结果</a></li>
+							<li class=""><a id="home" class="active" href="#">支付成功</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -133,7 +133,10 @@
 		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
-				<h2>支付失败</h2>
+				<h2>支付成功</h2>
+				<button class="welcome-hero-btn" style="display: inline-block;">
+						<a href="/">返回首页</a>
+				</form>
 			</div>
 
 		</div>

@@ -276,7 +276,7 @@
 	</footer>
 	<!--/.footer-->
 	<div id="breakfast" class="explore"
-		style="display: none; position: fixed; width: 90%; left: 5%; top: 25%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 20%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
 		<div class="explore-content">
 			<div class="section-header">
 				<h2>选择早餐类型</h2>
@@ -325,8 +325,10 @@
 	</div>
 
 	<div id="information" class="explore"
-		style="display: none; position: fixed; width: 90%; left: 5%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 20%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
 		<div class="section-header">
+			<h2>请输入以下信息</h2>
+			<hr>
 			<form action="/user/ready" method="post">
 				<input type="text" name="customerName" placeholder="姓名"><br>
 				<input type="text" name="customerId" placeholder="身份证号"><br>
@@ -335,7 +337,12 @@
 				<input type="hidden" id="strategyType" name="strategyType"> 
 				<input type="hidden" name="checkInDate" value="${checkInDate}"> 
 				<input type="hidden" name="checkOutDate" value="${checkOutDate}"> 
-				<input type="submit" value="预定 ">
+				<br>
+				<br>
+				<button value="2" class="welcome-hero-btn"
+								style="width: 170px; height: 40px; margin: auto;">
+								预定 <i data-feather="search"></i>
+							</button>
 			</form>
 		</div>
 

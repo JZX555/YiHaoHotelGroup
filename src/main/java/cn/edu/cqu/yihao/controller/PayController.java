@@ -64,8 +64,8 @@ public class PayController {
 	
 	
 	@RequestMapping("/debit_card")
-	public int debit_cardWay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
-		int resflag=0;
+	public String debit_cardWay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
+		String resflag="faildPay";
 		Double  cost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
 		Double  price = Double.parseDouble((String)req.getParameter("price"));//获得原价
 		String indent_id=(String)req.getParameter("indent_id");//需要订单号
@@ -95,7 +95,7 @@ public class PayController {
 				acService.setVipLevel(tel,2);
 			else
 				acService.setVipLevel(tel,3);
-			resflag=1;
+			resflag="successPay";
 			return resflag;
 		}
 	
