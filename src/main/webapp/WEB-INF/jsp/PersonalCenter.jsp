@@ -207,11 +207,15 @@
 		</div>
 		<div class="vip" >
 			<img src="/assets/images/personalcenter/1.png">
-
-			
-				<p>您有        可用积分</p></br>
-				<p>您已累计             积分</p></br>
-				<p>距离升级下一等级会员还需           积分</p></br>
+				<p>您有
+				<c:out value="${availPoint}"></c:out>	
+				可用积分</p></br>
+				<p>您已累计
+				<c:out value="${maxPoint}"></c:out>
+				积分</p></br>
+				<p>距离升级下一等级会员还需
+				<c:out value="${needPoint}"></c:out>
+				积分</p></br>
 				<p>会员特权请点击会员中心进行查看</p></br>
 		</div>
 		</div>

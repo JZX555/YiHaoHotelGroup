@@ -18,7 +18,8 @@ import cn.edu.cqu.yihao.service.AccountService;
 import cn.edu.cqu.yihao.service.EmailService;
 import cn.edu.cqu.yihao.service.VipService;
 
-@Controller("/Personal")
+@Controller
+@RequestMapping("/Personal")
 public class PersonalController {
 	
 	@Autowired
@@ -27,6 +28,31 @@ public class PersonalController {
 	private VipService vService;
 	@Autowired
 	private EmailService emailService;
+	@Autowired
+	private VipService vipService;
+	
+	@RequestMapping("/goIndex")
+	public String goIndex(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
+		Account account = this.acService.getAccountByTel(tel);
+		int needPoint = 0;
+		int maxPoint = account.getMaxpoint();
+		int vip = account.getVipLevel() + 1;
+		
+		if(vip == 1)
+			needPoint = 10000 - maxPoint;
+		else if(vip == 2)
+			needPoint = 30000 - maxPoint;
+		else if(vip == 3)
+			needPoint = 50000 - maxPoint;
+		else if(vip == 4)
+			needPoint = 100000 - maxPoint;
+		
+		model.addAttribute("availPoint", account.getPoint());
+		model.addAttribute("maxPoint", maxPoint);
+		model.addAttribute("needPoint", needPoint);
+		
+		return "PersonalCenter";
+	}
 	
 	@RequestMapping("/gouserinfo")
 	public String gouserinfo( Model model,@CookieValue("loginTel") String tel)
