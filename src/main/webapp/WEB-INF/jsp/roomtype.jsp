@@ -79,7 +79,7 @@
 						</c:if>
 
 						<c:if test="${!login}">
-							<li class="header-top-contact"><a href="#">会员中心</a></li>
+							<li class="header-top-contact"><a href="/Personal/goIndex">会员中心</a></li>
 							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
@@ -316,6 +316,11 @@
 							</button>
 						</div>
 					</div>
+					
+					<button class="welcome-hero-btn cancle"
+								style="width: 170px; height: 40px; margin: auto;">
+								取消 <i data-feather="search"></i>
+							</button>
 				</div>
 			</div>
 		</div>
@@ -340,7 +345,7 @@
 				<br>
 				<br>
 				<button value="2" class="welcome-hero-btn"
-								style="width: 170px; height: 40px; margin: auto;">
+								style="width: 170px; height: 40px; margin-left: auto;margin-right:5px;">
 								预定 <i data-feather="search"></i>
 							</button>
 			</form>

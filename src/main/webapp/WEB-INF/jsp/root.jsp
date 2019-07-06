@@ -56,6 +56,26 @@
 #roomType {
 	padding-left: 50px;
 }
+
+table, th, td
+  {
+  border: 1px solid black;
+  
+  }
+  
+th,td{
+	text-align:center;
+}
+
+#billTable{
+	margin:auto;
+}
+.content{
+	width:60%;
+	margin:auto;
+	text-align:center;
+}
+
 </style>
 
 </head>
@@ -309,7 +329,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div>
+			<div class="content">
 				<input id="detilBtn" type="button" value="查看详情" />
 				<div id="detilContent"></div>
 			</div>
@@ -385,6 +405,9 @@
 		var roomtype = null;
 		$(document).ready(
 						function() {
+							
+							$(".content").hide();
+							$("#billTable").hide();
 
 							$(".rootview").hide();
 							$("#home-view").show();
@@ -600,7 +623,7 @@
 												setTitle = setTitle + "(预定日期：" + formatDate(new Date(rwi.indent.startTime)) + 
 														",    退房日期：" + formatDate(new Date(rwi.indent.endTime)) + ")</p>";
 												setData = setData + "房间状态：不可预定       预定人电话：" + rwi.indent.tel +
-															"</p><br>";
+															"</p><br><hr>";
 											}
 											else {
 												setTitle = setTitle + "</p>"
@@ -611,7 +634,7 @@
 														"<option value='canBook'>可预订</option>" + 
 														"<option value='cantBook'>不可预定</option>" +
 														"<input id='setStatusButton' type='submit' >修改</input>" + 
-														"</select></p><br>";
+														"</select></p><br><hr>";
 											}
 
 											display.append(setTitle, setData, setPR);
@@ -710,6 +733,8 @@
 									}, 
 									dataType:"json",
 									success:function(res) {
+										$(".content").show();
+										$("#billTable").show();
 										var tbody1 = $("#billBody1");
 										var tbody2 = $("#billBody2");									
 										tbody1.empty();
