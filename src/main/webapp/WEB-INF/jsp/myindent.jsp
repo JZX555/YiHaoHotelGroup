@@ -55,19 +55,17 @@
 	padding-left: 50px;
 }
 
-table, th, td
-  {
-  border: 1px solid black;
-  
-  }
-  
-th,td{
-	text-align:center;
-	padding:0 10px;
+table, th, td {
+	border: 1px solid black;
 }
 
-#indentlist{
-	margin:auto;
+th, td {
+	text-align: center;
+	padding: 0 10px;
+}
+
+#indentlist {
+	margin: auto;
 }
 </style>
 
@@ -260,12 +258,14 @@ th,td{
 																"<tr><th>订单号</th><th>预定日期</th><th>预定人电话</th><th>价格</th><th>退款</th></tr>")
 												var tbody = $("table > tbody")
 														.empty();
-												var header = $("#header").empty();
+												var header = $("#header")
+														.empty();
 												$
 														.post(
 																"/indents/show_indents1",
 																function(data) {
-																	header.text("已付款订单")
+																	header
+																			.text("已付款订单")
 
 																	$
 																			.each(
@@ -273,7 +273,10 @@ th,td{
 																					function(
 																							i,
 																							item) {
-																						$(".header").text("已付款订单")
+																						$(
+																								".header")
+																								.text(
+																										"已付款订单")
 																						var tr = $("<tr/>");
 																						var indentId = $(
 																								"<td/>")
@@ -282,7 +285,8 @@ th,td{
 																						var bookDate = $(
 																								"<td/>")
 																								.html(
-																										formatDate(new Date(item.indent.startTime)));
+																										formatDate(new Date(
+																												item.indent.startTime)));
 																						var tel = $(
 																								"<td/>")
 																								.html(
@@ -351,8 +355,9 @@ th,td{
 												$("table>thead")
 														.html(
 																"<tr><th>订单号</th><th>入住日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
-																var header = $("#header").empty();
-																header.text("已完成订单");
+												var header = $("#header")
+														.empty();
+												header.text("已完成订单");
 												$
 														.post(
 																"/indents/show_indents2",
@@ -370,15 +375,17 @@ th,td{
 																						var indentId = $(
 																								"<td/>")
 																								.html(
-																										item.indent.tel);
+																										item.indent.indentId);
 																						var bookDate = $(
 																								"<td/>")
 																								.html(
-																										formatDate(new Date(item.indent.startTime)));
+																										formatDate(new Date(
+																												item.indent.startTime)));
 																						var endDate = $(
 																								"<td/>")
 																								.html(
-																										formatDate(new Date(item.indent.endTime)));
+																										formatDate(new Date(
+																												item.indent.endTime)));
 																						var tel = $(
 																								"<td/>")
 																								.html(
@@ -421,8 +428,9 @@ th,td{
 											function() {
 												$("table>thead")
 														.html(
-																"<tr><th>订单号</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>");
-												var header = $("#header").empty();
+																"<tr><th>订单号</th><th>预定人电话</th><th>价格</th><th>支付</th><th>取消订单</th></tr>");
+												var header = $("#header")
+														.empty();
 												header.text("未付款订单");
 												$
 														.post(
@@ -454,18 +462,25 @@ th,td{
 																								"<td/>")
 																								.html(
 																										"<input type='button' id='goPayButton' value='去支付'>");
-																						button.children("input")
-																								.attr({
-																									"indent_id" : item.indent.indentId,
-																									"price" : item.indent.price,
-																									"cost" : item.indent.cost
-																								});
+																						var cancle =$("<td/>").html("<input type='button' id='cancleButton' value='取消订单'>");
+																						button
+																								.children(
+																										"input")
+																								.attr(
+																										{
+																											"indent_id" : item.indent.indentId,
+																											"price" : item.indent.price,
+																											"cost" : item.indent.cost,
+																											"checkInDate":item.indent.startTime,
+																											"checkOutDate":item.indent.endTime
+																										});
 																						tr
 																								.append(
 																										indentId,
 																										tel,
 																										price,
-																										button)
+																										button,
+																										cancle)
 																								.appendTo(
 																										tbody);
 																					})
@@ -474,15 +489,29 @@ th,td{
 
 											})
 							//去支付
-							$(document).on("click","#goPayButton",
+							$(document).on(
+									"click",
+									"#goPayButton",
 									function() {
 										$("#goPayIndentId").val(
 												$(this).attr("indent_id"));
-										$("#goPayPrice").val(
-												1000);
+										$("#goPayPrice").val(1000);
 										$("#goPayCost").val(
 												$(this).attr("cost"));
 										$("#goPay").show();
+									})
+
+							$(document).on("click", "#cancleButton",
+									function() {
+										$.post("/indents/cancelIndent",
+												{
+													indentId:$(this).attr("indent_id"),
+													checkInDate:$(this).attr("checkInDate"),
+													checkOutDate:$(this).attr("checkOutDate")},
+												function(flag){
+											if(flag==1) alert("取消成功");
+											else alert("取消失败");
+										},"json")
 									})
 
 							$("#refund")
@@ -491,7 +520,8 @@ th,td{
 												$("table>thead")
 														.html(
 																"<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>状态</th></tr>");
-												var header = $("#header").empty();
+												var header = $("#header")
+														.empty();
 												header.text("已退款/取消订单");
 												$
 														.post(
@@ -514,11 +544,13 @@ th,td{
 																						var bookDate = $(
 																								"<td/>")
 																								.html(
-																										formatDate(new Date(item.indent.startTime)));
+																										formatDate(new Date(
+																												item.indent.startTime)));
 																						var refundDate = $(
 																								"<td/>")
 																								.html(
-																										formatDate(new Date(item.indent.endTime)));
+																										formatDate(new Date(
+																												item.indent.endTime)));
 																						var tel = $(
 																								"<td/>")
 																								.html(
