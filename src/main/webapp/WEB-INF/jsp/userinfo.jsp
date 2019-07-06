@@ -148,19 +148,22 @@
 					<div class="welcome-hero-form" style="margin-top: 5px;">
 						<div class="single-welcome-hero-form" style="width: 100%;">
 							<h3>生日</h3>
-							<input type="date" name="birthday" placeholder="${birthday}">
+							<input type="date" name="birthday" id="birthday" placeholder="${birthday}">
 						</div>
 					</div>
 					<div class="welcome-hero-form" style="margin-top: 5px;">
 						<div class="single-welcome-hero-form" style="width: 100%;">
 							<h3>电子邮件</h3>
-							<input type="password" name=email placeholder="${email}">
+							<input type="password" name="email" id="email" placeholder="${email}">
 						</div>
 					</div>
 					
-					<button class="welcome-hero-btn" type="submit" style="margin-top:15px;">
-							修改
-						</button>
+					<button class="welcome-hero-btn" type="submit" style="margin-top:15px;" id="changeInfo">
+							修改信息
+					</button>
+					<button class="welcome-hero-btn" type="submit" style="margin-top:15px;" id="changePassword">
+							修改密码
+					</button>
 				</div>
 			</form>
 		</div>
@@ -217,7 +220,80 @@
 	<script src="/assets/js/custom.js"></script>
 	
 	<script type="text/javascript">
-		
+		$(document).ready(function() {
+			$("#email").blur(function() {
+				var email = $("#email").val();
+				if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+					$(this).after("<span style='color:red'>用户名不存在</span>");
+				}
+			});
+
+			$(document).on("click", "#changeInfo", function() {
+				var tel = $("#tel").val();
+				var email = $("#email").val();
+				var birthday = $("#birthday").val();
+				if(tel == "") {
+					alert("电话不能为空");
+					return false;
+				}
+				if(email == "") {
+					alert("邮箱不能为空");
+					return false;
+				}
+				if(birthday == "") {
+					alert("生日不能为空");
+					return false;
+				}
+				if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+					alert("邮箱格式错误");
+					return false;
+				}
+				$.ajax({
+					type:"post",
+					url:"/Personal/personal_inf",
+					async:false,
+					data:{
+						birthday:birthday,
+						tel:tel,
+						email:email
+					},
+					dataType:"json",
+					success:function(res) {
+						if(res == 0) {
+							alert("修改失败");
+						if(res == 1)
+							alert("修改成功");
+						}
+					},
+					error: function() {
+						alert("修改失败，请联系客服");
+					},
+				});
+			});
+			
+			$(document).on("click", "#changePassword", function() {
+				var email = $("#email").val();
+				if(email == "") {
+					alert("邮箱不能为空");
+					return false;
+				}
+				$.ajax({
+					type:"post",
+					url:"/Personal/goEmail",
+					async=true,
+					data:{
+						email:email,
+					},
+					dataType:"json",
+					success:function(res) {
+						window.location.href = res;
+					},
+					error:function() {
+						alert("跳转失败");
+					}
+				});
+			});
+		});
 	</script>
 
 

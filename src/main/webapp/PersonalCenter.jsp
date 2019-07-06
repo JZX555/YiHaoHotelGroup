@@ -190,7 +190,6 @@
 	
 	
 	<section id="home" class="welcome-hero" style="padding-top: 100px;">
-<<<<<<< HEAD
 	<div>
 		
 
