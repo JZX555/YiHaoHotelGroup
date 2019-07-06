@@ -176,15 +176,15 @@
 	</div>
 	<!-- 未付款支付 -->
 	<div id="goPay" class="explore"
-		style="display: none; margin-tp:'25%'; position: fixed; width: 90%; left: 5%; top: 25%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		style="display: none; margin-tp: '25%'; position: fixed; width: 90%; left: 5%; top: 25%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
 		<div class="section-header">
-			
+
 			<form action="/pay/choose" method="post">
 				<input type="hidden" id="goPayIndentId" name="indent_id"><br>
-				<input type="hidden" id="goPayCost" name="cost"> 
-				<input type="hidden" id="goPayPrice" name="price">
-				 <input type="submit" name="submit" value="积分支付"><br>
-				 <input type="submit" name="submit" value="银行卡支付">
+				<input type="hidden" id="goPayCost" name="cost"> <input
+					type="hidden" id="goPayPrice" name="price"> <input
+					type="submit" name="submit" value="积分支付"><br> <input
+					type="submit" name="submit" value="银行卡支付">
 			</form>
 		</div>
 	</div>
@@ -220,131 +220,312 @@
 	<script src="/assets/js/custom.js"></script>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-			//$("#cardPayDisplay").show();
-			$("#payed").click(function() {
-				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>预定人电话</th><th>价格</th><th>退款</th></tr>")
-				var tbody= $("table > tbody").empty();
-				$.post("/indents/show_indents1", function(data) {
-					
-					$.each(data,function(i,item){
-						var tr = $("<tr/>");
-						var indentId = $("<td/>").html(item.indent.indentId);
-						var bookDate = $("<td/>").html(item.indent.startTime);
-						var tel = $("<td/>").html(item.indent.customerId);
-						var price = $("<td/>").html(item.indent.cost);
-						var button = $("<td/>");
-						if(item.indent.payType==1){
-							button.html("<input type='button' id='cardRefund' value='退款'>")
-						}else{
-							button.html("<input type='button' id='pointRefund' value='退积分'>")
-						}
-						button.children("input").attr({"indent_id":item.indent.indentId,"cost":item.indent.cost});
-						
-						tr.append(indentId,bookDate,tel,price,button).appendTo(tbody);
-			})
+		function formatDate(date) {
+			var day = date.getDate();
+			var month = date.getMonth() + 1;
 
-				}, "json");
+			month = (month.toString().length == 1) ? ("0" + month) : month;
+			day = (day.toString().length == 1) ? ("0" + day) : day;
 
-			})
-			//退款
-			//银行卡退款
-			$(document).on("click","#cardRefund",function(){
-				alert("hello");
-				$("#cardPayDisplay").show();
-				$("#card_cost").val($(this).attr("cost"));
-				$("#card_indent_id").val($(this).attr("indent_id"))
-			});
-			//积分退款
-			$(document).on("click","#pointRefund",function(){
-				$.post("/pay/refundByP",
-						  {
-						    cost:$(this).attr("cost"),
-						    indent_id:$(this).attr("indent_id")
-						  },
-						  function(data){
-						    alert("退款成功，你当前还有"+data+"分");
-						  },"json");
-			})
-			
-			$("#finished").click(function() {
-				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th>th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
-				$.post("/indents/show_indents2", function(data) {
-					var tbody= $("table > tbody").empty();
-					$.each(data,function(i,item){
-						var tr = $("<tr/>");
-						var indentId = $("<td/>").html(item.indent.indentId);
-						var bookDate = $("<td/>").html(item.indent.startTime);
-						var endDate = $("<td/>").html(item.indent.endTime);
-						var tel = $("<td/>").html(item.indent.customerId);
-						var price = $("<td/>").html(item.indent.cost);
-						var button = null;
-						if(item.havePost == 0){
-							button = $("<td/>").html("<form action='/indents/addComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='去评价'></form>");
-						}
-						else{
-							button = $("<td/>").html("<form action='/indents/showComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='查看评价'></form>");
-						}
-						
-						
-						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
-			})
+			var res = date.getFullYear() + "-" + month + "-" + day;
 
-				}, "json");
+			return res;
+		}
+		$(document)
+				.ready(
+						function() {
+							//$("#cardPayDisplay").show();
+							$("#payed")
+									.click(
+											function() {
+												$("table>thead")
+														.html(
+																"<tr><th>订单号</th><th>预定日期</th><th>预定人电话</th><th>价格</th><th>退款</th></tr>")
+												var tbody = $("table > tbody")
+														.empty();
+												$
+														.post(
+																"/indents/show_indents1",
+																function(data) {
 
-			})
-			
-			
-			
-			$("#unpay").click(function() {
-				$("table>thead").html("<tr><th>订单号</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
-				$.post("/indents/show_indents3", function(data) {
-					var tbody= $("table > tbody").empty();
-					$.each(data,function(i,item){
-						var tr = $("<tr/>");
-						var indentId = $("<td/>").html(item.indent.indentId);
-						var tel = $("<td/>").html(item.indent.customerId);
-						var price = $("<td/>").html(item.indent.cost);
-						var button = $("<td/>").html("<button id='goPayButton'>去支付</button>");
-						button.attr({"indent_id":item.indent.indentId,"price":item.indent.price,"cost":item.indent.cost});	
-						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
-			})
+																	$
+																			.each(
+																					data,
+																					function(
+																							i,
+																							item) {
+																						var tr = $("<tr/>");
+																						var indentId = $(
+																								"<td/>")
+																								.html(
+																										item.indent.indentId);
+																						var bookDate = $(
+																								"<td/>")
+																								.html(
+																										formatDate(new Date(item.indent.startTime)));
+																						var tel = $(
+																								"<td/>")
+																								.html(
+																										item.indent.customerId);
+																						var price = $(
+																								"<td/>")
+																								.html(
+																										item.indent.cost);
+																						var button = $("<td/>");
+																						if (item.indent.payType == 1) {
+																							button
+																									.html("<input type='button' id='cardRefund' value='退款'>")
+																						} else {
+																							button
+																									.html("<input type='button' id='pointRefund' value='退积分'>")
+																						}
+																						button
+																								.children(
+																										"input")
+																								.attr(
+																										{
+																											"indent_id" : item.indent.indentId,
+																											"cost" : item.indent.cost
+																										});
 
-				}, "json");
+																						tr
+																								.append(
+																										indentId,
+																										bookDate,
+																										tel,
+																										price,
+																										button)
+																								.appendTo(
+																										tbody);
+																					})
 
-			})
-			//去支付
-			$("#goPayButton").click(function () {
-				$("#goPayIndentId").val($(this).attr("indent_id"));
-				$("#goPayPrice").val($(this).attr("price"));
-				$("#goPayCost").val($(this).attr("cost"));
-				$("#goPay").show();
-			})
-			
-			
-			
-			$("#refund").click(function() {
-				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
-				$.post("/indents/show_indents4", function(data) {
-					var tbody= $("table > tbody").empty();
-					$.each(data,function(i,item){
-						var tr = $("<tr/>");
-						var indentId = $("<td/>").html(item.indent.indentId);
-						var bookDate = $("<td/>").html(item.indent.startTime);
-						var refundDate = $("<td/>").html(item.indent.endTime);
-						var tel = $("<td/>").html(item.indent.customerId);
-						var price = $("<td/>").html(item.indent.cost);
-						var button = $("<td/>").html("已完成");
-						
-						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
-			})
+																}, "json");
 
-				}, "json");
+											})
+							//退款
+							//银行卡退款
+							$(document).on(
+									"click",
+									"#cardRefund",
+									function() {
+										alert("hello");
+										$("#cardPayDisplay").show();
+										$("#card_cost").val(
+												$(this).attr("cost"));
+										$("#card_indent_id").val(
+												$(this).attr("indent_id"))
+									});
+							//积分退款
+							$(document).on("click", "#pointRefund", function() {
+								$.post("/pay/refundByP", {
+									cost : $(this).attr("cost"),
+									indent_id : $(this).attr("indent_id")
+								}, function(data) {
+									alert("退款成功，你当前还有" + data + "分");
+								}, "json");
+							})
 
-			})
-			
-			$("#payed").click();
-		})
+							$("#finished")
+									.click(
+											function() {
+												$("table>thead")
+														.html(
+																"<tr><th>订单号</th><th>预定日期</th>th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+												$
+														.post(
+																"/indents/show_indents2",
+																function(data) {
+																	var tbody = $(
+																			"table > tbody")
+																			.empty();
+																	$
+																			.each(
+																					data,
+																					function(
+																							i,
+																							item) {
+																						var tr = $("<tr/>");
+																						var indentId = $(
+																								"<td/>")
+																								.html(
+																										item.indent.indentId);
+																						var bookDate = $(
+																								"<td/>")
+																								.html(
+																										formatDate(new Date(item.indent.startTime)));
+																						var endDate = $(
+																								"<td/>")
+																								.html(
+																										formatDate(new Date(item.indent.endTime)));
+																						var tel = $(
+																								"<td/>")
+																								.html(
+																										item.indent.customerId);
+																						var price = $(
+																								"<td/>")
+																								.html(
+																										item.indent.cost);
+																						var button = null;
+																						if (item.havePost == 0) {
+																							button = $(
+																									"<td/>")
+																									.html(
+																											"<form action='/indents/addComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='去评价'></form>");
+																						} else {
+																							button = $(
+																									"<td/>")
+																									.html(
+																											"<form action='/indents/showComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='查看评价'></form>");
+																						}
+
+																						tr
+																								.append(
+																										indentId,
+																										bookDate,
+																										endDate,
+																										tel,
+																										price,
+																										button)
+																								.appendTo(
+																										tbody);
+																					})
+
+																}, "json");
+
+											})
+
+							$("#unpay")
+									.click(
+											function() {
+												$("table>thead")
+														.html(
+																"<tr><th>订单号</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+												$
+														.post(
+																"/indents/show_indents3",
+																function(data) {
+																	var tbody = $(
+																			"table > tbody")
+																			.empty();
+																	$
+																			.each(
+																					data,
+																					function(
+																							i,
+																							item) {
+																						var tr = $("<tr/>");
+																						var indentId = $(
+																								"<td/>")
+																								.html(
+																										item.indent.indentId);
+																						var tel = $(
+																								"<td/>")
+																								.html(
+																										item.indent.customerId);
+																						var price = $(
+																								"<td/>")
+																								.html(
+																										item.indent.cost);
+																						var button = $(
+																								"<td/>")
+																								.html(
+																										"<button id='goPayButton'>去支付</button>");
+																						button
+																								.attr({
+																									"indent_id" : item.indent.indentId,
+																									"price" : item.indent.price,
+																									"cost" : item.indent.cost
+																								});
+																						tr
+																								.append(
+																										indentId,
+																										bookDate,
+																										endDate,
+																										tel,
+																										price,
+																										button)
+																								.appendTo(
+																										tbody);
+																					})
+
+																}, "json");
+
+											})
+							//去支付
+							$("#goPayButton").click(
+									function() {
+										$("#goPayIndentId").val(
+												$(this).attr("indent_id"));
+										$("#goPayPrice").val(
+												$(this).attr("price"));
+										$("#goPayCost").val(
+												$(this).attr("cost"));
+										$("#goPay").show();
+									})
+
+							$("#refund")
+									.click(
+											function() {
+												$("table>thead")
+														.html(
+																"<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+												$
+														.post(
+																"/indents/show_indents4",
+																function(data) {
+																	var tbody = $(
+																			"table > tbody")
+																			.empty();
+																	$
+																			.each(
+																					data,
+																					function(
+																							i,
+																							item) {
+																						var tr = $("<tr/>");
+																						var indentId = $(
+																								"<td/>")
+																								.html(
+																										item.indent.indentId);
+																						var bookDate = $(
+																								"<td/>")
+																								.html(
+																										item.indent.startTime);
+																						var refundDate = $(
+																								"<td/>")
+																								.html(
+																										item.indent.endTime);
+																						var tel = $(
+																								"<td/>")
+																								.html(
+																										item.indent.customerId);
+																						var price = $(
+																								"<td/>")
+																								.html(
+																										item.indent.cost);
+																						var button = $(
+																								"<td/>")
+																								.html(
+																										"已完成");
+
+																						tr
+																								.append(
+																										indentId,
+																										bookDate,
+																										endDate,
+																										tel,
+																										price,
+																										button)
+																								.appendTo(
+																										tbody);
+																					})
+
+																}, "json");
+
+											})
+
+							$("#payed").click();
+						})
 	</script>
 
 
