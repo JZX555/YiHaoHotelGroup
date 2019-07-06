@@ -39,17 +39,17 @@ public class PersonalController {
 		String action = req.getParameter("submit"); 
 		if(action.equals("个人信息")) {
 			model.addAttribute("tel", tel);
-			res="/personal_inf";
+			res="userInfo";
 		}
 		if(action.equals("我的订单")) {
-			res="/indents/show_indents1";
+			res="myindent";
 		}
 		if(action.equals("会员中心")) {
 			model.addAttribute("vip_level", vip_level);
 			model.addAttribute("max_point", account.getMaxpoint());
 			model.addAttribute("remain_point", account.getPoint());
 			model.addAttribute("discount", vip.getDiscount());
-			res="/VIPcenter";
+			res="VIPcenter";
 		}
 		if(action.equals("注销")) {
 			res="forward:/log/logout";
