@@ -37,14 +37,26 @@ public class PayController {
 	
 	
 	@RequestMapping("/choose")
-	public String choosePay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {	
+	public String choosePay(HttpServletRequest req, Model model) {	
+		String tel = "";
+		Cookie[] cookies = req.getCookies();
+		for(Cookie cookie:cookies) {
+			if(cookie.getName().equals("loginTel")) {
+				tel = cookie.getValue();
+				break;
+			}
+		}
+		
+		if(tel.equals(""))
+			return "redirect:/log/login";
+		else {
 		String res="";
 		String action = req.getParameter("submit"); 
 		String indent_id=(String)req.getParameter("indent_id");  //需要传给我indent_id,price,cost
 		//Double  price = Double.parseDouble((String)req.getParameter("price"));
 		//System.out.println("获得price"+price);
 		
-		Double  cost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
+		Double  cost =  double2((String)req.getParameter("cost"));//需要支付的价格
 		System.out.println("获得cost"+cost);
 		
 		Account account=acService.getAccountByTel(tel);
@@ -76,6 +88,7 @@ public class PayController {
 			res="cardpayment";
 		}	
 		return res;
+		}
 	}
 	
 	public double double2(String s) {
@@ -225,7 +238,7 @@ public class PayController {
 	@ResponseBody
 	public int  refunnbyP(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {//减去原价对应的积分，加上折扣价对应的积分
 		int flag=0;
-		Double  dcost = Double.parseDouble((String)req.getParameter("cost"));
+		Double  dcost =  double2((String)req.getParameter("cost"));
 		int cost=dcost.intValue();
 		//int  price = Integer.parseInt((String)req.getParameter("price"));
 		String indent_id=(String)req.getParameter("indent_id");
