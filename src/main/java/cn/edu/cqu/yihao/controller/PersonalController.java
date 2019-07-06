@@ -84,7 +84,7 @@ public class PersonalController {
 		model.addAttribute("max_point", account.getMaxpoint());
 		model.addAttribute("remain_point", account.getPoint());
 		model.addAttribute("discount", vip.getDiscount());
-		return "VIPRights";
+		return "VipRights";
 	}
 	@RequestMapping("/gologout")
 	public String gologout()

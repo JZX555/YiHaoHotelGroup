@@ -1,5 +1,7 @@
 package cn.edu.cqu.yihao.controller;
 
+import java.text.DecimalFormat;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +41,15 @@ public class PayController {
 		String action = req.getParameter("submit"); 
 		String indent_id=(String)req.getParameter("indent_id");  //需要传给我indent_id,price,cost
 		Double  price = Double.parseDouble((String)req.getParameter("price"));
+		System.out.println("获得price"+price);
 		Double  cost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
+		System.out.println("获得cost"+cost);
 		if(action.equals("积分支付")) { 
 			
 			
 			Account account=acService.getAccountByTel(tel);
-			int  need_point = Integer.parseInt((String)req.getParameter("cost"));//需要的积分是折扣价的十倍
-			
+			int  need_point = cost.intValue();//需要的积分是折扣价的十倍
+			System.out.println("获得cost"+need_point);
 			int point=account.getPoint();   //剩余积分
 			model.addAttribute("remain_point", point); //传给下一个页面remain_point，need_point，indent_id,price
 			model.addAttribute("need_point", need_point*10);
@@ -62,12 +66,21 @@ public class PayController {
 		return res;
 	}
 	
-	
+	public double double2(String s) {
+		DecimalFormat df = new DecimalFormat("#.00");
+		Double  tmp = Double.parseDouble(s);
+		Double  res = Double.parseDouble(df.format(tmp));
+		return res;
+	}
 	@RequestMapping("/debit_card")
 	public String debit_cardWay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
 		String resflag="faildPay";
-		Double  cost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
-		Double  price = Double.parseDouble((String)req.getParameter("price"));//获得原价
+		
+		//Double  dcost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
+		Double  cost = double2((String)req.getParameter("cost"));
+
+		//Double  dprice = Double.parseDouble((String)req.getParameter("price"));//获得原价
+		Double  price = double2((String)req.getParameter("price"));
 		String indent_id=(String)req.getParameter("indent_id");//需要订单号
 		Indent indent= new Indent();
 		indent.setIndentId(indent_id);		
@@ -103,11 +116,20 @@ public class PayController {
 	@RequestMapping("/point")
 	public int pointWay(HttpServletRequest req,@CookieValue("loginTel") String tel) {
 		int resflag=0;
-		String s=(String)req.getParameter("need_point"); 		
-		double dprice = Double.parseDouble( (String)req.getParameter("price") ); //获得原价
+		
+		String s=(String)req.getParameter("need_point"); 	
+		//double dneed_point=Double.parseDouble(s);//need_point是十倍的cost
+		//int need_point=(int)dneed_point;
+		int need_point=Integer.parseInt(s.trim());
+		System.out.println("获得need_point22 "+need_point);
+		//double dprice = Double.parseDouble( (String)req.getParameter("price") ); //获得原价
+		//int price=(int)dprice;
+		String s1=(String)req.getParameter("price"); 
+		System.out.println("获得s1 "+s1);
+		double dprice = Double.valueOf(s1); //获得原价
+		System.out.println("获得price22 "+dprice);
 		int price=(int)dprice;
-		double dneed_point=Double.parseDouble(s);//need_point是十倍的cost
-		int need_point=(int)dneed_point;
+		System.out.println("获得price33 "+price);
 		Account account=acService.getAccountByTel(tel);
 		String indent_id=(String)req.getParameter("indent_id");
 		Indent indent= new Indent();
@@ -157,15 +179,16 @@ public class PayController {
 		int flag=0;
 		String card_id=(String)req.getParameter("card_id"); 
 		//String password=(String)req.getParameter("password");
-		Double  cost = Double.parseDouble((String)req.getParameter("cost"));
-		//int  price = Integer.parseInt((String)req.getParameter("price"));
+		Double  cost =double2((String)req.getParameter("cost")); //获得花费价格
+	
 		String indent_id=(String)req.getParameter("indent_id");
 		
-		Account account=acService.getAccountByTel(tel); //获得原价
+		Account account=acService.getAccountByTel(tel); //求原价
 		int vip_level=account.getVipLevel();
 		Vip vip=vService.getByLevel(vip_level);
 		double discount=vip.getDiscount();
 		double dprice=(double)cost/discount;
+		
 		int price=(int)dprice;
 		
 		
@@ -190,7 +213,8 @@ public class PayController {
 	
 	public int  refunnbyP(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {//减去原价对应的积分，加上折扣价对应的积分
 		int flag=0;
-		int  cost =  Integer.parseInt((String)req.getParameter("cost"));
+		Double  dcost = Double.parseDouble((String)req.getParameter("cost"));
+		int cost=dcost.intValue();
 		//int  price = Integer.parseInt((String)req.getParameter("price"));
 		String indent_id=(String)req.getParameter("indent_id");
 		Account account=acService.getAccountByTel(tel);
