@@ -44,7 +44,7 @@ public class PayController {
 		//Double  price = Double.parseDouble((String)req.getParameter("price"));
 		//System.out.println("获得price"+price);
 		
-		Double  cost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
+		Double  cost =  double2((String)req.getParameter("cost"));//需要支付的价格
 		System.out.println("获得cost"+cost);
 		
 		Account account=acService.getAccountByTel(tel);
@@ -229,7 +229,7 @@ public class PayController {
 	
 	public int  refunnbyP(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {//减去原价对应的积分，加上折扣价对应的积分
 		int flag=0;
-		Double  dcost = Double.parseDouble((String)req.getParameter("cost"));
+		Double  dcost =  double2((String)req.getParameter("cost"));
 		int cost=dcost.intValue();
 		//int  price = Integer.parseInt((String)req.getParameter("price"));
 		String indent_id=(String)req.getParameter("indent_id");
