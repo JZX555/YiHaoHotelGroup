@@ -166,10 +166,14 @@ h1{/*派生*/
 			<div class="container">
 				<h1 style="margin-top: 100px;">修改密码</h1>
 				<form action="" method="get">
-					<input type="password"  name="oldpass" placeholder="请输入旧密码"/>
-					<input type="password" id="newpass" name="newpass" placeholder="请输入新密码"/>
-					<input type="password" id="newpass2" name="newpass" placeholder="请重新输入新密码"/>
-					<button type="submit">确定修改</button>	
+					<input type="password"  id="oldpass" placeholder="请输入旧密码" />
+					<input type="password" id="newpass" name="newpass" placeholder="请输入新密码" />
+					<div>
+						<input type="password" id="newpass2" name="newpass" placeholder="请重新输入新密码" />
+						<span id='passValidSpan' style='color:red'></span>
+					</div>
+					<button type="button" id="changePassword">确定修改</button>	
+					<input type="hidden" id="validFlag" value="0" />
 				</form>
 			</div>
 		</div>	
@@ -236,7 +240,39 @@ h1{/*派生*/
 		$(document).ready(function() {
 			$("#newpass2").blur(function() {
 				if($("#newpass").val()!=$("#newpass2").val()){
-					alert("密码不一致");
+					$("#passValidSpan").empty();
+					$("#passValidSpan").append("密码不一致");
+					$("#validFlag").attr("value", "0");
+				}
+				else{
+					$("#passValidSpan").empty();
+					$("#validFlag").attr("value", "1");
+				}
+			});
+
+			$(document).on("click", "#changePassword", function() {
+				if($("#validFlag").val() == "1") {
+					$.ajax({
+						type:"post",
+						url:"/Personal/changePassword",
+						async:false,
+						dataType:"json",
+						data:{
+							oldPassword:$("#oldpass").val(),
+							newPassword:$("#newpass").val(),
+						},
+						success:function(res) {
+							if(res == 1)
+								alert("修改成功");
+							if(res == -1)
+								alert("旧密码输入错误");
+							if(res == 0)
+								alert("修改失败");
+						},
+						error:function() {
+							alert("修改失败");
+						},
+					});
 				}
 			});
 		});

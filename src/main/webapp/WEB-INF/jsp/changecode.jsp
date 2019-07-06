@@ -183,19 +183,21 @@ font-size:40px;
 			<h1 style="color:#ffffff">个人信息</h1>
 		</div>
 		<div class="font" style="color:#ffffff; margin-top: 10px;" >
-			验证邮箱： xxxxx@xxxxx
+			验证邮箱： <c:out value="${email}"></c:out>
 		</div>
+		<input type="hidden" id="email" value=${email} />
+		<input type="hidden" id="validateCode" value="%$!#F!DSF!SFQ" />
 		<!-- <div class="font" style="color:#ffffff">
 			验证码：<textarea id="ziti" rows="1" cols="6" style="resize:none;"></textarea>
 		</div> -->
 		<label class="code_container" style="margin-left:13%;width: 380px;">
 	<span class="code_label">验证码</span>
-	<input type="text" class="input_code" placeholder="请输入邮箱验证码">
-	<a class="btn_send_code">发送验证码</a>
+	<input type="text" class="input_code" placeholder="请输入邮箱验证码" id="inputCode" />
+	<button type="button" class="btn_send_code" id="sendEmail">发送验证码</button>
 </label>
 		
 		<div style="font-size:28px;">
-			<input class="input" type="button" value="确定"  style="margin-top: 15px;width: 104px;height: 54px;border-radius:10px;">
+			<input id="verify" class="input" type="button" value="确定"  style="margin-top: 15px;width: 104px;height: 54px;border-radius:10px;">
 		</div>
 	</div>
 	</section>
@@ -252,6 +254,40 @@ font-size:40px;
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
 
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$(document).on("click", "#sendEmail", function() {
+			var email = $("#email").val();
+			$.ajax({
+				type:"post",
+				url:"/Personal/sendEmail",
+				async:false,
+				dataType:"json",
+				data:{
+					email:email
+				},
+				success:function(res) {
+					alert(res);
+					var display = $("#validateCode");
+					display.attr("value", res);
+				},
+				error:function() {
+					alert("发送失败");
+				},
+			})
+
+		});
+
+		$(document).on("click", "#verify", function() {
+			var realCode = $("#validateCode").val();
+			var inputCode = $("#inputCode").val();
+			if(realCode == inputCode)
+				window.location.href = "/Personal/goChangePassword";
+			else
+				alert("验证码输入错误");
+		});
+	});
+	</script>
 
 </body>
 </html>

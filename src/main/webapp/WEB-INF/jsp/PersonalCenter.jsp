@@ -199,11 +199,11 @@
 			欢迎您，
 		</div>
 		<div class ="manage" style="margin-bottom: 10px;">
-			<div class="ha"><a href="/">个人信息</a></div>
-			<div class="ha"><a href="/">我的订单</a></div>
+			<div class="ha"><a href="/Personal/gouserinfo">个人信息</a></div>
+			<div class="ha"><a href="/Personal/goindents">我的订单</a></div>
 		</br>
-			<div class="ha"><a href="/">会员中心</a></div>
-			<div class="ha"><a href="/">注销</a></div>
+			<div class="ha"><a href="/Personal/govipcenter">会员中心</a></div>
+			<div class="ha"><a href="/Personal/gologout">注销</a></div>
 		</div>
 		<div class="vip" >
 			<img src="/assets/images/personalcenter/1.png">

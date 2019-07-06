@@ -106,12 +106,14 @@
 					</div>
 					<!--/.navbar-header-->
 					<!-- End Header Navigation -->
-					<div class="collapse navbar-collapse menu-ui-design"
-						id="navbar-menu">
+					<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="/#">返回</a></li><!-- 返回会员中心 -->
-
+							<li class=" scroll active">
+								<!-- 
+								 <a href="/Personal/goIndex" >返回</a>
+								 -->
+							</li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -141,29 +143,30 @@
 					<div class="welcome-hero-form" style="margin-top: 5px;">
 						<div class="single-welcome-hero-form" style="width: 100%;">
 							<h3>电话号码</h3>
-							<input type="text" name="tel" id="tel" placeholder="${tel}">
+							<input type="text" name="tel" id="tel" value="${tel}">
 							<span></span>
 						</div>
 					</div>
 					<div class="welcome-hero-form" style="margin-top: 5px;">
 						<div class="single-welcome-hero-form" style="width: 100%;">
 							<h3>生日</h3>
-							<input type="date" name="birthday" id="birthday" placeholder="${birthday}">
+							<input type="date" name="birthday" id="birthday" value="${birthday}">
 						</div>
 					</div>
 					<div class="welcome-hero-form" style="margin-top: 5px;">
 						<div class="single-welcome-hero-form" style="width: 100%;">
 							<h3>电子邮件</h3>
-							<input type="password" name="email" id="email" placeholder="${email}">
+							<input type="text" name="email" id="email" value="${email}">
 						</div>
 					</div>
 					
-					<button class="welcome-hero-btn" type="submit" style="margin-top:15px;" id="changeInfo">
+					<button class="welcome-hero-btn" type="button" style="margin-top:15px;" id="changeInfo">
 							修改信息
 					</button>
-					<button class="welcome-hero-btn" type="submit" style="margin-top:15px;" id="changePassword">
+					<button class="welcome-hero-btn" type="button" style="margin-top:15px;" id="changePassword">
 							修改密码
 					</button>
+					<input type="hidden" id="contextPath" value=${pageContext.request.contextPath} /> 
 				</div>
 			</form>
 		</div>
@@ -224,7 +227,10 @@
 			$("#email").blur(function() {
 				var email = $("#email").val();
 				if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
-					$(this).after("<span style='color:red'>用户名不存在</span>");
+					$(this).after("<span id='emailValidSpan' style='color:red'>邮箱格式不正确</span>");
+				}
+				else {
+					$("#emailValidSpan").remove();
 				}
 			});
 
@@ -251,7 +257,7 @@
 				$.ajax({
 					type:"post",
 					url:"/Personal/personal_inf",
-					async:false,
+					async:true,
 					data:{
 						birthday:birthday,
 						tel:tel,
@@ -259,11 +265,10 @@
 					},
 					dataType:"json",
 					success:function(res) {
-						if(res == 0) {
+						if(res == 0)
 							alert("修改失败");
-						if(res == 1)
+						else
 							alert("修改成功");
-						}
 					},
 					error: function() {
 						alert("修改失败，请联系客服");
@@ -279,17 +284,17 @@
 				}
 				$.ajax({
 					type:"post",
-					url:"/Personal/goEmail",
-					async=true,
+					url:"",
+					async:true,
 					data:{
 						email:email,
 					},
 					dataType:"json",
-					success:function(res) {
-						window.location.href = res;
+					success:function() {
+						location.href = "/Personal/goEmail?email="+$("#email").val();
 					},
 					error:function() {
-						alert("跳转失败");
+						window.location.href = "/Personal/goEmail?email="+$("#email").val();
 					}
 				});
 			});
