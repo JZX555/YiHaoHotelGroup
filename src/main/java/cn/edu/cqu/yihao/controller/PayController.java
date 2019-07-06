@@ -37,7 +37,19 @@ public class PayController {
 	
 	
 	@RequestMapping("/choose")
-	public String choosePay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {	
+	public String choosePay(HttpServletRequest req, Model model) {	
+		String tel = "";
+		Cookie[] cookies = req.getCookies();
+		for(Cookie cookie:cookies) {
+			if(cookie.getName().equals("loginTel")) {
+				tel = cookie.getValue();
+				break;
+			}
+		}
+		
+		if(tel.equals(""))
+			return "redirect:/log/login";
+		else {
 		String res="";
 		String action = req.getParameter("submit"); 
 		String indent_id=(String)req.getParameter("indent_id");  //需要传给我indent_id,price,cost
@@ -76,6 +88,7 @@ public class PayController {
 			res="cardpayment";
 		}	
 		return res;
+		}
 	}
 	
 	public double double2(String s) {
