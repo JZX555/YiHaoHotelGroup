@@ -54,6 +54,21 @@
 #roomType {
 	padding-left: 50px;
 }
+
+table, th, td
+  {
+  border: 1px solid black;
+  
+  }
+  
+th,td{
+	text-align:center;
+	padding:0 10px;
+}
+
+#indentlist{
+	margin:auto;
+}
 </style>
 
 </head>
@@ -130,6 +145,8 @@
 		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
+				<h2 id="header"></h2>
+				<hr>
 				<table id="indentlist">
 					<thead>
 					</thead>
@@ -179,7 +196,7 @@
 		style="display: none; margin-tp: '25%'; position: fixed; width: 90%; left: 5%; top: 25%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
 		<div class="section-header">
 
-			<form action="/pay/choose" method="post">
+			<form action="/pay/choose" method="get">
 				<input type="hidden" id="goPayIndentId" name="indent_id"><br>
 				<input type="hidden" id="goPayCost" name="cost"> <input
 					type="hidden" id="goPayPrice" name="price"> <input
@@ -243,10 +260,12 @@
 																"<tr><th>订单号</th><th>预定日期</th><th>预定人电话</th><th>价格</th><th>退款</th></tr>")
 												var tbody = $("table > tbody")
 														.empty();
+												var header = $("#header").empty();
 												$
 														.post(
 																"/indents/show_indents1",
 																function(data) {
+																	header.text("已付款订单")
 
 																	$
 																			.each(
@@ -254,6 +273,7 @@
 																					function(
 																							i,
 																							item) {
+																						$(".header").text("已付款订单")
 																						var tr = $("<tr/>");
 																						var indentId = $(
 																								"<td/>")
@@ -331,6 +351,8 @@
 												$("table>thead")
 														.html(
 																"<tr><th>订单号</th><th>预定日期</th>th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+																var header = $("#header").empty();
+																header.text("已完成订单");
 												$
 														.post(
 																"/indents/show_indents2",
@@ -399,7 +421,9 @@
 											function() {
 												$("table>thead")
 														.html(
-																"<tr><th>订单号</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+																"<tr><th>订单号</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>");
+												var header = $("#header").empty();
+												header.text("未付款订单");
 												$
 														.post(
 																"/indents/show_indents3",
@@ -429,8 +453,8 @@
 																						var button = $(
 																								"<td/>")
 																								.html(
-																										"<button id='goPayButton'>去支付</button>");
-																						button
+																										"<input type='button' id='goPayButton' value='去支付'>");
+																						button.children("input")
 																								.attr({
 																									"indent_id" : item.indent.indentId,
 																									"price" : item.indent.price,
@@ -439,8 +463,6 @@
 																						tr
 																								.append(
 																										indentId,
-																										bookDate,
-																										endDate,
 																										tel,
 																										price,
 																										button)
@@ -452,7 +474,7 @@
 
 											})
 							//去支付
-							$("#goPayButton").click(
+							$(document).on("click","#goPayButton",
 									function() {
 										$("#goPayIndentId").val(
 												$(this).attr("indent_id"));
@@ -468,7 +490,9 @@
 											function() {
 												$("table>thead")
 														.html(
-																"<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+																"<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>");
+												var header = $("#header").empty();
+												header.text("已退款/取消订单");
 												$
 														.post(
 																"/indents/show_indents4",
