@@ -74,7 +74,7 @@
 						</c:if>
 
 						<c:if test="${!login}">
-							<li class="header-top-contact"><a href="#">会员中心</a></li>
+							<li class="header-top-contact"><a href="/Personal/goIndex">会员中心</a></li>
 							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
@@ -106,12 +106,14 @@
 					</div>
 					<!--/.navbar-header-->
 					<!-- End Header Navigation -->
-					<div class="collapse navbar-collapse menu-ui-design"
-						id="navbar-menu">
+					<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="/#">返回</a></li><!-- 返回会员中心 -->
-
+							<li class=" scroll active">
+								<!-- 
+								 <a href="/Personal/goIndex" >返回</a>
+								 -->
+							</li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -141,26 +143,30 @@
 					<div class="welcome-hero-form" style="margin-top: 5px;">
 						<div class="single-welcome-hero-form" style="width: 100%;">
 							<h3>电话号码</h3>
-							<input type="text" name="tel" id="tel" placeholder="${tel}">
+							<input type="text" name="tel" id="tel" value="${tel}">
 							<span></span>
 						</div>
 					</div>
 					<div class="welcome-hero-form" style="margin-top: 5px;">
 						<div class="single-welcome-hero-form" style="width: 100%;">
 							<h3>生日</h3>
-							<input type="date" name="birthday" placeholder="${birthday}">
+							<input type="date" name="birthday" id="birthday" value="${birthday}">
 						</div>
 					</div>
 					<div class="welcome-hero-form" style="margin-top: 5px;">
 						<div class="single-welcome-hero-form" style="width: 100%;">
 							<h3>电子邮件</h3>
-							<input type="password" name=email placeholder="${email}">
+							<input type="text" name="email" id="email" value="${email}">
 						</div>
 					</div>
 					
-					<button class="welcome-hero-btn" type="submit" style="margin-top:15px;">
-							修改
-						</button>
+					<button class="welcome-hero-btn" type="button" style="margin-top:15px;" id="changeInfo">
+							修改信息
+					</button>
+					<button class="welcome-hero-btn" type="button" style="margin-top:15px;" id="changePassword">
+							修改密码
+					</button>
+					<input type="hidden" id="contextPath" value=${pageContext.request.contextPath} /> 
 				</div>
 			</form>
 		</div>
@@ -217,7 +223,82 @@
 	<script src="/assets/js/custom.js"></script>
 	
 	<script type="text/javascript">
-		
+		$(document).ready(function() {
+			$("#email").blur(function() {
+				var email = $("#email").val();
+				if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+					$(this).after("<span id='emailValidSpan' style='color:red'>邮箱格式不正确</span>");
+				}
+				else {
+					$("#emailValidSpan").remove();
+				}
+			});
+
+			$(document).on("click", "#changeInfo", function() {
+				var tel = $("#tel").val();
+				var email = $("#email").val();
+				var birthday = $("#birthday").val();
+				if(tel == "") {
+					alert("电话不能为空");
+					return false;
+				}
+				if(email == "") {
+					alert("邮箱不能为空");
+					return false;
+				}
+				if(birthday == "") {
+					alert("生日不能为空");
+					return false;
+				}
+				if(!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+					alert("邮箱格式错误");
+					return false;
+				}
+				$.ajax({
+					type:"post",
+					url:"/Personal/personal_inf",
+					async:true,
+					data:{
+						birthday:birthday,
+						tel:tel,
+						email:email
+					},
+					dataType:"json",
+					success:function(res) {
+						if(res == 0)
+							alert("修改失败");
+						else
+							alert("修改成功");
+					},
+					error: function() {
+						alert("修改失败，请联系客服");
+					},
+				});
+			});
+			
+			$(document).on("click", "#changePassword", function() {
+				var email = $("#email").val();
+				if(email == "") {
+					alert("邮箱不能为空");
+					return false;
+				}
+				$.ajax({
+					type:"post",
+					url:"",
+					async:true,
+					data:{
+						email:email,
+					},
+					dataType:"json",
+					success:function() {
+						location.href = "/Personal/goEmail?email="+$("#email").val();
+					},
+					error:function() {
+						window.location.href = "/Personal/goEmail?email="+$("#email").val();
+					}
+				});
+			});
+		});
 	</script>
 
 

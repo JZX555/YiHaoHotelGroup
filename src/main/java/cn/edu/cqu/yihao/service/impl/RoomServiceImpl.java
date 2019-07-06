@@ -18,7 +18,7 @@ public class RoomServiceImpl implements RoomService {
 	}
 	
 	@Override
-	public int getPriceByType(String roomType)
+	public int getPriceByType(int roomType)
 	{
 		return roomDao.selectPriceByType(roomType);
 	}

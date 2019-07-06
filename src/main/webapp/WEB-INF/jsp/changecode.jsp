@@ -54,6 +54,50 @@
 #roomType {
 	padding-left: 50px;
 }
+.change{
+margin-left:35%;
+}
+#ziti{
+font-size:24px;
+
+}
+.font{
+font-size:32px;
+}
+</style>
+
+<style>
+.code_container{
+	display: block;
+	margin-top: 10px;
+	padding: 15px;
+	background: #fff;
+	display: flex;
+}
+
+.code_label{
+	font-size: 15px;
+	line-height: 21px;
+}
+
+.input_code{
+	width: 120px;
+	font-size: 15px;
+	border: none;
+	margin-left: 20px;
+	margin-right: 20px;
+	flex: 1;
+	text-align: right;
+	color: #999999;
+}
+.btn_send_code{
+	font-size: 14px;
+	line-height: 20px;
+}
+h1{
+font-size:40px;
+}
+
 </style>
 
 </head>
@@ -64,12 +108,14 @@
 			<li class="head-responsive-right pull-right">
 				<div class="header-top-right">
 					<ul>
-
+					
 						<!-- 判断登陆状态 -->
-						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
+						<c:if test="${cookie.loginTel==null}" var="login"
+							scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
-							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
-							<li class="header-top-contact"><a href="/log/register">注册</a></li>
+							<li class="header-top-contact"><a href="/log/login">sign
+									in</a></li>
+							<li class="header-top-contact"><a href="/log/goregister">register</a></li>
 						</c:if>
 
 						<c:if test="${!login}">
@@ -104,17 +150,20 @@
 					</div>
 					<!--/.navbar-header-->
 					<!-- End Header Navigation -->
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse menu-ui-design"
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=""><a id="payed" href="#">已付款</a></li>
-							<li class=""><a id="finished" href="#">已完成</a></li>
-							<li class=""><a id="unpay" href="#">未付款</a></li>
-							<li class=""><a id="refund" href="#">已退款/取消</a></li>
+							<li class=" scroll active"><a href="#home">我们的品牌</a></li>
+							<li class="scroll"><a href="#roomTypes">房间类型</a></li>
+							<li class="scroll"><a href="#surronding">周边精彩</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
+					<!-- /.navbar-collapse -->
+
 
 				</div>
 				<!--/.container-->
@@ -125,22 +174,35 @@
 		<!--/.header-area-->
 		<div class="clearfix"></div>
 	</section>
-
-	<section id="content" class="explore rootview"
-		style="padding-left: 25px; padding-right: 25px;">
-		<div class="explore-content">
-			<div class="section-header">
-				<table id="indentlist">
-					<thead>
-					</thead>
-					<tbody>
-					</tbody>
-
-				</table>
-			</div>
-
+	
+	
+	
+	<section id="home" class="welcome-hero" style="padding-top: 100px;">
+	<div class=change style="width: 500px;height: 300px;" >
+			<div>
+			<h1 style="color:#ffffff">个人信息</h1>
 		</div>
+		<div class="font" style="color:#ffffff; margin-top: 10px;" >
+			验证邮箱： <c:out value="${email}"></c:out>
+		</div>
+		<input type="hidden" id="email" value=${email} />
+		<input type="hidden" id="validateCode" value="%$!#F!DSF!SFQ" />
+		<!-- <div class="font" style="color:#ffffff">
+			验证码：<textarea id="ziti" rows="1" cols="6" style="resize:none;"></textarea>
+		</div> -->
+		<label class="code_container" style="margin-left:13%;width: 380px;">
+	<span class="code_label">验证码</span>
+	<input type="text" class="input_code" placeholder="请输入邮箱验证码" id="inputCode" />
+	<button type="button" class="btn_send_code" id="sendEmail">发送验证码</button>
+</label>
+		
+		<div style="font-size:28px;">
+			<input id="verify" class="input" type="button" value="确定"  style="margin-top: 15px;width: 104px;height: 54px;border-radius:10px;">
+		</div>
+	</div>
 	</section>
+	
+
 
 
 	<footer id="footer" class="footer">
@@ -193,96 +255,39 @@
 	<script src="/assets/js/custom.js"></script>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#payed").click(function() {
-				alert("test");
-				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>预定人电话</th><th>价格</th><th>退款</th></tr>")
-				$.post("/indents/show_indents1", function(data) {
-					var tbody= $("table > tbody").empty();
-					$.each(data,function(i,item){
-						var tr = $("<tr/>");
-						var indentId = $("<td/>").html(item.indent.indentId);
-						var bookDate = $("<td/>").html(item.indent.startTime);
-						var tel = $("<td/>").html(item.indent.customerId);
-						var price = $("<td/>").html(item.indent.cost);
-						var button = $("<td/>").html("退款");
-						
-						tr.append(indentId,bookDate,tel,price,button).appendTo(tbody);
+	$(document).ready(function() {
+		$(document).on("click", "#sendEmail", function() {
+			var email = $("#email").val();
+			$.ajax({
+				type:"post",
+				url:"/Personal/sendEmail",
+				async:false,
+				dataType:"json",
+				data:{
+					email:email
+				},
+				success:function(res) {
+					alert(res);
+					var display = $("#validateCode");
+					display.attr("value", res);
+				},
+				error:function() {
+					alert("发送失败");
+				},
 			})
 
-				}, "json");
+		});
 
-			})
-			
-			$("#finished").click(function() {
-				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th>th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
-				$.post("/indents/show_indents2", function(data) {
-					var tbody= $("table > tbody").empty();
-					$.each(data,function(i,item){
-						var tr = $("<tr/>");
-						var indentId = $("<td/>").html(item.indent.indentId);
-						var bookDate = $("<td/>").html(item.indent.startTime);
-						var endDate = $("<td/>").html(item.indent.endTime);
-						var tel = $("<td/>").html(item.indent.customerId);
-						var price = $("<td/>").html(item.indent.cost);
-						var button = null;
-						if(item.havePost == 0){
-							button = $("<td/>").html("<form action='/indents/addComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='去评价'></form>");
-						}
-						else{
-							button = $("<td/>").html("<form action='/indents/showComment'><input type='hidden' name='indent_id' value="+item.indent.indentId+"><input type='submit' value='查看评价'></form>");
-						}
-						
-						
-						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
-			})
-
-				}, "json");
-
-			})
-			
-			$("#unpay").click(function() {
-				$("table>thead").html("<tr><th>订单号</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
-				$.post("/indents/show_indents3", function(data) {
-					var tbody= $("table > tbody").empty();
-					$.each(data,function(i,item){
-						var tr = $("<tr/>");
-						var indentId = $("<td/>").html(item.indent.indentId);
-						var tel = $("<td/>").html(item.indent.customerId);
-						var price = $("<td/>").html(item.indent.cost);
-						var button = $("<td/>").html("去支付");
-						
-						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
-			})
-
-				}, "json");
-
-			})
-			
-			$("#refund").click(function() {
-				$("table>thead").html("<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
-				$.post("/indents/show_indents4", function(data) {
-					var tbody= $("table > tbody").empty();
-					$.each(data,function(i,item){
-						var tr = $("<tr/>");
-						var indentId = $("<td/>").html(item.indent.indentId);
-						var bookDate = $("<td/>").html(item.indent.startTime);
-						var refundDate = $("<td/>").html(item.indent.endTime);
-						var tel = $("<td/>").html(item.indent.customerId);
-						var price = $("<td/>").html(item.indent.cost);
-						var button = $("<td/>").html("去支付");
-						
-						tr.append(indentId,bookDate,endDate,tel,price,button).appendTo(tbody);
-			})
-
-				}, "json");
-
-			})
-			
-
-		})
+		$(document).on("click", "#verify", function() {
+			var realCode = $("#validateCode").val();
+			var inputCode = $("#inputCode").val();
+			if(realCode == inputCode)
+				window.location.href = "/Personal/goChangePassword";
+			else
+				alert("验证码输入错误");
+		});
+	});
 	</script>
-
 
 </body>
 </html>

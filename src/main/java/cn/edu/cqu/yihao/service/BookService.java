@@ -14,11 +14,13 @@ public interface BookService {
 	
 	public String[] getAvailRoomBetween(int type, String begin, String end);
 	
-	public int getPriceByType(String roomType);
+	//public int getPriceByType(String roomType);
 	
 	public int addBook(Book book);
 	
 	public int updateSelect(Book book);
 	
 	public int dropBook(BookKey bookkey);
+
+	public int getPriceByType(int roomType);
 }

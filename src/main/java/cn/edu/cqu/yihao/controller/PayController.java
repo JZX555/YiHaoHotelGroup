@@ -1,5 +1,8 @@
 package cn.edu.cqu.yihao.controller;
 
+import java.text.DecimalFormat;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,8 @@ import cn.edu.cqu.yihao.service.Debit_cardService;
 import cn.edu.cqu.yihao.service.IndentService;
 import cn.edu.cqu.yihao.service.VipService;
 
-@Controller("/pay")
+@Controller
+@RequestMapping("/pay")
 public class PayController {
 	
 	@Autowired
@@ -33,40 +37,53 @@ public class PayController {
 	
 	
 	@RequestMapping("/choose")
-	public String choosePay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {		
+	public String choosePay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {	
 		String res="";
 		String action = req.getParameter("submit"); 
 		String indent_id=(String)req.getParameter("indent_id");  //需要传给我indent_id,price,cost
 		Double  price = Double.parseDouble((String)req.getParameter("price"));
+		System.out.println("获得price"+price);
 		Double  cost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
+		System.out.println("获得cost"+cost);
 		if(action.equals("积分支付")) { 
 			
 			
 			Account account=acService.getAccountByTel(tel);
-			int  need_point = Integer.parseInt((String)req.getParameter("cost"));//需要的积分是折扣价的十倍
-			
+			int  need_point = cost.intValue();//需要的积分是折扣价的十倍
+			System.out.println("获得cost"+need_point);
 			int point=account.getPoint();   //剩余积分
 			model.addAttribute("remain_point", point); //传给下一个页面remain_point，need_point，indent_id,price
 			model.addAttribute("need_point", need_point*10);
 			model.addAttribute("indent_id", indent_id); 
 			model.addAttribute("price", price); 
-			res="point";
+			res="pointpayment";
 		}
 		if(action.equals("银行卡支付")){  //需要传给下一个页面cost，price，indent_id
 			model.addAttribute("cost",cost);
 			model.addAttribute("price", price);
 			model.addAttribute("indent_id", indent_id);
-			res="debit_card";
+			res="cardpayment";
 		}	
 		return res;
 	}
 	
-	
+	public double double2(String s) {
+		DecimalFormat df = new DecimalFormat("#.00");
+		Double  tmp = Double.parseDouble(s);
+		Double  res = Double.parseDouble(df.format(tmp));
+		return res;
+	}
 	@RequestMapping("/debit_card")
 	public int debit_cardWay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
+		
 		int resflag=0;
-		Double  cost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
-		Double  price = Double.parseDouble((String)req.getParameter("price"));//获得原价
+		
+		//Double  dcost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
+		Double  cost = double2((String)req.getParameter("cost"));
+
+		//Double  dprice = Double.parseDouble((String)req.getParameter("price"));//获得原价
+		Double  price = double2((String)req.getParameter("price"));
+		
 		String indent_id=(String)req.getParameter("indent_id");//需要订单号
 		Indent indent= new Indent();
 		indent.setIndentId(indent_id);		
@@ -101,11 +118,22 @@ public class PayController {
 	}
 	@RequestMapping("/point")
 	public int pointWay(HttpServletRequest req,@CookieValue("loginTel") String tel) {
+	
 		int resflag=0;
-		String s=(String)req.getParameter("need_point"); 		
-		int price = Integer.parseInt( (String)req.getParameter("price") ); //获得原价
 		
-		int need_point=Integer.parseInt(s);//need_point是十倍的cost
+		String s=(String)req.getParameter("need_point"); 	
+		//double dneed_point=Double.parseDouble(s);//need_point是十倍的cost
+		//int need_point=(int)dneed_point;
+		int need_point=Integer.parseInt(s.trim());
+		System.out.println("获得need_point22 "+need_point);
+		//double dprice = Double.parseDouble( (String)req.getParameter("price") ); //获得原价
+		//int price=(int)dprice;
+		String s1=(String)req.getParameter("price"); 
+		System.out.println("获得s1 "+s1);
+		double dprice = Double.valueOf(s1); //获得原价
+		System.out.println("获得price22 "+dprice);
+		int price=(int)dprice;
+		System.out.println("获得price33 "+price);
 		Account account=acService.getAccountByTel(tel);
 		String indent_id=(String)req.getParameter("indent_id");
 		Indent indent= new Indent();
@@ -151,19 +179,21 @@ public class PayController {
 		return res;
 	}
 	@RequestMapping("/refunnbyDB")
+	
 	public int  refunnbyDB(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
 		int flag=0;
 		String card_id=(String)req.getParameter("card_id"); 
 		//String password=(String)req.getParameter("password");
-		Double  cost = Double.parseDouble((String)req.getParameter("cost"));
-		//int  price = Integer.parseInt((String)req.getParameter("price"));
+		Double  cost =double2((String)req.getParameter("cost")); //获得花费价格
+	
 		String indent_id=(String)req.getParameter("indent_id");
 		
-		Account account=acService.getAccountByTel(tel); //获得原价
+		Account account=acService.getAccountByTel(tel); //求原价
 		int vip_level=account.getVipLevel();
 		Vip vip=vService.getByLevel(vip_level);
 		double discount=vip.getDiscount();
 		double dprice=(double)cost/discount;
+		
 		int price=(int)dprice;
 		
 		
@@ -185,10 +215,11 @@ public class PayController {
 	}
 	
 	@RequestMapping("/refunnbyP")
-	@ResponseBody
-	public int  refunnbyP(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {//减去原价对应的积分，加上折扣价对应的积分
 	
-		int  cost =  Integer.parseInt((String)req.getParameter("cost"));
+	public int  refunnbyP(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {//减去原价对应的积分，加上折扣价对应的积分
+		int flag=0;
+		Double  dcost = Double.parseDouble((String)req.getParameter("cost"));
+		int cost=dcost.intValue();
 		//int  price = Integer.parseInt((String)req.getParameter("price"));
 		String indent_id=(String)req.getParameter("indent_id");
 		Account account=acService.getAccountByTel(tel);
@@ -209,8 +240,9 @@ public class PayController {
 		int curpoint = account.getMaxpoint(); // 修改会员等级
 		changeViplevel(curpoint, tel);
 		
-		
-		return curpoint;  //返回当前积分
+		if(r1==1 && r2==1)
+			flag=1;
+		return flag;  
 	}
 
 }
