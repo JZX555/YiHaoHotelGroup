@@ -20,7 +20,7 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public String getValCode(int len) {
 		String code = new String();
-		code = new Double((Math.random() * 9 + 1) * 100000).toString();
+		code = new Integer((int) ((Math.random() * 9 + 1) * 100000)).toString();
 		return code;
 	}
 

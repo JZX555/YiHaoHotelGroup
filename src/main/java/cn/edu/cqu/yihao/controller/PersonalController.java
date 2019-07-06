@@ -57,8 +57,15 @@ public class PersonalController {
 	@RequestMapping("/gouserinfo")
 	public String gouserinfo( Model model,@CookieValue("loginTel") String tel)
 	{
+		Account account = this.acService.getAccountByTel(tel);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		
 		model.addAttribute("tel", tel);
-		return "userInfo";
+		model.addAttribute("email", account.getEmail());
+		System.out.println(format.format(account.getBirthday()));
+		model.addAttribute("birthday", format.format(account.getBirthday()));
+		
+		return "userinfo";
 	}
 	@RequestMapping("/goindents")
 	public String goindents( Model model,@CookieValue("loginTel") String tel)
@@ -77,7 +84,7 @@ public class PersonalController {
 		model.addAttribute("max_point", account.getMaxpoint());
 		model.addAttribute("remain_point", account.getPoint());
 		model.addAttribute("discount", vip.getDiscount());
-		return "VIPcenter";
+		return "VIPRights";
 	}
 	@RequestMapping("/gologout")
 	public String gologout()
@@ -101,6 +108,7 @@ public class PersonalController {
 	}
 
 	@RequestMapping("/personal_inf")
+	@ResponseBody
 	public int personal_inf(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel)
 	{
 		int flag=0;
@@ -127,6 +135,7 @@ public class PersonalController {
 	
 	@RequestMapping("/goEmail")
 	public String validateEmail(HttpServletRequest request, Model model) {
+		System.out.println("goEmail");
 		String email = request.getParameter("email");
 		model.addAttribute("email", email);
 		
@@ -136,15 +145,13 @@ public class PersonalController {
 	@RequestMapping("/sendEmail")
 	@ResponseBody
 	public String sendEmail(HttpServletRequest request, Model model) {
-		String tel = request.getParameter("tel");
-		Account account = this.acService.getAccountByTel(tel);
-		String email = account.getEmail();
+		String email = request.getParameter("email");
 		
-		String msg = this.emailService.getValCode(6);
-		msg = "您的验证码为：" + msg;
+		String code = this.emailService.getValCode(6);
+		String msg = "您的验证码为：" + code;
 		this.emailService.sendEmail(email, msg);
 		
-		return msg;
+		return code;
 	}
 	
 	@RequestMapping("/goChangePassword")
@@ -154,16 +161,21 @@ public class PersonalController {
 	
 	@RequestMapping("/changePassword")
 	@ResponseBody
-	public int changePassword(HttpServletRequest request, Model model) {
+	public int changePassword(HttpServletRequest request, @CookieValue("loginTel") String tel, Model model) {
 		int flag = 0;
 		Account account = new Account();
-		String tel = request.getParameter("tel");
-		String password = request.getParameter("password");
+		String oldPassword = request.getParameter("oldPassword");
+		String newPassword = request.getParameter("newPassword");
 		
-		account.setTel(tel);
-		account.setPassword(password);
-		
-		flag = this.acService.updateSelect(account);
+		Account old = this.acService.getAccountByTel(tel);
+		if(old.getPassword().equals(oldPassword)) {
+			account.setTel(tel);
+			account.setPassword(newPassword);
+			
+			flag = this.acService.updateSelect(account);
+		}
+		else
+			flag = -1;
 		
 		return flag;
 	}
