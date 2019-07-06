@@ -2,6 +2,7 @@ package cn.edu.cqu.yihao.controller;
 
 import java.text.DecimalFormat;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,7 @@ public class PayController {
 	}
 	@RequestMapping("/debit_card")
 	public int debit_cardWay(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
+		
 		int resflag=0;
 		
 		//Double  dcost = Double.parseDouble((String)req.getParameter("cost"));//需要支付的价格
@@ -116,6 +118,7 @@ public class PayController {
 	}
 	@RequestMapping("/point")
 	public int pointWay(HttpServletRequest req,@CookieValue("loginTel") String tel) {
+	
 		int resflag=0;
 		
 		String s=(String)req.getParameter("need_point"); 	
@@ -176,6 +179,7 @@ public class PayController {
 		return res;
 	}
 	@RequestMapping("/refunnbyDB")
+	
 	public int  refunnbyDB(HttpServletRequest req, Model model,@CookieValue("loginTel") String tel) {
 		int flag=0;
 		String card_id=(String)req.getParameter("card_id"); 
