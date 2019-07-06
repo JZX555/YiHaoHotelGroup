@@ -25,7 +25,6 @@ public class LogController {
 	
 	@Autowired
 	RootService rootService = null;
-	
 	/**
 	 * 登录转发
 	 * @param request
@@ -34,7 +33,9 @@ public class LogController {
 	 */
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,Model model) {
-    	String telCookie = null;
+    	System.out.println("进入/log/login");
+		
+		String telCookie = null;
     	String passwordCookie = null;
     	
     	Cookie[] cookies = request.getCookies();
@@ -53,11 +54,12 @@ public class LogController {
     			Account account = accountService.getAccountByTel(telCookie);
     			if(account != null && account.getPassword().equals(passwordCookie)) {
     				model.addAttribute("account", account);
+    				System.out.println("准备回到redirect:/");
     				return "redirect:/";
     			}
     		}
     	}
-		
+    	System.out.println("准备回到login");
 		return "login";
 	}
 	
