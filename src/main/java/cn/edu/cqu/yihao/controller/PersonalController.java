@@ -57,7 +57,7 @@ public class PersonalController {
 		else if(vip == 2)
 			needPoint = 30000 - maxPoint;
 		else if(vip == 3)
-			needPoint = 50000 - maxPoint;
+			needPoint = 100000 - maxPoint;
 		
 		model.addAttribute("availPoint", account.getPoint());
 		model.addAttribute("maxPoint", maxPoint);
