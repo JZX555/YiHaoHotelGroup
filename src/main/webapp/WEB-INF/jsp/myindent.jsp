@@ -463,6 +463,8 @@ th, td {
 																								.html(
 																										"<input type='button' id='goPayButton' value='去支付'>");
 																						var cancle =$("<td/>").html("<input type='button' id='cancleButton' value='取消订单'>");
+																						var checkInDate = $("<td/>").html(item.indent.startDate);
+																						
 																						button
 																								.children(
 																										"input")
@@ -480,7 +482,8 @@ th, td {
 																										tel,
 																										price,
 																										button,
-																										cancle)
+																										cancle,
+																										checkInDate)
 																								.appendTo(
 																										tbody);
 																					})
@@ -506,8 +509,8 @@ th, td {
 										$.post("/indents/cancelIndent",
 												{
 													indentId:$(this).attr("indent_id"),
-													checkInDate:$(this).attr("checkInDate"),
-													checkOutDate:$(this).attr("checkOutDate")},
+													checkInDate:formatDate(new Date($(this).attr("checkInDate"))),
+													checkOutDate:formatDate(new Date($(this).attr("checkOutDate")))},
 												function(flag){
 											if(flag==1) alert("取消成功");
 											else alert("取消失败");
