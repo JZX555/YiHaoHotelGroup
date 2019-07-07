@@ -2,6 +2,7 @@ package cn.edu.cqu.yihao.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -84,11 +85,13 @@ public class PersonalController {
 		
 		Account account = this.acService.getAccountByTel(tel);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date birthday = account.getBirthday();
 		
 		model.addAttribute("tel", tel);
 		model.addAttribute("email", account.getEmail());
-		System.out.println(format.format(account.getBirthday()));
-		model.addAttribute("birthday", format.format(account.getBirthday()));
+
+		if(birthday != null)
+			model.addAttribute("birthday", format.format(account.getBirthday()));
 		
 		return "userinfo";
 	}
