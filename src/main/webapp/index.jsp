@@ -137,18 +137,18 @@
 			<div class="welcome-hero-txt">
 				<h2>欢迎光临亿豪酒店</h2>
 			</div>
-			<form action="/user/date" method="post">
+			<form action="/user/date" method="post" onsubmit="return check()">
 				<div class="welcome-hero-serch-box"
 					style="opacity: 0; margin-left: 129px;">
 
 					<div class="welcome-hero-form">
 						<div class="single-welcome-hero-form">
 							<h3>入住日期</h3>
-							<input type="date" name="checkInDate" />
+							<input id="checkInDate" type="date" name="checkInDate" />
 						</div>
 						<div class="single-welcome-hero-form">
 							<h3>离开日期</h3>
-							<input type="date" name="checkOutDate">
+							<input id="checkOutDate" type="date" name="checkOutDate">
 						</div>
 
 						<button class="welcome-hero-btn" type="submit">
@@ -327,5 +327,21 @@
 
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
+	<script type="text/javascript">
+	function check(){
+		var checkInDate = new Date($("#checkInDate").val());
+		var checkOutDate = new Date($("#checkOutDate").val());
+		alert(checkInDate);
+		if(checkInDate=="Invalid Date"||checkOutDate=="Invalid Date"){
+			alert("请输入时间");
+			return false;
+		}
+		if(checkInDate.getTime()>=checkOutDate.getTime()){
+			alert("时间输入有误");
+			return false;
+		}
+		else return true;
+	}
+	</script>
 </body>
 </html>
