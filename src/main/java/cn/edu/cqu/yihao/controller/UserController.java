@@ -262,7 +262,7 @@ public class UserController
 			int vipLevel = currentAccount.getVipLevel();// 获取VIP等级
 			Vip currentVip = vipservice.getByLevel(vipLevel);
 			float discount = currentVip.getDiscount();// 获取该等级对应的折扣
-			double cost = ((int) (perPrice * dateCount * discount * 100)) / 100;
+			double cost = (double) Math.round(perPrice * dateCount * discount * 100) / 100;
 			indent.setCost(cost);
 			// 此时记录的所有属性都设置完毕，可以插入indent表中
 			int indentRow = indentservice.addIndent(indent);
