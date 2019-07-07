@@ -59,6 +59,12 @@
 	width: 170px;
 	height: 40px;
 	margin: auto;
+	
+}
+.breakfast{
+	border: none;
+    max-width: 100%;
+    height: 300;
 }
 </style>
 
@@ -147,7 +153,7 @@
 				<div class=" col-md-4 col-sm-6">
 					<div class="single-explore-item">
 						<img alt=""
-							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+							src="/assets/images/roomType/1.jpg"><br>
 						<p class="section-header">大床房</p>
 						<c:if test="${roomtype1!=0}">
 							<button
@@ -167,7 +173,7 @@
 				<div class=" col-md-4 col-sm-6">
 					<div class="single-explore-item">
 						<img alt=""
-							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+							src="/assets/images/roomType/2.jpg"><br>
 						<p class="section-header">2</p>
 						<c:if test="${roomtype2!=0}">
 							<button
@@ -187,7 +193,7 @@
 				<div class=" col-md-4 col-sm-6">
 					<div class="single-explore-item">
 						<img alt=""
-							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+							src="/assets/images/roomType/3.jpg"><br>
 						<p class="section-header">3</p>
 						<c:if test="${roomtype3!=0}">
 							<button
@@ -207,7 +213,7 @@
 				<div class=" col-md-4 col-sm-6">
 					<div class="single-explore-item">
 						<img alt=""
-							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+							src="/assets/images/roomType/4.jpg"><br>
 						<p class="section-header">4</p>
 						<c:if test="${roomtype4!=0}">
 							<button
@@ -228,7 +234,7 @@
 				<div class=" col-md-4 col-sm-6">
 					<div class="single-explore-item">
 						<img alt=""
-							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+							src="/assets/images/roomType/5.jpg"><br>
 						<p class="section-header">5</p>
 						<c:if test="${roomtype5!=0}">
 							<button
@@ -269,7 +275,7 @@
 	</footer>
 	<!--/.footer-->
 	<div id="breakfast" class="explore"
-		style="display: none; position: fixed; width: 90%; left: 5%; top: 20%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 15%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 10px">
 		<div class="explore-content">
 			<div class="section-header">
 				<h2>选择早餐类型</h2>
@@ -279,7 +285,7 @@
 					<div class=" col-md-4 col-sm-6">
 						<div class="single-explore-item">
 							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="/assets/images/roomType/6.jpg" class="breakfast"><br>
 							<p class="section-header">无早餐</p>
 							<button value="0" class="welcome-hero-btn book"
 								style="width: 170px; height: 40px; margin: auto;">
@@ -290,7 +296,7 @@
 					<div class=" col-md-4 col-sm-6">
 						<div class="single-explore-item">
 							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="/assets/images/roomType/7.jpg" class="breakfast"><br>
 							<p class="section-header">单早</p>
 							<button value="1" class="welcome-hero-btn book"
 								style="width: 170px; height: 40px; margin: auto;">
@@ -301,7 +307,7 @@
 					<div class=" col-md-4 col-sm-6">
 						<div class="single-explore-item">
 							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="/assets/images/roomType/8.jpg" class="breakfast"><br>
 							<p class="section-header">双早</p>
 							<button value="2" class="welcome-hero-btn book"
 								style="width: 170px; height: 40px; margin: auto;">
@@ -323,7 +329,7 @@
 	</div>
 
 	<div id="information" class="explore"
-		style="display: none; position: fixed; width: 90%; left: 5%; top: 20%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 15%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
 		<div class="section-header">
 			<h2>请输入以下信息</h2>
 			<hr>
