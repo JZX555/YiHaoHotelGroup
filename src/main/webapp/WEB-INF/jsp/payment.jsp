@@ -143,7 +143,7 @@
 					自
 					<c:out value="${result.checkInDate }" />
 					至
-					<c:out value="${result.checkOutDate }" />
+					<c:out value="${result.checkOutDate}" />
 					，共
 					<c:out value="${result.dateCount }" />
 					天
