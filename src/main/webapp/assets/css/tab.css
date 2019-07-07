@@ -11,7 +11,8 @@
     zoom: 1; border-bottom: none;
     z-index: 110;
     background: #fff;
-    width: 450px;
+    opacity:0.5;
+    width: 650px;
     display: block;
     border-top: solid 1px #d1d1d1;
     border-left: solid 1px #d1d1d1;
@@ -46,7 +47,7 @@
 }
 
 .aui-page-list {
-    width: 450px;
+    width: 650px;
     height: 400px;
     padding-top: 12px;
     position: relative;
