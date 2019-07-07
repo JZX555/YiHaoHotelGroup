@@ -31,4 +31,6 @@ public interface IndentMapper {
 	Indent[] selectCompleteBetweenDate(@Param("type")int type, @Param("begin")String beginDate, @Param("end")String endDate);
 	
 	Indent[] selectBetweenDate(@Param("begin")String beginDate, @Param("end")String endDate);
+
+	Indent[] selectByCustomerId(String customerId);
 }

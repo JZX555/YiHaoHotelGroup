@@ -24,4 +24,6 @@ public interface IndentService {
 	public Indent[] getCompleteBetweenDate(int type, String beginDate, String endDate);
 	
 	public Indent[] getBetweenDate(String beginDate, String endDate);
+	
+	public Indent[] getByCustomerId(String customerId);
 }

@@ -233,7 +233,7 @@ public class IndentController {
 			map.put("indentId", indentId);
 			map.put("checkInDate", checkInDate);
 			map.put("checkOutDate", checkOutDate);
-			return 0;
+			return 1;
 		
 		
 	}

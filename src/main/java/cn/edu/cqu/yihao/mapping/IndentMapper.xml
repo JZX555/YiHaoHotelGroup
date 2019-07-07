@@ -72,6 +72,12 @@
 		(to_days(start_time) &lt;= to_days(#{end, jdbcType=VARCHAR}) and
 		to_days(end_time) &gt;= to_days(#{end, jdbcType=VARCHAR}))
   </select>  
+  <select id="selectByCustomerId" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from indent
+  	where customer_id = #{customerId jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from indent
     where indent_id = #{indentId,jdbcType=VARCHAR}
