@@ -94,8 +94,8 @@ public class UserController
 
 	// 用户选择入住和退房时间->用户点击预订->用户选择房型->用户点击预订->用户选择订房策略->用户点击预订->用户填写个人信息->用户点击确定
 	@RequestMapping(value = "/ready", method = RequestMethod.POST)
-	public synchronized String PayByDebitCard(HttpServletRequest request, HttpServletResponse response, Model model, @CookieValue("loginTel") String tel)
-			throws ParseException
+	public synchronized String PayByDebitCard(HttpServletRequest request, HttpServletResponse response, Model model,
+			@CookieValue("loginTel") String tel) throws ParseException
 	{
 		// 接收七个用户输入，入住时间(checkInDate)和退房时间(checkOutDate)，房型(roomType)，订房策略(strategyType)，住户姓名(customerName)，住户身份证号(customerId)，账户电话号码(tel)
 		String checkInDate = (String) request.getParameter("checkInDate");// 接收入住时间
@@ -104,7 +104,7 @@ public class UserController
 		int strategyType = Integer.parseInt((String) request.getParameter("strategyType"));// 接收订房策略
 		String customerName = (String) request.getParameter("customerName");// 接收住户姓名
 		String customerId = (String) request.getParameter("customerId");// 接收住户身份证号
-		//String tel = (String) request.getParameter("tel");// 接收账户电话号码
+		// String tel = (String) request.getParameter("tel");// 接收账户电话号码
 		Result result = new Result();
 		result = Work(checkInDate, checkOutDate, roomType, strategyType, customerName, customerId, tel);
 		if (result.flag == 0)
@@ -118,31 +118,32 @@ public class UserController
 			java.sql.Date sqlCheckInDate = new java.sql.Date(utilCheckInDate.getTime());
 			java.util.Date utilCheckOutDate = sdf.parse(checkOutDate);
 			java.sql.Date sqlCheckOutDate = new java.sql.Date(utilCheckOutDate.getTime());
-			int flag=1;
-			Indent indents[]=indentservice.getByCustomerId(customerId);
-			for(Indent temp : indents)
+			int flag = 1;
+			Indent indents[] = indentservice.getByCustomerId(customerId);
+			for (Indent temp : indents)
 			{
-				java.sql.Date sqlStartDate=new java.sql.Date(temp.getStartTime().getTime());
-				java.sql.Date sqlEndDate=new java.sql.Date(temp.getEndTime().getTime());
-				if(sqlCheckInDate.compareTo(sqlEndDate)>0||sqlCheckOutDate.compareTo(sqlStartDate)<0)
+				java.sql.Date sqlStartDate = new java.sql.Date(temp.getStartTime().getTime());
+				java.sql.Date sqlEndDate = new java.sql.Date(temp.getEndTime().getTime());
+				if (sqlCheckInDate.compareTo(sqlEndDate) > 0 || sqlCheckOutDate.compareTo(sqlStartDate) < 0)
 				{
 					continue;
-				}
-				else
+				} else
 				{
-					flag=0;
+					flag = 0;
 					break;
 				}
 			}
-			if(flag==1)
+			if (flag == 1)
 			{
 				model.addAttribute("result", result);
-				System.out.println("indentId"+result.currentIndentId+"checkInDatecost"+result.checkInDate+"checkOutDatecost"+result.checkOutDate+"roomType"+result.roomType+"customerName"+result.customerName+"customerId"+result.customerId+"price"+result.price+"vipLevel"+result.vipLevel+"discount"+result.discount+"cost"+result.cost);
+				System.out.println("indentId" + result.currentIndentId + "checkInDatecost" + result.checkInDate
+						+ "checkOutDatecost" + result.checkOutDate + "roomType" + result.roomType + "customerName"
+						+ result.customerName + "customerId" + result.customerId + "price" + result.price + "vipLevel"
+						+ result.vipLevel + "discount" + result.discount + "cost" + result.cost);
 				System.out.println("返回到支付界面");
 				// 返回到支付界面
 				return "/payment";
-			}
-			else
+			} else
 			{
 				model.addAttribute("errorInf", "该身份证不能预订。原因：在所选时间段内已有该身份证的预订。");
 				return "forward:/error.jsp";
@@ -190,7 +191,7 @@ public class UserController
 			int subscript = random.nextInt(Room.length);
 			String currentRoomId = Room[subscript];
 			// 在book表中加入相关记录（即锁下该房间）
-			int dateCount=0;
+			int dateCount = 0;
 			Book book = new Book();
 			book.setTel(tel);
 			book.setRoomId(currentRoomId);
