@@ -149,8 +149,10 @@ public class LogController {
 	
 	@RequestMapping("/checkTel")
 	@ResponseBody
-	public int checkTel (String tel) {
+	public int checkTel (HttpServletRequest request) {
 		int flag = 0;
+		String tel = request.getParameter("tel");
+		
 		System.out.println(accountService.getAccountByTel(tel)+tel);
 		if(accountService.getAccountByTel(tel) != null)
 			flag = 1;
