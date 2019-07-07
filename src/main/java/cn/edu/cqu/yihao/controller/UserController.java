@@ -67,7 +67,7 @@ public class UserController
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date utilCheckInDate = sdf.parse(checkInDate);
 		java.util.Date utilCheckOutDate = sdf.parse(checkOutDate);
-		if (utilCheckInDate.compareTo(utilCheckOutDate) >=0)
+		if (utilCheckInDate.compareTo(utilCheckOutDate) >= 0)
 		{
 			model.addAttribute("{errorInfo", "您填写的入住时间大于等于z了退房时间。");
 			return "error";
@@ -112,11 +112,10 @@ public class UserController
 		java.sql.Date sqlCheckOutDate = new java.sql.Date(utilCheckOutDate.getTime());
 		int flag = 1;
 		Indent indents[] = indentservice.getByCustomerId(customerId);
-		if(indents==null)
+		if (indents == null)
 		{
-		
-		}
-		else
+
+		} else
 		{
 			for (Indent temp : indents)
 			{
@@ -125,8 +124,7 @@ public class UserController
 				if (sqlCheckInDate.compareTo(sqlEndDate) > 0 || sqlCheckOutDate.compareTo(sqlStartDate) < 0)
 				{
 					continue;
-				}
-				else
+				} else
 				{
 					flag = 0;
 				}
@@ -140,8 +138,7 @@ public class UserController
 			{
 				model.addAttribute("{errorInfo", "信息过期，该房型已不可用。");
 				return "error";
-			}
-			else
+			} else
 			{
 				model.addAttribute("result", result);
 				System.out.println("indentId" + result.currentIndentId + "checkInDatecost" + result.checkInDate
@@ -152,13 +149,12 @@ public class UserController
 				// 返回到支付界面
 				return "/payment";
 			}
-		}
-		else
+		} else
 		{
 			model.addAttribute("errorInfo", "该身份证不能预订。原因：在所选时间段内已有该身份证的预订。");
 			return "error";
 		}
-		
+
 	}
 
 	public int toPrice(int type)
@@ -215,7 +211,7 @@ public class UserController
 			Calendar cld = Calendar.getInstance();
 			cld.setTime(utilDate);
 			cld.add(Calendar.DATE, 1);
-			sqlDate=new java.sql.Date(cld.getTime().getTime());
+			sqlDate = new java.sql.Date(cld.getTime().getTime());
 			while (!sqlDate.toString().equals(checkOutDate))
 			{
 				book.setBookdate(sqlDate);
@@ -223,7 +219,7 @@ public class UserController
 				dateCount++;
 				cld.setTime(utilDate);
 				cld.add(Calendar.DATE, 1);
-				sqlDate=new java.sql.Date(cld.getTime().getTime());
+				sqlDate = new java.sql.Date(cld.getTime().getTime());
 			}
 			System.out.println("book插入完成");
 			// 创建订单
@@ -259,8 +255,7 @@ public class UserController
 			int vipLevel = currentAccount.getVipLevel();// 获取VIP等级
 			Vip currentVip = vipservice.getByLevel(vipLevel);
 			float discount = currentVip.getDiscount();// 获取该等级对应的折扣
-			double costl = perPrice * dateCount * discount;
-			double cost=((int)(costl*100))/100;
+			double cost = ((int) (perPrice * dateCount * discount * 100)) / 100;
 			indent.setCost(cost);
 			// 此时记录的所有属性都设置完毕，可以插入indent表中
 			int indentRow = indentservice.addIndent(indent);
