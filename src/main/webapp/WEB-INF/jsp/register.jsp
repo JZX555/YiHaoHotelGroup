@@ -121,7 +121,7 @@
 			<div class="welcome-hero-txt">
 				<h2>注册</h2>
 			</div>
-			<form action="/log/register" method="post">
+			<form action="/log/register" method="post" onsubmit="return check()">
 				<div class="welcome-hero-serch-box"
 					style="opacity: 0; margin-left: 129px; display: block;">
 
@@ -205,8 +205,17 @@
 	<script src="/assets/js/custom.js"></script>
 	
 	<script type="text/javascript">
+	
+	function check(){
+		
+		if($("#tel").val()==""||$("#password").val()==""||$("#email").val()==""){
+			alert("不能有空信息")
+			return false;
+		};		
+		return true;
+		
+	}
 	$(document).ready(function () {
-		var flag = 0;//如果flag为1不准输入
 		$("#tel").blur(function(){
 			$("#check").empty();
 		    $.post("/log/checkTel",
@@ -214,24 +223,16 @@
 		        tel:$("#tel").val()
 		    },
 		        function(result){
-		    	alert(result)
 		        if(result==0){
 		        	$("#check").html("电话号码可用");
-		        	flag = 0;
 		        }
 		        else{
 		        	$("#check").html("电话号码已存在");
-		        	flag = 1;
 		        }
-		    });
+		    },"json");
 		});
 		
-		$("#registerButton").on("mouseenter",function(){
-			if($("#tel").val()=="") alert("电话号码不能为空");
-			if($("#password").val()=="") alert("密码不能为空");
-			if($("#email").val()=="") alert("邮箱不能为空");
-			if(flag == 1) alert("电话号码已注册");
-		})
+		
 		
 	})
 	</script>
