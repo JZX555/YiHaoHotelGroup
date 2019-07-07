@@ -14,6 +14,7 @@ import cn.edu.cqu.yihao.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -66,10 +67,10 @@ public class UserController
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date utilCheckInDate = sdf.parse(checkInDate);
 		java.util.Date utilCheckOutDate = sdf.parse(checkOutDate);
-		if (utilCheckInDate.compareTo(utilCheckOutDate) == 1)
+		if (utilCheckInDate.compareTo(utilCheckOutDate) > 0)
 		{
-			model.addAttribute("errorFlag", 0);
-			return "forward:/index.jsp";
+			model.addAttribute("{errorInfo", "您填写的入住时间大于了退房时间。");
+			return "forward:/error.jsp";
 		} else
 		{
 			// 计算不同房型的可用房间数
@@ -93,7 +94,7 @@ public class UserController
 
 	// 用户选择入住和退房时间->用户点击预订->用户选择房型->用户点击预订->用户选择订房策略->用户点击预订->用户填写个人信息->用户点击确定
 	@RequestMapping(value = "/ready", method = RequestMethod.POST)
-	public synchronized String PayByDebitCard(HttpServletRequest request, HttpServletResponse response, Model model)
+	public synchronized String PayByDebitCard(HttpServletRequest request, HttpServletResponse response, Model model, @CookieValue("loginTel") String tel)
 			throws ParseException
 	{
 		// 接收七个用户输入，入住时间(checkInDate)和退房时间(checkOutDate)，房型(roomType)，订房策略(strategyType)，住户姓名(customerName)，住户身份证号(customerId)，账户电话号码(tel)
@@ -103,32 +104,49 @@ public class UserController
 		int strategyType = Integer.parseInt((String) request.getParameter("strategyType"));// 接收订房策略
 		String customerName = (String) request.getParameter("customerName");// 接收住户姓名
 		String customerId = (String) request.getParameter("customerId");// 接收住户身份证号
-		String tel = (String) request.getParameter("tel");// 接收账户电话号码
+		//String tel = (String) request.getParameter("tel");// 接收账户电话号码
 		Result result = new Result();
 		result = Work(checkInDate, checkOutDate, roomType, strategyType, customerName, customerId, tel);
 		if (result.flag == 0)
 		{
-			return "提示失败的页面";
+			model.addAttribute("{errorInfo", "信息过期，该房型已不可用。");
+			return "forward:/error.jsp";
 		} else
 		{
-			// 传回参数
-			/*
-			 * model.addAttribute("indenttId",result.currentIndentId);//传回订单号
-			 * model.addAttribute("checkInDatecost",result.checkInDate);//传回入住时间
-			 * model.addAttribute("checkOutDatecost",result.checkOutDate);//传回退房时间
-			 * model.addAttribute("roomType",result.roomType);//传回房间类型
-			 * model.addAttribute("customerName",result.customerName);//传回住户姓名
-			 * model.addAttribute("customerId",result.customerId);//传回身份证号
-			 * model.addAttribute("price",result.price);//传回原价
-			 * model.addAttribute("vipLevel",result.vipLevel);//传回VIP等级
-			 * model.addAttribute("discount",result.discount);//传回折扣
-			 * model.addAttribute("cost",result.cost);//传回折后价
-			 */
-			model.addAttribute("result", result);
-			System.out.println("indentId"+result.currentIndentId+"checkInDatecost"+result.checkInDate+"checkOutDatecost"+result.checkOutDate+"roomType"+result.roomType+"customerName"+result.customerName+"customerId"+result.customerId+"price"+result.price+"vipLevel"+result.vipLevel+"discount"+result.discount+"cost"+result.cost);
-			System.out.println("返回到支付界面");
-			// 返回到支付界面
-			return "/payment";
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date utilCheckInDate = sdf.parse(checkInDate);
+			java.sql.Date sqlCheckInDate = new java.sql.Date(utilCheckInDate.getTime());
+			java.util.Date utilCheckOutDate = sdf.parse(checkOutDate);
+			java.sql.Date sqlCheckOutDate = new java.sql.Date(utilCheckOutDate.getTime());
+			int flag=1;
+			Indent indents[]=indentservice.getByCustomerId(customerId);
+			for(Indent temp : indents)
+			{
+				java.sql.Date sqlStartDate=new java.sql.Date(temp.getStartTime().getTime());
+				java.sql.Date sqlEndDate=new java.sql.Date(temp.getEndTime().getTime());
+				if(sqlCheckInDate.compareTo(sqlEndDate)>0||sqlCheckOutDate.compareTo(sqlStartDate)<0)
+				{
+					continue;
+				}
+				else
+				{
+					flag=0;
+					break;
+				}
+			}
+			if(flag==1)
+			{
+				model.addAttribute("result", result);
+				System.out.println("indentId"+result.currentIndentId+"checkInDatecost"+result.checkInDate+"checkOutDatecost"+result.checkOutDate+"roomType"+result.roomType+"customerName"+result.customerName+"customerId"+result.customerId+"price"+result.price+"vipLevel"+result.vipLevel+"discount"+result.discount+"cost"+result.cost);
+				System.out.println("返回到支付界面");
+				// 返回到支付界面
+				return "/payment";
+			}
+			else
+			{
+				model.addAttribute("errorInf", "该身份证不能预订。原因：在所选时间段内已有该身份证的预订。");
+				return "forward:/error.jsp";
+			}
 		}
 	}
 
@@ -164,14 +182,15 @@ public class UserController
 			System.out.println("checkInDate" + checkInDate + "  checkOutDate" + checkOutDate + "  roomType" + roomType
 					+ "  strategyType" + strategyType + "  customerName" + customerName + "  customerId" + customerId
 					+ "  tel" + tel);
-			int price = roomservice.getPriceByType(roomType) + toPrice(strategyType);
-			System.out.println("price=" + price);
+			int perPrice = roomservice.getPriceByType(roomType) + toPrice(strategyType);
+			System.out.println("price=" + perPrice);
 			// 随机选择一个该房型下的可用房间的room_id(即选择该房间)
 			String Room[] = bookservice.getAvailRoomBetween(roomType, checkInDate, checkOutDate);
 			Random random = new Random();
 			int subscript = random.nextInt(Room.length);
 			String currentRoomId = Room[subscript];
 			// 在book表中加入相关记录（即锁下该房间）
+			int dateCount=0;
 			Book book = new Book();
 			book.setTel(tel);
 			book.setRoomId(currentRoomId);
@@ -181,6 +200,7 @@ public class UserController
 			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 			book.setBookdate(sqlDate);
 			int bookRow = bookservice.addBook(book);
+			dateCount++;
 			Calendar cld = Calendar.getInstance();
 			cld.setTime(utilDate);
 			cld.add(Calendar.DATE, 1);
@@ -190,6 +210,7 @@ public class UserController
 				sqlDate = new java.sql.Date(utilDate.getTime());
 				book.setBookdate(sqlDate);
 				bookRow = bookservice.addBook(book);
+				dateCount++;
 				cld.setTime(utilDate);
 				cld.add(Calendar.DATE, 1);
 				utilDate = cld.getTime();
@@ -228,7 +249,7 @@ public class UserController
 			int vipLevel = currentAccount.getVipLevel();// 获取VIP等级
 			Vip currentVip = vipservice.getByLevel(vipLevel);
 			float discount = currentVip.getDiscount();// 获取该等级对应的折扣
-			double cost = price * discount;
+			double cost = perPrice * dateCount * discount;
 			indent.setCost(cost);
 			// 此时记录的所有属性都设置完毕，可以插入indent表中
 			int indentRow = indentservice.addIndent(indent);
@@ -243,7 +264,7 @@ public class UserController
 			result.roomType = roomType;// 传回房间类型
 			result.customerName = customerName;// 传回住户姓名
 			result.customerId = customerId;// 传回身份证号
-			result.price = price;// 传回原价
+			result.price = perPrice * dateCount;// 传回原价
 			result.vipLevel = vipLevel;// 传回VIP等级
 			result.discount = discount;// 传回折扣
 			result.cost = cost;// 传回折后价

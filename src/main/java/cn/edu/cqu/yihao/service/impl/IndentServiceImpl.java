@@ -69,4 +69,10 @@ public class IndentServiceImpl implements IndentService {
 	public Indent[] getBetweenDate(String beginDate, String endDate) {
 		return this.indentDao.selectBetweenDate(beginDate, endDate);
 	}
+	
+	@Override
+	public Indent[] getByCustomerId(String customerId)
+	{
+		return indentDao.selectByCustomerId(customerId);
+	}
 }
