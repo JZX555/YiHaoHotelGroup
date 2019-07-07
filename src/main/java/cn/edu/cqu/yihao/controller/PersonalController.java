@@ -89,7 +89,7 @@ public class PersonalController {
 		
 		model.addAttribute("tel", tel);
 		model.addAttribute("email", account.getEmail());
-
+ 
 		if(birthday != null)
 			model.addAttribute("birthday", format.format(account.getBirthday()));
 		
