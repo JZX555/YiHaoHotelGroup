@@ -337,7 +337,7 @@
 			<form action="/user/ready" method="post">
 				<input type="text" name="customerName" placeholder="姓名"><br>
 				<input type="text" name="customerId" placeholder="身份证号"><br>
-				<input type="text" name="tel" placeholder="电话号码"><br>
+				<input type="hidden" name="tel" placeholder="电话号码" value="${cookie.loginTel}"><br>
 				<input type="hidden" id="roomType" name="roomType"> 
 				<input type="hidden" id="strategyType" name="strategyType"> 
 				<input type="hidden" name="checkInDate" value="${checkInDate}"> 
