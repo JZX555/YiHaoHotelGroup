@@ -154,7 +154,7 @@
 					<div class="single-explore-item">
 						<img alt=""
 							src="/assets/images/roomType/1.jpg"><br>
-						<p class="section-header">大床房</p>
+						<p class="section-header">高级大床房</p>
 						<c:if test="${roomtype1!=0}">
 							<button
 								class="welcome-hero-btn book-button select-breakfast-button"
@@ -174,7 +174,7 @@
 					<div class="single-explore-item">
 						<img alt=""
 							src="/assets/images/roomType/2.jpg"><br>
-						<p class="section-header">2</p>
+						<p class="section-header">高级双人房</p>
 						<c:if test="${roomtype2!=0}">
 							<button
 								class="welcome-hero-btn book-button select-breakfast-button"
@@ -194,7 +194,7 @@
 					<div class="single-explore-item">
 						<img alt=""
 							src="/assets/images/roomType/3.jpg"><br>
-						<p class="section-header">3</p>
+						<p class="section-header">行政豪华房</p>
 						<c:if test="${roomtype3!=0}">
 							<button
 								class="welcome-hero-btn book-button select-breakfast-button"
@@ -214,7 +214,7 @@
 					<div class="single-explore-item">
 						<img alt=""
 							src="/assets/images/roomType/4.jpg"><br>
-						<p class="section-header">4</p>
+						<p class="section-header">行政豪华套房</p>
 						<c:if test="${roomtype4!=0}">
 							<button
 								class="welcome-hero-btn book-button select-breakfast-button"
@@ -235,7 +235,7 @@
 					<div class="single-explore-item">
 						<img alt=""
 							src="/assets/images/roomType/5.jpg"><br>
-						<p class="section-header">5</p>
+						<p class="section-header">总统套房</p>
 						<c:if test="${roomtype5!=0}">
 							<button
 								class="welcome-hero-btn book-button select-breakfast-button"
@@ -329,7 +329,7 @@
 	</div>
 
 	<div id="information" class="explore"
-		style="display: none; position: fixed; width: 90%; left: 5%; top: 15%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
+		style="display: none; position: fixed; width: 40%; left: 30%; top: 15%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
 		<div class="section-header">
 			<h2>请输入以下信息</h2>
 			<hr>
