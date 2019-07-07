@@ -167,7 +167,7 @@
 		<div class="aui-nav-list-item" style="display:block">
 			<div class="aui-page-list">
 				<div class="aui-page-text" style="text-align: left">
-					<h2 style="color:#ffffff">
+					<h2 style="color:#ffffff; width: 650px;height: 400px;">
 						白银会员，注册即可成为白银会员</br>
 						</br>
 						可享受礼遇：</br>
@@ -183,7 +183,7 @@
 			<div class="aui-page-list">
 				
 				<div class="aui-page-text" style="text-align: left">
-					<h2 style="color:#ffffff">
+					<h2 style="color:#ffffff; width: 650px;height: 400px;">
 						黄金会员，积分达到10000即可成为黄金会员</br>
 						</br>
 						可享受礼遇：</br>
@@ -203,7 +203,7 @@
 			<div class="aui-page-list">
 				
 				<div class="aui-page-text" style="text-align: left">
-					<h2 style="color:#ffffff">
+					<h2 style="color:#ffffff; width: 650px;height: 400px;">
 						铂金会员，积分达到30000即可成为铂金会员</br>
 						</br>
 						可享受礼遇：</br>
@@ -224,7 +224,7 @@
 			<div class="aui-page-list">
 				
 				<div class="aui-page-text" style="text-align: left">
-					<h2 style="color:#ffffff">
+					<h2 style="color:#ffffff; width: 650px;height: 400px;">
 						黑金会员，积分达到100000即可成为黑金会员</br>
 						</br>
 						可享受礼遇：</br>
