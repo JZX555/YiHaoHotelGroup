@@ -274,10 +274,10 @@ th,td{
 				入住日期：<input type="date" name="checkin" id="bookBeginDate">至 <input
 					type="date" name="checkout" id="bookEndDate"><br> <br>
 				房型：<select name="roomType" id="bookRoomType">
-					<option value="1">双床房</option>
-					<option value="2">大床房</option>
-					<option value="3">高级大床房</option>
-					<option value="4">豪华套房</option>
+					<option value="1">高级大床房</option>
+					<option value="2">高级双人房</option>
+					<option value="3">行政豪华房</option>
+					<option value="4">行政豪华套房</option>
 					<option value="5">总统套房</option>
 				</select><br> <br> 住房策略：<select name="strategyType">
 					<option value="0">无早餐</option>
@@ -588,6 +588,7 @@ th,td{
 							})
 
 							$(document).on("click", "#checkRoom", function() {
+								var roomTypes =new Array("", "高级大床房", "高级双人房", "行政豪华房", "行政豪华套房", "总统套房");
 								var roomId = $("#checkRoomId").val();
 								if(roomId == "") {
 									alert("请输入房间号");
@@ -612,7 +613,7 @@ th,td{
 											var flag = 0;
 											var setTitle =  "<p>房间号：" + roomId +
 															"  日期：" + rwi.date;
-											var setData = "<p>房间类型：" + rwi.room.roomType +
+											var setData = "<p>房间类型：" + roomTypes[rwi.room.roomType] +
 														"        房间价格" + rwi.room.price;
 											var setPR = "";
 											if(rwi.haveIndent == 1) {
@@ -625,11 +626,11 @@ th,td{
 												setTitle = setTitle + "</p>"
 												setData = setData + "房间状态：可预定</p>";
 												setPR = setPR + "<p>房间价格：<input id='setPrice' type='text' />" + 
-														"<input id='setPriceButton' type='button' >修改</input>" +
+														"<input id='setPriceButton' type='button' value='修改' />" +
 														"房间状态：<select class='sub_button' name='p'>" + 
 														"<option value='canBook'>可预订</option>" + 
 														"<option value='cantBook'>不可预定</option>" +
-														"<input id='setStatusButton' type='submit' >修改</input>" + 
+														"<input id='setStatusButton' type='button' value='修改' />" + 
 														"</select></p><br><hr>";
 											}
 
@@ -688,6 +689,7 @@ th,td{
 							})
 							
 							$(document).on("click", "#checkIndentBtn", function() {
+								var indentTypes = new Array("未付款", "已付款", "已入住", "已完成", "已取消", "已退款");
 								var indentID = $("#checkIndentId").val();
 								$.ajax({
 									type:"post",
@@ -707,7 +709,7 @@ th,td{
 										var line2 = "<p>预订人电话：" + indent.tel + 
 													"        ￥" + indent.cost + 
 													"        房间号：" + indent.roomId + 
-													"        订单状态：" + indent.indentType + "</p><br>";
+													"        订单状态：" + indentTypes[indent.indentType] + "</p><br>";
 
 										display.append(line1 + line2);
 									},
@@ -757,6 +759,7 @@ th,td{
 							});
 
 							$(document).on("click", "#detilBtn", function() {
+								var indentTypes = new Array("未付款", "已付款", "已入住", "已完成", "已取消", "已退款");
 								var ideal = "";
 								$.ajax({
 									type:"post",
@@ -778,7 +781,7 @@ th,td{
 											var line2 = "<p>预订人电话：" + indent.tel + 
 														"        ￥" + indent.cost + 
 														"        房间号：" + indent.roomId + 
-														"        订单状态：" + indent.indentType + "</p><br>";
+														"        订单状态：" + indentTypes[indent.indentType] + "</p><br>";
 
 											display.append(line1 + line2);	
 										});

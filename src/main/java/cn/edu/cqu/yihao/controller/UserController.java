@@ -64,14 +64,21 @@ public class UserController
 		String checkInDate = request.getParameter("checkInDate");// 接收入住时间
 		String checkOutDate = request.getParameter("checkOutDate"); // 接收退房时间
 		// 判断入住日期是否小于等于退房日期，如果大于，返回初始页面并设置错误参数
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date utilCheckInDate = sdf.parse(checkInDate);
-		java.util.Date utilCheckOutDate = sdf.parse(checkOutDate);
-		if (utilCheckInDate.compareTo(utilCheckOutDate) >= 0)
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy年MM月dd日");
+		java.sql.Date sqlCheckInDate=new java.sql.Date(sdf1.parse(checkInDate).getTime());
+		java.util.Date utilCheckOutDate = sdf1.parse(checkOutDate);
+		java.util.Date utilCurrentDate=new Date();
+		java.sql.Date sqlCurrentDate=new java.sql.Date(utilCurrentDate.getTime());
+ 		if (sqlCheckInDate.compareTo(sqlCurrentDate) < 0&&!sqlCheckInDate.toString().equals(sqlCurrentDate.toString()))
 		{
-			model.addAttribute("{errorInfo", "您填写的入住时间大于等于z了退房时间。");
+ 			System.out.println("sqlCurrentDate"+utilCurrentDate);
+ 			System.out.println("sqlCHeckInDate"+sdf1.parse(checkInDate));
+ 			String notice="当前日期为".concat(sdf2.format(utilCurrentDate)).concat("。您只能选择该日及之后的时间入住。");
+			model.addAttribute("errorInfo", notice);
 			return "error";
-		} else
+		} 
+ 		else
 		{
 			// 计算不同房型的可用房间数
 			int resultLength1 = bookservice.getAvailRoomBetween(1, checkInDate, checkOutDate).length;
@@ -121,7 +128,7 @@ public class UserController
 			{
 				java.sql.Date sqlStartDate = new java.sql.Date(temp.getStartTime().getTime());
 				java.sql.Date sqlEndDate = new java.sql.Date(temp.getEndTime().getTime());
-				if (sqlCheckInDate.compareTo(sqlEndDate) > 0 || sqlCheckOutDate.compareTo(sqlStartDate) < 0)
+				if (sqlCheckInDate.compareTo(sqlEndDate) >= 0 || sqlCheckOutDate.compareTo(sqlStartDate) <= 0)
 				{
 					continue;
 				} else
@@ -255,7 +262,7 @@ public class UserController
 			int vipLevel = currentAccount.getVipLevel();// 获取VIP等级
 			Vip currentVip = vipservice.getByLevel(vipLevel);
 			float discount = currentVip.getDiscount();// 获取该等级对应的折扣
-			double cost = ((int) (perPrice * dateCount * discount * 100)) / 100;
+			double cost = (double) Math.round(perPrice * dateCount * discount * 100) / 100;
 			indent.setCost(cost);
 			// 此时记录的所有属性都设置完毕，可以插入indent表中
 			int indentRow = indentservice.addIndent(indent);
