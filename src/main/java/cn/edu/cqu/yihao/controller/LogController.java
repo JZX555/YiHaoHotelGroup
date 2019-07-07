@@ -3,6 +3,7 @@ package cn.edu.cqu.yihao.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,6 @@ public class LogController {
 	
 	@Autowired
 	RootService rootService = null;
-	
 	/**
 	 * 登录转发
 	 * @param request
@@ -34,7 +34,9 @@ public class LogController {
 	 */
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request,Model model) {
-    	String telCookie = null;
+    	System.out.println("进入/log/login");
+		
+		String telCookie = null;
     	String passwordCookie = null;
     	
     	Cookie[] cookies = request.getCookies();
@@ -53,11 +55,12 @@ public class LogController {
     			Account account = accountService.getAccountByTel(telCookie);
     			if(account != null && account.getPassword().equals(passwordCookie)) {
     				model.addAttribute("account", account);
+    				System.out.println("准备回到redirect:/");
     				return "redirect:/";
     			}
     		}
     	}
-		
+    	System.out.println("准备回到login");
 		return "login";
 	}
 	
@@ -87,10 +90,10 @@ public class LogController {
 		    	    passwordCookie.setPath("/");  
 		    	    response.addCookie(telCookie);  
 		    	    response.addCookie(passwordCookie); 
-		    	    
+		   
 		    	    model.addAttribute("Account", account);
 		    		
-		    		return "redirect:/";
+		            	return "redirect:/";
 		    	}
 	    	}
 		}

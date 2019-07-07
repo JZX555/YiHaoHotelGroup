@@ -73,7 +73,7 @@
 						</c:if>
 
 						<c:if test="${!login}">
-							<li class="header-top-contact"><a href="#">会员中心</a></li>
+							<li class="header-top-contact"><a href="/Personal/goIndex">会员中心</a></li>
 							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
@@ -143,6 +143,11 @@
 				<input type="hidden" name="cost" value="${cost }">
 				<input type="hidden" name="price" value="${price }">
 				<input type="hidden" name="indent_id" value="${indent_id }">
+				<br><br><br>
+				<h2>请输入银行卡账户</h2>
+				<input type="text" name="card_id" placeholder="银行卡账户"><br>
+				<h2>请输入银行卡密码</h2>
+				<input type="text" name="password" placeholder="密码"><br>
 				<button class="welcome-hero-btn" style="display:inline-block;">确认支付</button>
 				</form>
 				

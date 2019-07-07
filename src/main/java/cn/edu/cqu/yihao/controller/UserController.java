@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import cn.edu.cqu.yihao.service.*;
 import cn.edu.cqu.yihao.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;

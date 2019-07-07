@@ -79,7 +79,7 @@
 						</c:if>
 
 						<c:if test="${!login}">
-							<li class="header-top-contact"><a href="#">会员中心</a></li>
+							<li class="header-top-contact"><a href="/Personal/goIndex">会员中心</a></li>
 							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 						</c:if>
 					</ul>
@@ -170,14 +170,14 @@
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">2</p>
-							<c:if test="${roomtype1!=0}">
+							<c:if test="${roomtype2!=0}">
 								<button
 									class="welcome-hero-btn book-button select-breakfast-button"
 									value="2">
 									立即预定 <i data-feather="search"></i>
 								</button>
 							</c:if>
-							<c:if test="${roomtype1==0}">
+							<c:if test="${roomtype2==0}">
 								<div class="welcome-hero-btn">
 									无余房<i data-feather="search"></i>
 								</div>
@@ -192,14 +192,14 @@
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">3</p>
-							<c:if test="${roomtype1!=0}">
+							<c:if test="${roomtype3!=0}">
 								<button
 									class="welcome-hero-btn book-button select-breakfast-button"
 									value="3">
 									立即预定 <i data-feather="search"></i>
 								</button>
 							</c:if>
-							<c:if test="${roomtype1==0}">
+							<c:if test="${roomtype3==0}">
 								<div class="welcome-hero-btn">
 									无余房<i data-feather="search"></i>
 								</div>
@@ -214,14 +214,14 @@
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">大床房</p>
-							<c:if test="${roomtype1}!=0">
+							<c:if test="${roomtype4!=0}">
 								<button
 									class="welcome-hero-btn book-button select-breakfast-button"
 									value="4">
 									立即预定 <i data-feather="search"></i>
 								</button>
 							</c:if>
-							<c:if test="${roomtype1}==0">
+							<c:if test="${roomtype4}==0">
 								<div class="welcome-hero-btn">
 									无余房<i data-feather="search"></i>
 								</div>
@@ -236,7 +236,7 @@
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
 							<p class="section-header">5</p>
-							<c:if test="${roomtype1}!=0">
+							<c:if test="${roomtype5!=0}">
 								<button
 									class="welcome-hero-btn book-button select-breakfast-button"
 									value="5">
@@ -244,7 +244,7 @@
 								</button>
 							</c:if>
 
-							<c:if test="${roomtype1}==0">
+							<c:if test="${roomtype5==0}">
 								<div class="welcome-hero-btn">
 									无余房<i data-feather="search"></i>
 								</div>
@@ -276,7 +276,7 @@
 	</footer>
 	<!--/.footer-->
 	<div id="breakfast" class="explore"
-		style="display: none; position: fixed; width: 90%; left: 5%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 20%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
 		<div class="explore-content">
 			<div class="section-header">
 				<h2>选择早餐类型</h2>
@@ -316,6 +316,11 @@
 							</button>
 						</div>
 					</div>
+					
+					<button class="welcome-hero-btn cancle"
+								style="width: 170px; height: 40px; margin: auto;">
+								取消 <i data-feather="search"></i>
+							</button>
 				</div>
 			</div>
 		</div>
@@ -325,17 +330,24 @@
 	</div>
 
 	<div id="information" class="explore"
-		style="display: none; position: fixed; width: 90%; left: 5%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		style="display: none; position: fixed; width: 90%; left: 5%; top: 20%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
 		<div class="section-header">
+			<h2>请输入以下信息</h2>
+			<hr>
 			<form action="/user/ready" method="post">
 				<input type="text" name="customerName" placeholder="姓名"><br>
 				<input type="text" name="customerId" placeholder="身份证号"><br>
-				<input type="text" name="tel" placeholder="电话号码"><br>
+				<input type="hidden" name="tel" placeholder="电话号码" value="${cookie.loginTel}"><br>
 				<input type="hidden" id="roomType" name="roomType"> 
 				<input type="hidden" id="strategyType" name="strategyType"> 
 				<input type="hidden" name="checkInDate" value="${checkInDate}"> 
 				<input type="hidden" name="checkOutDate" value="${checkOutDate}"> 
-				<input type="submit" value="预定 ">
+				<br>
+				<br>
+				<button value="2" class="welcome-hero-btn"
+								style="width: 170px; height: 40px; margin-left: auto;margin-right:5px;">
+								预定 <i data-feather="search"></i>
+							</button>
 			</form>
 		</div>
 
