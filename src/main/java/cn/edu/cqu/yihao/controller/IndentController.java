@@ -217,15 +217,14 @@ public class IndentController {
 			Calendar cld = Calendar.getInstance();
 			cld.setTime(utilDate);
 			cld.add(Calendar.DATE, 1);
-			utilDate = cld.getTime();
+			sqlDate = new java.sql.Date(cld.getTime().getTime());
 			while (!sqlDate.toString().equals(checkOutDate))
 			{
-				sqlDate = new java.sql.Date(utilDate.getTime());
 				bookkey.setBookdate(sqlDate);
 				bookRow = bookservice.dropBook(bookkey);
 				cld.setTime(utilDate);
 				cld.add(Calendar.DATE, 1);
-				utilDate = cld.getTime();
+				sqlDate = new java.sql.Date(cld.getTime().getTime());
 			}
 			//返回所需值
 			

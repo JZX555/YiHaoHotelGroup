@@ -67,9 +67,9 @@ public class UserController
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date utilCheckInDate = sdf.parse(checkInDate);
 		java.util.Date utilCheckOutDate = sdf.parse(checkOutDate);
-		if (utilCheckInDate.compareTo(utilCheckOutDate) > 0)
+		if (utilCheckInDate.compareTo(utilCheckOutDate) >=0)
 		{
-			model.addAttribute("{errorInfo", "您填写的入住时间大于了退房时间。");
+			model.addAttribute("{errorInfo", "您填写的入住时间大于等于z了退房时间。");
 			return "error";
 		} else
 		{
@@ -215,16 +215,15 @@ public class UserController
 			Calendar cld = Calendar.getInstance();
 			cld.setTime(utilDate);
 			cld.add(Calendar.DATE, 1);
-			utilDate = cld.getTime();
+			sqlDate=new java.sql.Date(cld.getTime().getTime());
 			while (!sqlDate.toString().equals(checkOutDate))
 			{
-				sqlDate = new java.sql.Date(utilDate.getTime());
 				book.setBookdate(sqlDate);
 				bookRow = bookservice.addBook(book);
 				dateCount++;
 				cld.setTime(utilDate);
 				cld.add(Calendar.DATE, 1);
-				utilDate = cld.getTime();
+				sqlDate=new java.sql.Date(cld.getTime().getTime());
 			}
 			System.out.println("book插入完成");
 			// 创建订单
@@ -260,7 +259,8 @@ public class UserController
 			int vipLevel = currentAccount.getVipLevel();// 获取VIP等级
 			Vip currentVip = vipservice.getByLevel(vipLevel);
 			float discount = currentVip.getDiscount();// 获取该等级对应的折扣
-			double cost = perPrice * dateCount * discount;
+			//double cost = (double) Math.round(perPrice * dateCount * discount * 100) / 100;
+			double cost =perPrice * dateCount * discount;
 			indent.setCost(cost);
 			// 此时记录的所有属性都设置完毕，可以插入indent表中
 			int indentRow = indentservice.addIndent(indent);
