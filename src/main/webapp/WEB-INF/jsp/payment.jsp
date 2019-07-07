@@ -140,14 +140,33 @@
 					<c:out value="${result.currentIndentId }"></c:out>
 				</h2>
 				<h2>
+					自
+					<c:out value="${result.checkInDate }" />
+					至
+					<c:out value="${result.checkOutDate }" />
+					，共
+					<c:out value="${result.dateCount }" />
+					天
+				</h2>
+				<h2>房间详情：</h2>
+				<h2>
+					房间类型：
+					<c:out value="${result.roomType }"></c:out>
+				</h2>
+				<h2>
+					早餐类型：
+					<c:out value="${result.breakfastType }"></c:out>
+				</h2>
+				<h2>
 					原价：
 					<c:out value="${result.price }"></c:out>
 					元
 				</h2>
 				<h2>
-					您是尊贵的
-					<span id="vipLevel"></span>
-					会员，享
+					
+				</h2>
+				<h2>
+					您是尊贵的 <span id="vipLevel"></span> 会员，享
 					<c:out value="${result.discount }" />
 					折，需支付：
 				</h2>
@@ -157,8 +176,6 @@
 					<c:out value="${result.cost }" />
 					元
 				</h2>
-				<h2><c:out value="${result.checkInDate }" /></h2>
-				<h2><c:out value="${result.checkOutDate }" /></h2>
 				<form action="/pay/choose" method="post">
 					<input name="submit" type="hidden" value="银行卡支付"> <input
 						name="indent_id" type="hidden" value="${result.currentIndentId }">
@@ -174,15 +191,16 @@
 					<input name="price" type="hidden" value="${result.price }">
 					<input name="cost" type="hidden" value="${result.cost }">
 					<button class="welcome-hero-btn" style="display: inline-block;">
-						积分支付
-					</button>
+						积分支付</button>
 				</form>
-				
-				<button class="welcome-hero-btn" style="display: inline-block;"><a id="returnIndex" style="color:white" href="/">返回首页
-					</a></button>
-					
-					
-				<button id="cancleIndent" class="welcome-hero-btn" style="display: inline-block;">取消订单</button>
+
+				<button class="welcome-hero-btn" style="display: inline-block;">
+					<a id="returnIndex" style="color: white" href="/">返回首页 </a>
+				</button>
+
+
+				<button id="cancleIndent" class="welcome-hero-btn"
+					style="display: inline-block;">取消订单</button>
 			</div>
 
 		</div>
@@ -238,13 +256,17 @@
 
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
-	
+
 	<script type="text/javascript">
-		$(document).ready(function(){
-			
-			var vipLevel = ${result.vipLevel};
+		$(document).ready(function() {
+
+			var vipLevel = $
+			{
+				result.vipLevel
+			}
+			;
 			var vipName = null;
-			switch(vipLevel){
+			switch (vipLevel) {
 			case 0:
 				vipName = "白银";
 				break;
@@ -259,26 +281,21 @@
 				break;
 			}
 			$("#vipLevel").html(vipName);
-			
-			
-			$("#cancleIndent").on("click",function(){
-				$.post("/indents/cancelIndent",{
-					indentId: "${result.currentIndentId }",
-					checkInDate:"${result.checkInDate }",
-					checkOutDate:"${result.checkOutDate }"
-				},function(result){
-					if(result==1){
+
+			$("#cancleIndent").on("click", function() {
+				$.post("/indents/cancelIndent", {
+					indentId : "${result.currentIndentId }",
+					checkInDate : "${result.checkInDate }",
+					checkOutDate : "${result.checkOutDate }"
+				}, function(result) {
+					if (result == 1) {
 						alert("订单取消成功");
-						location.href ="/";
+						location.href = "/";
 					}
-				},"json");
+				}, "json");
 			});
-			
-			
-			
-			
+
 		})
-		
 	</script>
 
 </body>

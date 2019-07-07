@@ -106,7 +106,7 @@ public class UserController
 		// 接收七个用户输入，入住时间(checkInDate)和退房时间(checkOutDate)，房型(roomType)，订房策略(strategyType)，住户姓名(customerName)，住户身份证号(customerId)，账户电话号码(tel)
 		String checkInDate = (String) request.getParameter("checkInDate");// 接收入住时间
 		String checkOutDate = (String) request.getParameter("checkOutDate");// 接收退房时间
-		int roomType = Integer.parseInt((String) request.getParameter("roomType"));// 接收房型
+		int roomTypeFlag = Integer.parseInt((String) request.getParameter("roomType"));// 接收房型
 		int strategyType = Integer.parseInt((String) request.getParameter("strategyType"));// 接收订房策略
 		String customerName = (String) request.getParameter("customerName");// 接收住户姓名
 		String customerId = (String) request.getParameter("customerId");// 接收住户身份证号
@@ -139,7 +139,7 @@ public class UserController
 		if (flag == 1)
 		{
 			Result result = new Result();
-			result = Work(checkInDate, checkOutDate, roomType, strategyType, customerName, customerId, tel);
+			result = Work(checkInDate, checkOutDate, roomTypeFlag, strategyType, customerName, customerId, tel);
 			if (result.flag == 0)
 			{
 				model.addAttribute("{errorInfo", "信息过期，该房型已不可用。");
@@ -178,11 +178,11 @@ public class UserController
 		}
 	}
 
-	public synchronized Result Work(String checkInDate, String checkOutDate, int roomType, int strategyType,
+	public synchronized Result Work(String checkInDate, String checkOutDate, int roomTypeFlag, int strategyType,
 			String customerName, String customerId, String tel) throws ParseException
 	{
 		// 计算该房型是否有剩余的房间
-		int roomFlag = bookservice.getAvailRoomBetween(roomType, checkInDate, checkOutDate).length;
+		int roomFlag = bookservice.getAvailRoomBetween(roomTypeFlag, checkInDate, checkOutDate).length;
 		if (roomFlag == 0)
 		{
 			// 返回提示预订失败的页面（原因是该房型可用预订数为零）
@@ -192,13 +192,13 @@ public class UserController
 		} else
 		{
 			// 计算原价
-			System.out.println("checkInDate" + checkInDate + "  checkOutDate" + checkOutDate + "  roomType" + roomType
+			System.out.println("checkInDate" + checkInDate + "  checkOutDate" + checkOutDate + "  roomType" + roomTypeFlag
 					+ "  strategyType" + strategyType + "  customerName" + customerName + "  customerId" + customerId
 					+ "  tel" + tel);
-			int perPrice = roomservice.getPriceByType(roomType) + toPrice(strategyType);
+			int perPrice = roomservice.getPriceByType(roomTypeFlag) + toPrice(strategyType);
 			System.out.println("price=" + perPrice);
 			// 随机选择一个该房型下的可用房间的room_id(即选择该房间)
-			String Room[] = bookservice.getAvailRoomBetween(roomType, checkInDate, checkOutDate);
+			String Room[] = bookservice.getAvailRoomBetween(roomTypeFlag, checkInDate, checkOutDate);
 			Random random = new Random();
 			int subscript = random.nextInt(Room.length);
 			String currentRoomId = Room[subscript];
@@ -272,7 +272,45 @@ public class UserController
 			result.currentIndentId = currentIndentId;// 传回订单号
 			result.checkInDate = checkInDate;// 传回入住时间
 			result.checkOutDate = checkOutDate;// 传回退房时间
-			result.roomType = roomType;// 传回房间类型
+			result.dateCount=dateCount; //传回天数
+			// 传回房间类型
+			switch(roomTypeFlag)
+			{
+			case 1:
+				result.roomType="高级大床房";
+				break;
+			case 2:
+				result.roomType="高级双人房";
+				break;
+			case 3:
+				result.roomType="行政豪华房";
+				break;
+			case 4:
+				result.roomType="行政豪华套房";
+				break;
+			case 5:
+				result.roomType="总统套房";
+				break;
+			default:
+				result.roomType="void";
+				break;
+			}
+			//传回早餐类型
+			switch(strategyType)
+			{
+				case 0:
+					result.breakfastType="无早餐";
+					break;
+				case 1:
+					result.breakfastType="单早餐";
+					break;
+				case 2:
+					result.breakfastType="双早餐";
+					break;
+				default:
+					result.breakfastType="void";
+					break;
+			}
 			result.customerName = customerName;// 传回住户姓名
 			result.customerId = customerId;// 传回身份证号
 			result.price = perPrice * dateCount;// 传回原价
