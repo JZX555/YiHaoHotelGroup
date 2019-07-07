@@ -70,7 +70,7 @@ public class UserController
 		if (utilCheckInDate.compareTo(utilCheckOutDate) > 0)
 		{
 			model.addAttribute("{errorInfo", "您填写的入住时间大于了退房时间。");
-			return "forward:/error.jsp";
+			return "error";
 		} else
 		{
 			// 计算不同房型的可用房间数
@@ -105,21 +105,19 @@ public class UserController
 		String customerName = (String) request.getParameter("customerName");// 接收住户姓名
 		String customerId = (String) request.getParameter("customerId");// 接收住户身份证号
 		// String tel = (String) request.getParameter("tel");// 接收账户电话号码
-		Result result = new Result();
-		result = Work(checkInDate, checkOutDate, roomType, strategyType, customerName, customerId, tel);
-		if (result.flag == 0)
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilCheckInDate = sdf.parse(checkInDate);
+		java.sql.Date sqlCheckInDate = new java.sql.Date(utilCheckInDate.getTime());
+		java.util.Date utilCheckOutDate = sdf.parse(checkOutDate);
+		java.sql.Date sqlCheckOutDate = new java.sql.Date(utilCheckOutDate.getTime());
+		int flag = 1;
+		Indent indents[] = indentservice.getByCustomerId(customerId);
+		if(indents==null)
 		{
-			model.addAttribute("{errorInfo", "信息过期，该房型已不可用。");
-			return "forward:/error.jsp";
-		} else
+		
+		}
+		else
 		{
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date utilCheckInDate = sdf.parse(checkInDate);
-			java.sql.Date sqlCheckInDate = new java.sql.Date(utilCheckInDate.getTime());
-			java.util.Date utilCheckOutDate = sdf.parse(checkOutDate);
-			java.sql.Date sqlCheckOutDate = new java.sql.Date(utilCheckOutDate.getTime());
-			int flag = 1;
-			Indent indents[] = indentservice.getByCustomerId(customerId);
 			for (Indent temp : indents)
 			{
 				java.sql.Date sqlStartDate = new java.sql.Date(temp.getStartTime().getTime());
@@ -127,13 +125,23 @@ public class UserController
 				if (sqlCheckInDate.compareTo(sqlEndDate) > 0 || sqlCheckOutDate.compareTo(sqlStartDate) < 0)
 				{
 					continue;
-				} else
+				}
+				else
 				{
 					flag = 0;
-					break;
 				}
 			}
-			if (flag == 1)
+		}
+		if (flag == 1)
+		{
+			Result result = new Result();
+			result = Work(checkInDate, checkOutDate, roomType, strategyType, customerName, customerId, tel);
+			if (result.flag == 0)
+			{
+				model.addAttribute("{errorInfo", "信息过期，该房型已不可用。");
+				return "error";
+			}
+			else
 			{
 				model.addAttribute("result", result);
 				System.out.println("indentId" + result.currentIndentId + "checkInDatecost" + result.checkInDate
@@ -143,12 +151,14 @@ public class UserController
 				System.out.println("返回到支付界面");
 				// 返回到支付界面
 				return "/payment";
-			} else
-			{
-				model.addAttribute("errorInf", "该身份证不能预订。原因：在所选时间段内已有该身份证的预订。");
-				return "forward:/error.jsp";
 			}
 		}
+		else
+		{
+			model.addAttribute("errorInfo", "该身份证不能预订。原因：在所选时间段内已有该身份证的预订。");
+			return "error";
+		}
+		
 	}
 
 	public int toPrice(int type)
