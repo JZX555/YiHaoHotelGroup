@@ -64,10 +64,9 @@
 			<li class="head-responsive-right pull-right">
 				<div class="header-top-right">
 					<ul>
-					
+
 						<!-- 判断登陆状态 -->
-						<c:if test="${cookie.loginTel==null}" var="login"
-							scope="session">
+						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
 							<li class="header-top-contact"><a href="/log/register">注册</a></li>
@@ -101,7 +100,7 @@
 							data-target="#navbar-menu">
 							<i class="fa fa-bars"></i>
 						</button>
-						<a class="navbar-brand" href="/index.jsp">Yihao<span>Hotel</span></a>
+						<a class="navbar-brand" href="/index.jsp">yi<span>hao</span></a>
 
 					</div>
 					<!--/.navbar-header-->
@@ -112,9 +111,7 @@
 						id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
-							<li class=" scroll active"><a href="#home">我们的品牌</a></li>
-							<li class="scroll"><a href="#roomTypes">房间类型</a></li>
-							<li class="scroll"><a href="#surronding">周边精彩</a></li>
+							<li class=""><a id="home" class="active" href="#">支付结果</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -131,152 +128,20 @@
 		<div class="clearfix"></div>
 	</section>
 
-	<!-- 首页home  -->
-	<section id="home" class="welcome-hero">
-		<div class="container">
-			<div class="welcome-hero-txt">
-				<h2>欢迎光临亿豪酒店</h2>
-			</div>
-			<form action="/user/date" method="post" onsubmit="return check()">
-				<div class="welcome-hero-serch-box"
-					style="opacity: 0; margin-left: 129px;">
-
-					<div class="welcome-hero-form">
-						<div class="single-welcome-hero-form">
-							<h3>入住日期</h3>
-							<input id="checkInDate" type="date" name="checkInDate" />
-						</div>
-						<div class="single-welcome-hero-form">
-							<h3>离开日期</h3>
-							<input id="checkOutDate" type="date" name="checkOutDate">
-						</div>
-
-						<button class="welcome-hero-btn" type="submit">
-							立即预定 <i data-feather="search"></i>
-						</button>
-					</div>
-
-				</div>
-			</form>
-		</div>
-	</section>
-
-
-	<!-- 房型介绍 -->
-	<section id="roomTypes" class="explore"
+	<!-- 房间状态改变 -->
+	<section id="status-view-change-view" class="explore rootview"
 		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
-				<h2>房型介绍</h2>
+				<h2>发生错误：<c:out value="${errorInfo}"/></h2>
+				<button class="welcome-hero-btn" style="display: inline-block;">
+						<a href="/">返回首页</a>
+				</form>
 			</div>
-			<!--/.section-header-->
-			<div class="row">
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
 
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
-				</div>
-
-
-			</div>
 		</div>
-
 	</section>
 
-	<!-- 周边精彩-->
-	<section id="surronding" class="explore"
-		style="padding-left: 25px; padding-right: 25px;">
-		<div class="explore-content">
-			<div class="section-header">
-				<h2>周边精彩</h2>
-			</div>
-			<!--/.section-header-->
-			<div class="row">
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/1.jpg"><br>
-							<p class="section-header">xxx</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/2.jpg"><br>
-							<p class="section-header">xxx</p>
-						</div>
-					</a>
-				</div>
-
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/3.jpg"><br>
-							<p class="section-header">xxx</p>
-						</div>
-					</a>
-				</div>
-
-			</div>
-		</div>
-
-	</section>
 
 
 	<footer id="footer" class="footer">
@@ -327,21 +192,7 @@
 
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
-	<script type="text/javascript">
-	function check(){
-		var checkInDate = new Date($("#checkInDate").val());
-		var checkOutDate = new Date($("#checkOutDate").val());
-		alert(checkInDate);
-		if(checkInDate=="Invalid Date"||checkOutDate=="Invalid Date"){
-			alert("请输入时间");
-			return false;
-		}
-		if(checkInDate.getTime()>=checkOutDate.getTime()){
-			alert("时间输入有误");
-			return false;
-		}
-		else return true;
-	}
-	</script>
+
 </body>
+</html>
 </html>
