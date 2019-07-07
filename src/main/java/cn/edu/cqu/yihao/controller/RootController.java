@@ -386,9 +386,9 @@ public class RootController {
 		}
 		else {		
 			Indent indent = new Indent();
-			Book book = new Book();
 			Random random = new Random();
 			
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
 	        String dateID = sdf.format(new Date()).toString();
 	        String tailID = String.valueOf(100+random.nextInt(900));
@@ -401,20 +401,40 @@ public class RootController {
 			indent.setCost(Double.valueOf(this.roomService.getById(rooms[0]).getPrice()));
 			indent.setIndentType(1);
 			indent.setPayType(0);
-			
-			book.setRoomId(rooms[0]);
-			book.setIsBooked(1);
-			book.setTel("1234567890");
+
 			try {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				indent.setStartTime(dateFormat.parse(beginDate));
 				indent.setEndTime(dateFormat.parse(endDate));
-				book.setBookdate(dateFormat.parse(beginDate));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-			this.bookService.addBook(book);
+			try {
+				Date end = dateFormat.parse(endDate);
+				Date begin = dateFormat.parse(beginDate);
+				
+				Calendar tempStart = Calendar.getInstance();
+				Calendar tempEnd = Calendar.getInstance();
+				tempStart.setTime(begin);
+				tempEnd.setTime(end);
+				tempEnd.add(Calendar.DATE, +0);
+				
+				while (tempStart.before(tempEnd)) {
+					Book book = new Book();
+					
+					book.setRoomId(rooms[0]);
+					book.setIsBooked(1);
+					book.setTel("1234567890");
+					book.setBookdate(tempStart.getTime());
+					this.bookService.addBook(book);
+					
+					tempStart.add(Calendar.DAY_OF_YEAR, 1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
 			this.indentService.addIndent(indent);
 			
 			res.put("isSuccess", "1");
