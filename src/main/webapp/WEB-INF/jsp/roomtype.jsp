@@ -157,7 +157,7 @@
 							</button>
 						</c:if>
 						<c:if test="${roomtype1==0}">
-							<div class="welcome-hero-btn">
+							<div class="welcome-hero-btn book-button">
 								无余房<i data-feather="search"></i>
 							</div>
 						</c:if>
@@ -165,92 +165,85 @@
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">2</p>
-							<c:if test="${roomtype2!=0}">
-								<button
-									class="welcome-hero-btn book-button select-breakfast-button"
-									value="2">
-									立即预定 <i data-feather="search"></i>
-								</button>
-							</c:if>
-							<c:if test="${roomtype2==0}">
-								<div class="welcome-hero-btn">
-									无余房<i data-feather="search"></i>
-								</div>
-							</c:if>
-						</div>
-					</a>
+					<div class="single-explore-item">
+						<img alt=""
+							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+						<p class="section-header">2</p>
+						<c:if test="${roomtype2!=0}">
+							<button
+								class="welcome-hero-btn book-button select-breakfast-button"
+								value="2">
+								立即预定 <i data-feather="search"></i>
+							</button>
+						</c:if>
+						<c:if test="${roomtype2==0}">
+							<div class="welcome-hero-btn book-button">
+								无余房<i data-feather="search"></i>
+							</div>
+						</c:if>
+					</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">3</p>
-							<c:if test="${roomtype3!=0}">
-								<button
-									class="welcome-hero-btn book-button select-breakfast-button"
-									value="3">
-									立即预定 <i data-feather="search"></i>
-								</button>
-							</c:if>
-							<c:if test="${roomtype3==0}">
-								<div class="welcome-hero-btn">
-									无余房<i data-feather="search"></i>
-								</div>
-							</c:if>
-						</div>
-					</a>
+					<div class="single-explore-item">
+						<img alt=""
+							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+						<p class="section-header">3</p>
+						<c:if test="${roomtype3!=0}">
+							<button
+								class="welcome-hero-btn book-button select-breakfast-button"
+								value="3">
+								立即预定 <i data-feather="search"></i>
+							</button>
+						</c:if>
+						<c:if test="${roomtype3==0}">
+							<div class="welcome-hero-btn book-button">
+								无余房<i data-feather="search"></i>
+							</div>
+						</c:if>
+					</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-							<c:if test="${roomtype4!=0}">
-								<button
-									class="welcome-hero-btn book-button select-breakfast-button"
-									value="4">
-									立即预定 <i data-feather="search"></i>
-								</button>
-							</c:if>
-							<c:if test="${roomtype4}==0">
-								<div class="welcome-hero-btn">
-									无余房<i data-feather="search"></i>
-								</div>
-							</c:if>
-						</div>
-					</a>
+					<div class="single-explore-item">
+						<img alt=""
+							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+						<p class="section-header">4</p>
+						<c:if test="${roomtype4!=0}">
+							<button
+								class="welcome-hero-btn book-button select-breakfast-button"
+								value="4">
+								立即预定 <i data-feather="search"></i>
+							</button>
+						</c:if>
+						<c:if test="${roomtype4==0}">
+							<div class="welcome-hero-btn book-button">
+								无余房<i data-feather="search"></i>
+							</div>
+						</c:if>
+					</div>
 				</div>
 
-				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">5</p>
-							<c:if test="${roomtype5!=0}">
-								<button
-									class="welcome-hero-btn book-button select-breakfast-button"
-									value="5">
-									立即预定 <i data-feather="search"></i>
-								</button>
-							</c:if>
 
-							<c:if test="${roomtype5==0}">
-								<div class="welcome-hero-btn">
-									无余房<i data-feather="search"></i>
-								</div>
-							</c:if>
-						</div>
-					</a>
+				<div class=" col-md-4 col-sm-6">
+					<div class="single-explore-item">
+						<img alt=""
+							src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+						<p class="section-header">5</p>
+						<c:if test="${roomtype5!=0}">
+							<button
+								class="welcome-hero-btn book-button select-breakfast-button"
+								value="5">
+								立即预定 <i data-feather="search"></i>
+							</button>
+						</c:if>
+
+						<c:if test="${roomtype5==0}">
+							<div class="welcome-hero-btn book-button">
+								无余房<i data-feather="search"></i>
+							</div>
+						</c:if>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -309,18 +302,18 @@
 						<div class="single-explore-item">
 							<img alt=""
 								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-								<p class="section-header">双早</p>
+							<p class="section-header">双早</p>
 							<button value="2" class="welcome-hero-btn book"
 								style="width: 170px; height: 40px; margin: auto;">
 								立即预定 <i data-feather="search"></i>
 							</button>
 						</div>
 					</div>
-					
-					<button class="welcome-hero-btn cancle"
-								style="width: 170px; height: 40px; margin: auto;">
-								取消 <i data-feather="search"></i>
-							</button>
+
+					<button id="cancle" class="welcome-hero-btn cancle"
+						style="width: 170px; height: 40px; margin: auto;">
+						取消 <i data-feather="search"></i>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -337,18 +330,24 @@
 			<form action="/user/ready" method="post">
 				<input type="text" name="customerName" placeholder="姓名"><br>
 				<input type="text" name="customerId" placeholder="身份证号"><br>
-				<input type="hidden" name="tel" placeholder="电话号码" value="${cookie.loginTel.value}"><br>
-				<input type="hidden" id="roomType" name="roomType"> 
-				<input type="hidden" id="strategyType" name="strategyType"> 
-				<input type="hidden" name="checkInDate" value="${checkInDate}"> 
-				<input type="hidden" name="checkOutDate" value="${checkOutDate}"> 
-				<br>
-				<br>
+				<input type="hidden" name="tel" placeholder="电话号码"
+					value="${cookie.loginTel.value}"><br> <input
+					type="hidden" id="roomType" name="roomType"> <input
+					type="hidden" id="strategyType" name="strategyType"> <input
+					type="hidden" name="checkInDate" value="${checkInDate}"> <input
+					type="hidden" name="checkOutDate" value="${checkOutDate}">
+				<br> <br>
 				<button value="2" class="welcome-hero-btn"
-								style="width: 170px; height: 40px; margin-left: auto;margin-right:5px;">
-								预定 <i data-feather="search"></i>
-							</button>
+					style="width: 170px; height: 40px; margin: auto">
+					预定 <i data-feather="search"></i>
+				</button>
+				
+				
 			</form>
+			<button id="cancle" class="welcome-hero-btn cancle book-button"
+						style="width: 170px; height: 40px; margin: auto;">
+						取消 <i data-feather="search"></i>
+					</button>
 		</div>
 
 	</div>
@@ -385,6 +384,10 @@
 
 	<script type="text/javascript">
 		var roomtype = null;
+		$(document).on("click", "#cancle", function() {
+			$("#breakfast").fadeOut();
+			$("#information").slideUp();
+		})
 		$(document).ready(function() {
 
 			$(".select-breakfast-button").click(function() {
