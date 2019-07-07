@@ -35,6 +35,10 @@ function isLeagel(form)
     return true;
 }
 
+function goRegister() {
+	window.location.href = "/log/register";
+}
+
 if(${flag==1}){
 	alert("账号或者密码错误");
 }	
@@ -73,8 +77,8 @@ if(${flag==1}){
 								<option value="user">用户</option>
 								<option value="manager">管理员</option>
 							</select> <input type="submit" class="sub_button" value="登 录"
-								style="opacity: 0.7;"> <input type="submit"
-								class="sub_button" value="注 册" style="opacity: 0.7;">
+								style="opacity: 0.7;"> <input type="button"
+								class="sub_button" value="注 册" style="opacity: 0.7;" onclick="goRegister();">
 						</div>
 					</div>
 				</form>

@@ -86,18 +86,7 @@ th,td{
 			<li class="head-responsive-right pull-right">
 				<div class="header-top-right">
 					<ul>
-
-						<!-- 判断登陆状态 -->
-						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
-							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
-							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
-							<li class="header-top-contact"><a href="/log/register">注册</a></li>
-						</c:if>
-
-						<c:if test="${!login}">
-							<li class="header-top-contact"><a href="#">会员中心</a></li>
-							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
-						</c:if>
+						<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 					</ul>
 				</div>
 			</li>
@@ -444,7 +433,10 @@ th,td{
 							})
 							
 							$(document).on("click", "#bookRoomBtn", function() {
-								alert($("#bookBeginDate").val());
+								if($("#bookCustomerId").val() == "") {
+									alert("请输入住户身份证号");
+									return false;
+								}
 								$.ajax({
 									type:"post",
 									url:"/root/bookRoom", 
@@ -597,6 +589,10 @@ th,td{
 
 							$(document).on("click", "#checkRoom", function() {
 								var roomId = $("#checkRoomId").val();
+								if(roomId == "") {
+									alert("请输入房间号");
+									return false;
+								}
 								$.ajax({
 									type:"post",
 									url:"/root/checkRoom",
