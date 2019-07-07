@@ -74,9 +74,9 @@ public class LoginFilter implements Filter {
 		}
 		if(flag==0){
 			//session没有对象就跳转到登录页面
-            HttpSession session = req.getSession(true); 
-            String requestUri = req.getRequestURI();//得到请求的uri
-            session.setAttribute("requestUri", requestUri);
+           // HttpSession session = req.getSession(true); 
+            //session.setAttribute("requestUri", req.getRequestURI());
+          //session.setAttribute("requestMethod", req.getMethod());
 			System.out.println("无用户");
 			resp.sendRedirect("/log/login");
 		}

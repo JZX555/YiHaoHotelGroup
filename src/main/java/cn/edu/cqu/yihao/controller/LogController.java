@@ -3,6 +3,7 @@ package cn.edu.cqu.yihao.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -89,10 +90,10 @@ public class LogController {
 		    	    passwordCookie.setPath("/");  
 		    	    response.addCookie(telCookie);  
 		    	    response.addCookie(passwordCookie); 
-		    	    
+		   
 		    	    model.addAttribute("Account", account);
 		    		
-		    		return "redirect:/";
+		            	return "redirect:/";
 		    	}
 	    	}
 		}
