@@ -50,7 +50,6 @@ public class UserController
 		String newpw = (String) request.getParameter("newpw");
 		String tel = (String) request.getParameter("tel");
 		int rows = acService.changePassword(tel, oldpw, newpw);// 修改密码
-
 		return "forward:/";// 返回首页
 	}
 
@@ -224,7 +223,6 @@ public class UserController
 				book.setBookdate(sqlDate);
 				bookRow = bookservice.addBook(book);
 				dateCount++;
-				cld.setTime(utilDate);
 				cld.add(Calendar.DATE, 1);
 				sqlDate = new java.sql.Date(cld.getTime().getTime());
 			}
