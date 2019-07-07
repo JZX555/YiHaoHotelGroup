@@ -64,13 +64,13 @@ public class LoginFilter implements Filter {
 		list.add("/log/login");//登录页面
 		list.add("/log/register");//跳转到注册页面请求
 		list.add("/validate");
-		list.add("/assets/");
+		list.add("/assets");
 		list.add("/checkTel");
 		String path = req.getServletPath();//得到请求的url
 		System.out.println("uri:"+path);
 		//循环集合把不需要过滤的请求放行
 		for(String l : list){
-			if(path.endsWith(l)){
+			if(path.contains(l)){
 				chain.doFilter(req, resp);
 				return;
 			}

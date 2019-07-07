@@ -54,6 +54,10 @@
 #roomType {
 	padding-left: 50px;
 }
+
+.explore{
+	padding-top: 20px;
+}
 </style>
 
 </head>
@@ -143,7 +147,7 @@
 					自
 					<c:out value="${result.checkInDate }" />
 					至
-					<c:out value="${result.checkOutDate }" />
+					<c:out value="${result.checkOutDate}" />
 					，共
 					<c:out value="${result.dateCount }" />
 					天
@@ -260,11 +264,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 
-			var vipLevel = $
-			{
-				result.vipLevel
-			}
-			;
+			var vipLevel = null;
+			vipLevel = ${result.vipLevel};
 			var vipName = null;
 			switch (vipLevel) {
 			case 0:

@@ -54,6 +54,15 @@
 #roomType {
 	padding-left: 50px;
 }
+
+#surronding img{
+	display: block;
+	margin: auto
+}
+
+div>p{
+	font-size:18px
+}
 </style>
 
 </head>
@@ -142,7 +151,7 @@
 
 					<div class="welcome-hero-form">
 						<div class="single-welcome-hero-form">
-							<h3>入住日期</h3>
+							<h3 >入住日期</h3>
 							<input id="checkInDate" type="date" name="checkInDate" />
 						</div>
 						<div class="single-welcome-hero-form">
@@ -235,21 +244,21 @@
 				<div class=" col-md-4 col-sm-6">
 						<div class="single-explore-item">
 							<img alt="" src="assets/images/surrounding/1.jpg"><br>
-							<p class="section-header">xxx</p>
+							<p class="section-header">道顿堀店大缆车</p>
 						</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
 						<div class="single-explore-item">
 							<img alt="" src="assets/images/surrounding/2.jpg"><br>
-							<p class="section-header">xxx</p>
+							<p class="section-header">环球影城</p>
 						</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
 						<div class="single-explore-item">
 							<img alt="" src="assets/images/surrounding/3.jpg"><br>
-							<p class="section-header">xxx</p>
+							<p class="section-header">国际金融中心</p>
 						</div>
 				</div>
 
@@ -311,7 +320,6 @@
 		function check() {
 			var checkInDate = new Date($("#checkInDate").val());
 			var checkOutDate = new Date($("#checkOutDate").val());
-			alert(checkInDate);
 			if (checkInDate == "Invalid Date" || checkOutDate == "Invalid Date") {
 				alert("请输入时间");
 				return false;

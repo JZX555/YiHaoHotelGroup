@@ -54,6 +54,9 @@
 #roomType {
 	padding-left: 50px;
 }
+.welcome-hero-btn{
+	margin:auto;
+}
 </style>
 
 </head>
@@ -146,10 +149,11 @@
 						</div>
 					</div>
 					
-					<button id="registerButton" class="welcome-hero-btn" type="submit" style="margin-top:15px;">
+					
+				</div>
+				<button id="registerButton" class="welcome-hero-btn" type="submit" style="margin-top:15px;">
 							注册
 						</button>
-				</div>
 			</form>
 		</div>
 	</section>

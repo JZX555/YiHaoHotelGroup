@@ -66,6 +66,10 @@
     max-width: 100%;
     height: 300;
 }
+
+.explore{
+	padding-top: 20px;
+}
 </style>
 
 </head>
