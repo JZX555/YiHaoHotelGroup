@@ -107,7 +107,6 @@ public class RootController {
 		Indent[] indents = this.indentService.getByTypeandStartDate(1, date);
 		for(Indent indent:indents) {
 			RoomWithIndent rwi = new RoomWithIndent();
-			System.out.println(indent.getIndentId());
 			Room room = this.roomService.getById(indent.getRoomId());
 			rwi.setIndent(indent);
 			rwi.setRoom(room);

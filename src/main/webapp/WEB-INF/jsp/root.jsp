@@ -215,14 +215,14 @@ th,td{
 				<h2>入住登记</h2>
 				<hr>
 				<form>
-					用户电话<input id="checkInTel" type="text"> <input id="checkInBtn" type="submit">
+					用户电话<input id="checkInTel" type="text"> <input id="checkInBtn" type="button" value="查询" />
 				</form>
 				<div class="displayContent" id="checkInContent"></div>
 				<br> <br>
 				<h2>退房</h2>
 				<hr>
 				<form>
-					房间号码:<input id="checkOutId" type="text"> <input id="checkOutBtn" type="submit">
+					房间号码:<input id="checkOutId" type="text"> <input id="checkOutBtn" type="button" value="查询" />
 				</form>
 				<div class="displayContent" id="checkOutContent"></div>
 			</div>
@@ -238,7 +238,7 @@ th,td{
 				<h2>订单查询</h2>
 				<form>
 					订单号：<input id="checkIndentId" type="text" /><br> <br> 
-					<input id="checkIndentBtn" type="submit"> </input>
+					<input id="checkIndentBtn" type="button" value="查询" /> </input>
 				</form>
 				<div class="displayContent" id="checkIndentContent" ></div>
 			</div>
@@ -297,7 +297,7 @@ th,td{
 
 				</select><br> <br> 住客身份证号码：<input id="bookCustomerId" type="text"
 					name="id"><br> <br> 
-				<input type="submit" id="bookRoomBtn">
+				<input type="button" id="bookRoomBtn" value="预定" />
 			</div>
 		</div>
 
@@ -500,6 +500,7 @@ th,td{
 														"      ￥" + rwi.indent.cost + "          " + rwi.room.roomType + 
 														"<input id='checkInVerify' type='button' value='确认入住' data-indent-id='" + 
 														rwi.indent.indentId + "' ></input></p><br>";
+											alert(line1);
 											display.append(line1, line2);
 										});
 									},
@@ -609,7 +610,6 @@ th,td{
 									success:function(res) {
 										//当订单不存在时，可修改价格和状态
 										var display = $("#checkRoomContent");
-
 										display.empty();
 										//for( ; bgn <= end; bgn.setDate(bgn.getDate + 1)) {
 										$.each(res, function(i, rwi) {
