@@ -546,7 +546,10 @@ th, td {
 																},
 																function(flag) {
 																	if (flag == 1)
+																		{
 																		alert("取消成功");
+																		$("#unpay").click();
+																		}
 																	else
 																		alert("取消失败");
 																}, "json")
