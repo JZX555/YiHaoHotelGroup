@@ -86,7 +86,7 @@ th, td {
 						</c:if>
 
 						<c:if test="${!login}">
-							<li class="header-top-contact"><a href="#">会员中心</a></li>
+							<li class="header-top-contact"><a href="/Personal/goIndex">会员中心</a></li>
 						</c:if>
 					</ul>
 				</div>
