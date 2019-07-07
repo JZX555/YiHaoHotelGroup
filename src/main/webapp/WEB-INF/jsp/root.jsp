@@ -86,18 +86,7 @@ th,td{
 			<li class="head-responsive-right pull-right">
 				<div class="header-top-right">
 					<ul>
-
-						<!-- 判断登陆状态 -->
-						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
-							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
-							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
-							<li class="header-top-contact"><a href="/log/register">注册</a></li>
-						</c:if>
-
-						<c:if test="${!login}">
-							<li class="header-top-contact"><a href="#">会员中心</a></li>
-							<li class="header-top-contact"><a href="/log/logout">注销</a></li>
-						</c:if>
+						<li class="header-top-contact"><a href="/log/logout">注销</a></li>
 					</ul>
 				</div>
 			</li>
@@ -215,14 +204,14 @@ th,td{
 				<h2>入住登记</h2>
 				<hr>
 				<form>
-					用户电话<input id="checkInTel" type="text"> <input id="checkInBtn" type="submit">
+					用户电话<input id="checkInTel" type="text"> <input id="checkInBtn" type="button" value="查询" />
 				</form>
 				<div class="displayContent" id="checkInContent"></div>
 				<br> <br>
 				<h2>退房</h2>
 				<hr>
 				<form>
-					房间号码:<input id="checkOutId" type="text"> <input id="checkOutBtn" type="submit">
+					房间号码:<input id="checkOutId" type="text"> <input id="checkOutBtn" type="button" value="查询" />
 				</form>
 				<div class="displayContent" id="checkOutContent"></div>
 			</div>
@@ -238,7 +227,7 @@ th,td{
 				<h2>订单查询</h2>
 				<form>
 					订单号：<input id="checkIndentId" type="text" /><br> <br> 
-					<input id="checkIndentBtn" type="submit"> </input>
+					<input id="checkIndentBtn" type="button" value="查询" /> </input>
 				</form>
 				<div class="displayContent" id="checkIndentContent" ></div>
 			</div>
@@ -297,7 +286,7 @@ th,td{
 
 				</select><br> <br> 住客身份证号码：<input id="bookCustomerId" type="text"
 					name="id"><br> <br> 
-				<input type="submit" id="bookRoomBtn">
+				<input type="button" id="bookRoomBtn" value="预定" />
 			</div>
 		</div>
 
@@ -444,7 +433,10 @@ th,td{
 							})
 							
 							$(document).on("click", "#bookRoomBtn", function() {
-								alert($("#bookBeginDate").val());
+								if($("#bookCustomerId").val() == "") {
+									alert("请输入住户身份证号");
+									return false;
+								}
 								$.ajax({
 									type:"post",
 									url:"/root/bookRoom", 
@@ -500,6 +492,7 @@ th,td{
 														"      ￥" + rwi.indent.cost + "          " + rwi.room.roomType + 
 														"<input id='checkInVerify' type='button' value='确认入住' data-indent-id='" + 
 														rwi.indent.indentId + "' ></input></p><br>";
+											alert(line1);
 											display.append(line1, line2);
 										});
 									},
@@ -596,6 +589,10 @@ th,td{
 
 							$(document).on("click", "#checkRoom", function() {
 								var roomId = $("#checkRoomId").val();
+								if(roomId == "") {
+									alert("请输入房间号");
+									return false;
+								}
 								$.ajax({
 									type:"post",
 									url:"/root/checkRoom",
@@ -609,7 +606,6 @@ th,td{
 									success:function(res) {
 										//当订单不存在时，可修改价格和状态
 										var display = $("#checkRoomContent");
-
 										display.empty();
 										//for( ; bgn <= end; bgn.setDate(bgn.getDate + 1)) {
 										$.each(res, function(i, rwi) {
