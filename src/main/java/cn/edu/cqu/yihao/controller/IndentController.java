@@ -195,8 +195,7 @@ public class IndentController {
 	@ResponseBody
 	public int cancelIndent(HttpServletRequest request, Model model) throws ParseException
 	{
-		try
-		{
+		
 			Map<String,String> map = new HashMap<String,String>();
 			String indentId=(String)request.getParameter("indentId");
 			String checkInDate=(String)request.getParameter("checkInDate");
@@ -234,11 +233,8 @@ public class IndentController {
 			map.put("indentId", indentId);
 			map.put("checkInDate", checkInDate);
 			map.put("checkOutDate", checkOutDate);
-			return 1;
-		}
-		catch(Exception e)
-		{
 			return 0;
-		}
+		
+		
 	}
 }

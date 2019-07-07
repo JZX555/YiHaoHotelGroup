@@ -462,25 +462,41 @@ th, td {
 																								"<td/>")
 																								.html(
 																										"<input type='button' id='goPayButton' value='去支付'>");
-																						var cancle =$("<td/>").html("<input type='button' id='cancleButton' value='取消订单'>");
+																						var cancle = $(
+																								"<td/>")
+																								.html(
+																										"<input type='button' id='cancleButton' value='取消订单'>");
+																						var checkInDate = $(
+																								"<td/>")
+																								.html(
+																										item.indent.startDate);
+
 																						button
 																								.children(
 																										"input")
 																								.attr(
 																										{
 																											"indent_id" : item.indent.indentId,
-																											"price" : item.indent.price,
 																											"cost" : item.indent.cost,
-																											"checkInDate":item.indent.startTime,
-																											"checkOutDate":item.indent.endTime
 																										});
+																						cancle
+																								.children(
+																										"input")
+																								.attr(
+																										{
+																											"indent_id" : item.indent.indentId,
+																											"checkInDate" : formatDate(new Date(item.indent.startTime)),
+																											"checkOutDate" : formatDate(new Date(item.indent.endTime))
+																										})
+
 																						tr
 																								.append(
 																										indentId,
 																										tel,
 																										price,
 																										button,
-																										cancle)
+																										cancle,
+																										checkInDate)
 																								.appendTo(
 																										tbody);
 																					})
@@ -493,6 +509,7 @@ th, td {
 									"click",
 									"#goPayButton",
 									function() {
+										alert($(this).attr("indent_id"));
 										$("#goPayIndentId").val(
 												$(this).attr("indent_id"));
 										$("#goPayPrice").val(1000);
@@ -501,18 +518,39 @@ th, td {
 										$("#goPay").show();
 									})
 
-							$(document).on("click", "#cancleButton",
-									function() {
-										$.post("/indents/cancelIndent",
-												{
-													indentId:$(this).attr("indent_id"),
-													checkInDate:$(this).attr("checkInDate"),
-													checkOutDate:$(this).attr("checkOutDate")},
-												function(flag){
-											if(flag==1) alert("取消成功");
-											else alert("取消失败");
-										},"json")
-									})
+							$(document)
+									.on(
+											"click",
+											"#cancleButton",
+											function() {
+												alert($(this).attr("indent_id"));
+												alert($(this).attr("checkInDate"));
+												$
+														.post(
+																"/indents/cancelIndent",
+																{
+																	indentId : $(
+																			this)
+																			.attr(
+																					"indent_id"),
+																	checkInDate : 
+																			$(
+																					this)
+																					.attr(
+																							"checkInDate"),
+																	checkOutDate : 
+																			$(
+																					this)
+																					.attr(
+																							"checkOutDate")
+																},
+																function(flag) {
+																	if (flag == 1)
+																		alert("取消成功");
+																	else
+																		alert("取消失败");
+																}, "json")
+											})
 
 							$("#refund")
 									.click(
