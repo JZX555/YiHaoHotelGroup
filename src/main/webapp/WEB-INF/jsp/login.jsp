@@ -39,7 +39,7 @@ function goRegister() {
 	window.location.href = "/log/register";
 }
 
-if(${flag==1}){
+if(${flag}==1){
 	alert("账号或者密码错误");
 }	
 </script>

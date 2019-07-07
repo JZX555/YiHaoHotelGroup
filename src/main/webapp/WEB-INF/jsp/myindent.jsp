@@ -45,7 +45,7 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 
 <!--responsive.css-->
-<link r el="stylesheet" href="/assets/css/responsive.css">
+<link rel="stylesheet" href="/assets/css/responsive.css">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -55,6 +55,10 @@
 	padding-left: 50px;
 }
 
+table{
+	width:90%
+}
+
 table, th, td {
 	border: 1px solid black;
 }
@@ -62,6 +66,9 @@ table, th, td {
 th, td {
 	text-align: center;
 	padding: 0 10px;
+}
+.explore .welcome-hero-btn{
+	margin:auto;
 }
 
 #indentlist {
@@ -124,7 +131,7 @@ th, td {
 							<li class=""><a id="payed" href="#">已付款</a></li>
 							<li class=""><a id="finished" href="#">已完成</a></li>
 							<li class=""><a id="unpay" href="#">未付款</a></li>
-							<li class=""><a id="refund" href="#">已退款/取消</a></li>
+							<li class=""><a id="refund" href="#">已退款</a></li>
 						</ul>
 						<!--/.nav -->
 					</div>
@@ -140,7 +147,7 @@ th, td {
 	</section>
 
 	<section id="content" class="explore rootview"
-		style="padding-left: 25px; padding-right: 25px;">
+		style="padding-left: 25px;padding-top:25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
 				<h2 id="header"></h2>
@@ -197,10 +204,11 @@ th, td {
 			<form action="/pay/choose" method="get">
 				<input type="hidden" id="goPayIndentId" name="indent_id"><br>
 				<input type="hidden" id="goPayCost" name="cost"> <input
-					type="hidden" id="goPayPrice" name="price"> <input
-					type="submit" name="submit" value="积分支付"><br> <input
+					type="hidden" id="goPayPrice" name="price"> <input class="welcome-hero-btn"
+					type="submit" name="submit" value="积分支付"><br> <input class="welcome-hero-btn"
 					type="submit" name="submit" value="银行卡支付">
 			</form>
+			<button class="welcome-hero-btn" id="cancel" style="margin-left:auto;margin-right: 50px;">取消</button>
 		</div>
 	</div>
 
@@ -249,6 +257,11 @@ th, td {
 		$(document)
 				.ready(
 						function() {
+							$("#cancel").click(function(){
+								$("#goPay").slideUp();
+							});
+							
+							
 							//$("#cardPayDisplay").show();
 							$("#payed")
 									.click(
@@ -513,7 +526,7 @@ th, td {
 										$("#goPayPrice").val(1000);
 										$("#goPayCost").val(
 												$(this).attr("cost"));
-										$("#goPay").show();
+										$("#goPay").slideDown();
 									})
 
 							$(document)
@@ -559,7 +572,7 @@ th, td {
 																"<tr><th>订单号</th><th>预定日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>状态</th></tr>");
 												var header = $("#header")
 														.empty();
-												header.text("已退款/取消订单");
+												header.text("已退款订单");
 												$
 														.post(
 																"/indents/show_indents4",

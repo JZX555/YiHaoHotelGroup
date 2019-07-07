@@ -175,7 +175,7 @@
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="/assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="/assets/images/roomType/1.jpg"><br>
 							<p class="section-header">大床房</p>
 						</div>
 					</a>
@@ -185,7 +185,7 @@
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="assets/images/roomType/2.jpg"><br>
 							<p class="section-header">大床房</p>
 						</div>
 					</a>
@@ -195,7 +195,7 @@
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="assets/images/roomType/3.jpg"><br>
 							<p class="section-header">大床房</p>
 						</div>
 					</a>
@@ -205,7 +205,7 @@
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="assets/images/roomType/4.jpg"><br>
 							<p class="section-header">大床房</p>
 						</div>
 					</a>
@@ -215,7 +215,7 @@
 					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
+								src="assets/images/roomType/5.jpg"><br>
 							<p class="section-header">大床房</p>
 						</div>
 					</a>
