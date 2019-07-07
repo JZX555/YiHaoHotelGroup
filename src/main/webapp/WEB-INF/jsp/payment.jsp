@@ -54,6 +54,10 @@
 #roomType {
 	padding-left: 50px;
 }
+
+.explore{
+	padding-top: 20px;
+}
 </style>
 
 </head>
@@ -260,11 +264,8 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 
-			var vipLevel = $
-			{
-				result.vipLevel
-			}
-			;
+			var vipLevel = null;
+			vipLevel = ${result.vipLevel};
 			var vipName = null;
 			switch (vipLevel) {
 			case 0:
