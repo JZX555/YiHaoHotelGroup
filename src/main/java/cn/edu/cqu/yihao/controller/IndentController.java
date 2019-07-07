@@ -222,7 +222,6 @@ public class IndentController {
 			{
 				bookkey.setBookdate(sqlDate);
 				bookRow = bookservice.dropBook(bookkey);
-				cld.setTime(utilDate);
 				cld.add(Calendar.DATE, 1);
 				sqlDate = new java.sql.Date(cld.getTime().getTime());
 			}
