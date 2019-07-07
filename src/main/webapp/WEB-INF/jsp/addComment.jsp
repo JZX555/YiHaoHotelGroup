@@ -131,7 +131,7 @@ a:hover {
 }
 
 .star_score {
-	background: url(/assets/images/evaluation/stark2.png);
+	background: url(/assets/images/evaluation/starky.png);
 	width: 160px;
 	height: 21px;
 	position: relative;
@@ -146,12 +146,12 @@ a:hover {
 }
 
 .star_score a:hover {
-	background: url(/assets/images/evaluation/stars2.png);
+	background: url(/assets/images/evaluation/starsy.png);
 	left: 0;
 }
 
 .star_score a.clibg {
-	background: url(/assets/images/evaluation/stars2.png);
+	background: url(/assets/images/evaluation/starsy.png);
 	left: 0;
 }
 
@@ -183,7 +183,7 @@ a:hover {
 }
 
 .atar_Show {
-	background: url(/assets/images/evaluation/stark2.png);
+	background: url(/assets/images/evaluation/starky.png);
 	width: 160px;
 	height: 21px;
 	position: relative;
@@ -191,7 +191,7 @@ a:hover {
 }
 
 .atar_Show p {
-	background: url(/assets/images/evaluation/stars2.png);
+	background: url(/assets/images/evaluation/starsy.png);
 	left: 0;
 	height: 21px;
 	width: 134px;
@@ -278,14 +278,15 @@ a:hover {
 
 
 	<section id="home" class="welcome-hero" style="padding-top: 100px;">
+	
 		<div class="content">
-			<p class="title" style="text-align: left">订单评价</p>
-			<p class="title" style="text-align: left">评分越高代表您对本次入住体验的评价越好</p>
+			<h2  style="text-align: left;color:white;font-size:25px"><strong>订单评价</strong></h2>
+			<h2  style="text-align: left;color:white">评分越高代表您对本次入住体验的评价越好</h2>
 			<div id="startone" class="block clearfix" style="padding-left: 0px;">
 
 				<div class="star_score" style="text-align: left;"></div>
-				<p style="float: left; color: #ffffff;">
-					您的评分：<span id="fenshu" class="fenshu"></span> 分
+				<p style="float: left; color: #ffffff;font-size:18px">
+					您的评分：<span style="color:yellow;" id="fenshu" class="fenshu"></span> 分
 				</p>
 				<!--  <div class="attitude"></div> -->
 			</div>
@@ -298,7 +299,7 @@ a:hover {
 				<input id="score" type="hidden" name="score">
 				<textarea id="comment" rows="20" cols="75" name="comment"
 					placeholder="卫生、网络、服务、设施...请对我们进行表扬或提建议，我们将认真查看您的入住感受，为了在以后给您带来更好的体验"
-					style="width: 602px;"></textarea>
+					style="width: 602px;font-size:18px"></textarea>
 				<input class="input" type="submit" value="确认提交" id="submit"
 					style="margin-top: 5px; width: 64px; height: 24px;">
 			</form>

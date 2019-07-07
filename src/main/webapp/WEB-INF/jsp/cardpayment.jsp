@@ -54,6 +54,10 @@
 #roomType {
 	padding-left: 50px;
 }
+
+input{
+	padding: 10px 0px;
+}
 </style>
 
 </head>
@@ -130,7 +134,7 @@
 
 	<!-- 房间状态改变 -->
 	<section id="status-view-change-view" class="explore rootview"
-		style="padding-left: 25px; padding-right: 25px;">
+		style="padding-left: 25px; padding-right: 25px;padding-top: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
 				<h2>银行卡支付</h2>
@@ -145,9 +149,9 @@
 				<input type="hidden" name="indent_id" value="${indent_id }">
 				<br><br><br>
 				<h2>请输入银行卡账户</h2>
-				<input type="text" name="card_id" placeholder="银行卡账户"><br>
+				<input type="text" name="card_id" placeholder="银行卡账户"><br><br>
 				<h2>请输入银行卡密码</h2>
-				<input type="text" name="password" placeholder="密码"><br>
+				<input type="password" name="password" placeholder="密码"><br><br><br>
 				<button class="welcome-hero-btn" style="display:inline-block;">确认支付</button>
 				</form>
 				

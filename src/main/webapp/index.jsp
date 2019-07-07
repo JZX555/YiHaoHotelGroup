@@ -64,10 +64,9 @@
 			<li class="head-responsive-right pull-right">
 				<div class="header-top-right">
 					<ul>
-					
+
 						<!-- 判断登陆状态 -->
-						<c:if test="${cookie.loginTel==null}" var="login"
-							scope="session">
+						<c:if test="${cookie.loginTel==null}" var="login" scope="session">
 							<!-- 如果登陆就显示用户信息，如果未登录就显示登陆注册 -->
 							<li class="header-top-contact"><a href="/log/login">登陆</a></li>
 							<li class="header-top-contact"><a href="/log/register">注册</a></li>
@@ -113,7 +112,7 @@
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
 							<li class=" scroll active"><a href="#home">我们的品牌</a></li>
-							<li class="scroll"><a href="#roomTypes">房间类型</a></li>
+							<li class="scroll"><a href="#roomTypes">房型概览</a></li>
 							<li class="scroll"><a href="#surronding">周边精彩</a></li>
 						</ul>
 						<!--/.nav -->
@@ -167,68 +166,55 @@
 		style="padding-left: 25px; padding-right: 25px;">
 		<div class="explore-content">
 			<div class="section-header">
-				<h2>房型介绍</h2>
+				<h2>房型概览</h2>
 			</div>
 			<!--/.section-header-->
 			<div class="row">
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="/assets/images/roomType/1.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
+
+					<div class="single-explore-item">
+						<img alt="" src="/assets/images/roomType/1.jpg"><br>
+						<p class="section-header">高级大床房</p>
+					</div>
+
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/2.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
+					<div class="single-explore-item">
+						<img alt="" src="assets/images/roomType/2.jpg"><br>
+						<p class="section-header">高级双人房</p>
+					</div>
+
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/3.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
+					<div class="single-explore-item">
+						<img alt="" src="assets/images/roomType/3.jpg"><br>
+						<p class="section-header">行政豪华房</p>
+					</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/4.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
+					<div class="single-explore-item">
+						<img alt="" src="assets/images/roomType/4.jpg"><br>
+						<p class="section-header">行政豪华套房</p>
+					</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/5.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
+					<div class="single-explore-item">
+						<img alt="" src="assets/images/roomType/5.jpg"><br>
+						<p class="section-header">总统套房</p>
+					</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
-						<div class="single-explore-item">
-							<img alt=""
-								src="assets/images/roomType/ctumc-guestroom-0018-hor-wide.jpg"><br>
-							<p class="section-header">大床房</p>
-						</div>
-					</a>
+					<div class="single-explore-item">
+						<img alt=""
+							src="assets/images/roomType/0.jpg"><br>
+						<p class="section-header">公共区域</p>
+					</div>
+
 				</div>
 
 
@@ -247,30 +233,24 @@
 			<!--/.section-header-->
 			<div class="row">
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt="" src="assets/images/surrounding/1.jpg"><br>
 							<p class="section-header">xxx</p>
 						</div>
-					</a>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt="" src="assets/images/surrounding/2.jpg"><br>
 							<p class="section-header">xxx</p>
 						</div>
-					</a>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<a href="#"> <!-- 跳转 -->
 						<div class="single-explore-item">
 							<img alt="" src="assets/images/surrounding/3.jpg"><br>
 							<p class="section-header">xxx</p>
 						</div>
-					</a>
 				</div>
 
 			</div>
@@ -328,20 +308,20 @@
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
 	<script type="text/javascript">
-	function check(){
-		var checkInDate = new Date($("#checkInDate").val());
-		var checkOutDate = new Date($("#checkOutDate").val());
-		alert(checkInDate);
-		if(checkInDate=="Invalid Date"||checkOutDate=="Invalid Date"){
-			alert("请输入时间");
-			return false;
+		function check() {
+			var checkInDate = new Date($("#checkInDate").val());
+			var checkOutDate = new Date($("#checkOutDate").val());
+			alert(checkInDate);
+			if (checkInDate == "Invalid Date" || checkOutDate == "Invalid Date") {
+				alert("请输入时间");
+				return false;
+			}
+			if (checkInDate.getTime() >= checkOutDate.getTime()) {
+				alert("时间输入有误");
+				return false;
+			} else
+				return true;
 		}
-		if(checkInDate.getTime()>=checkOutDate.getTime()){
-			alert("时间输入有误");
-			return false;
-		}
-		else return true;
-	}
 	</script>
 </body>
 </html>

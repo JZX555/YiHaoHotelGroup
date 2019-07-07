@@ -198,17 +198,18 @@ th, td {
 	</div>
 	<!-- 未付款支付 -->
 	<div id="goPay" class="explore"
-		style="display: none; margin-tp: '25%'; position: fixed; width: 90%; left: 5%; top: 25%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		style="display: none;padding-top:50px;  position: fixed; width: 40%; left: 30%; top: 15%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
 		<div class="section-header">
 
-			<form action="/pay/choose" method="get">
+			<form action="/pay/choose" method="post">
 				<input type="hidden" id="goPayIndentId" name="indent_id"><br>
 				<input type="hidden" id="goPayCost" name="cost"> <input
 					type="hidden" id="goPayPrice" name="price"> <input class="welcome-hero-btn"
 					type="submit" name="submit" value="积分支付"><br> <input class="welcome-hero-btn"
 					type="submit" name="submit" value="银行卡支付">
 			</form>
-			<button class="welcome-hero-btn" id="cancel" style="margin-left:auto;margin-right: 50px;">取消</button>
+			<br>
+			<button class="welcome-hero-btn" id="cancel" style="margin-left:auto;margin-right: auto;">取消</button>
 		</div>
 	</div>
 
@@ -353,11 +354,12 @@ th, td {
 									});
 							//积分退款
 							$(document).on("click", "#pointRefund", function() {
-								$.post("/pay/refundByP", {
+								$.post("/pay/refunnbyP", {
 									cost : $(this).attr("cost"),
 									indent_id : $(this).attr("indent_id")
 								}, function(data) {
-									alert("退款成功，你当前还有" + data + "分");
+									if(data==1)
+										alert("退积分成功");
 									$("#payed").click();
 								}, "json");
 							})
@@ -612,7 +614,7 @@ th, td {
 																						var button = $(
 																								"<td/>")
 																								.html(
-																										"已退款/已取消");
+																										"已退款");
 
 																						tr
 																								.append(
