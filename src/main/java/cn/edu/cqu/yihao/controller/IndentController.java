@@ -194,44 +194,52 @@ public class IndentController {
 	
 	@RequestMapping("/cancelIndent")
 	@ResponseBody
-	public Object cancelIndent(HttpServletRequest request, Model model) throws ParseException
+	public int cancelIndent(HttpServletRequest request, Model model) throws ParseException
 	{
-		Map<String,String> map = new HashMap<String,String>();
-		String indentId=(String)request.getParameter("indentId");
-		String checkInDate=(String)request.getParameter("checkInDate");
-		String checkOutDate=(String)request.getParameter("checkOutDate");
-		//在删除订单前通过indent.indent_id获取indnet.tel
-		String tel=inService.getById(indentId).getTel();
-		//在删除订单前通过indent.indent_id获取indnet.room_id
-		String roomId=inService.getById(indentId).getRoomId();
-		//从indent里删除记录
-		int indentRow=inService.dropIndent(indentId);
-		//从book里删除记录
-		BookKey bookkey=new BookKey();
-		bookkey.setTel(tel);
-		bookkey.setRoomId(roomId);
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date utilDate = sdf1.parse(checkInDate);
-		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-		bookkey.setBookdate(sqlDate);
-		int bookRow = bookservice.dropBook(bookkey);
-		Calendar cld = Calendar.getInstance();
-		cld.setTime(utilDate);
-		cld.add(Calendar.DATE, 1);
-		utilDate = cld.getTime();
-		while (!sqlDate.toString().equals(checkOutDate))
+		try
 		{
-			sqlDate = new java.sql.Date(utilDate.getTime());
+			Map<String,String> map = new HashMap<String,String>();
+			String indentId=(String)request.getParameter("indentId");
+			String checkInDate=(String)request.getParameter("checkInDate");
+			String checkOutDate=(String)request.getParameter("checkOutDate");
+			//在删除订单前通过indent.indent_id获取indnet.tel
+			String tel=inService.getById(indentId).getTel();
+			//在删除订单前通过indent.indent_id获取indnet.room_id
+			String roomId=inService.getById(indentId).getRoomId();
+			//从indent里删除记录
+			int indentRow=inService.dropIndent(indentId);
+			//从book里删除记录
+			BookKey bookkey=new BookKey();
+			bookkey.setTel(tel);
+			bookkey.setRoomId(roomId);
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date utilDate = sdf1.parse(checkInDate);
+			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 			bookkey.setBookdate(sqlDate);
-			bookRow = bookservice.dropBook(bookkey);
+			int bookRow = bookservice.dropBook(bookkey);
+			Calendar cld = Calendar.getInstance();
 			cld.setTime(utilDate);
 			cld.add(Calendar.DATE, 1);
 			utilDate = cld.getTime();
+			while (!sqlDate.toString().equals(checkOutDate))
+			{
+				sqlDate = new java.sql.Date(utilDate.getTime());
+				bookkey.setBookdate(sqlDate);
+				bookRow = bookservice.dropBook(bookkey);
+				cld.setTime(utilDate);
+				cld.add(Calendar.DATE, 1);
+				utilDate = cld.getTime();
+			}
+			//返回所需值
+			
+			map.put("indentId", indentId);
+			map.put("checkInDate", checkInDate);
+			map.put("checkOutDate", checkOutDate);
+			return 1;
 		}
-		//返回所需值
-		map.put("indentId", indentId);
-		map.put("checkInDate", checkInDate);
-		map.put("checkOutDate", checkOutDate);
-		return map;
+		catch(Exception e)
+		{
+			return 0;
+		}
 	}
 }
