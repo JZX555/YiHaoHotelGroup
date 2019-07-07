@@ -146,7 +146,7 @@
 				</h2>
 				<h2>
 					您是尊贵的
-					<c:out value="${result.vipLevel }" />
+					<span id="vipLevel"></span>
 					会员，享
 					<c:out value="${result.discount }" />
 					折，需支付：
@@ -241,6 +241,25 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
+			var vipLevel = ${result.vipLevel};
+			var vipName = null;
+			switch(vipLevel){
+			case 0:
+				vipName = "白银";
+				break;
+			case 1:
+				vipName = "黄金";
+				break;
+			case 2:
+				vipName = "铂金";
+				break;
+			case 3:
+				vipName = "黑金";
+				break;
+			}
+			$("#vipLevel").html(vipName);
+			
 			
 			$("#cancleIndent").on("click",function(){
 				$.post("/indents/cancelIndent",{
