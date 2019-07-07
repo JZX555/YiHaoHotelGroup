@@ -198,10 +198,10 @@ th, td {
 	</div>
 	<!-- 未付款支付 -->
 	<div id="goPay" class="explore"
-		style="display: none; margin-tp: '25%'; position: fixed; width: 90%; left: 5%; top: 25%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
+		style="display: none;padding-top:50px;  position: fixed; width: 40%; left: 30%; top: 15%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0">
 		<div class="section-header">
 
-			<form action="/pay/choose" method="get">
+			<form action="/pay/choose" method="post">
 				<input type="hidden" id="goPayIndentId" name="indent_id"><br>
 				<input type="hidden" id="goPayCost" name="cost"> <input
 					type="hidden" id="goPayPrice" name="price"> <input class="welcome-hero-btn"
@@ -612,7 +612,7 @@ th, td {
 																						var button = $(
 																								"<td/>")
 																								.html(
-																										"已退款/已取消");
+																										"已退款");
 
 																						tr
 																								.append(
