@@ -112,7 +112,7 @@
 						<ul class="nav navbar-nav navbar-right" data-in="fadeInDown"
 							data-out="fadeOutUp">
 							<li class=" scroll active"><a href="#home">我们的品牌</a></li>
-							<li class="scroll"><a href="#roomTypes">方形概览</a></li>
+							<li class="scroll"><a href="#roomTypes">房型概览</a></li>
 							<li class="scroll"><a href="#surronding">周边精彩</a></li>
 						</ul>
 						<!--/.nav -->

@@ -208,7 +208,8 @@ th, td {
 					type="submit" name="submit" value="积分支付"><br> <input class="welcome-hero-btn"
 					type="submit" name="submit" value="银行卡支付">
 			</form>
-			<button class="welcome-hero-btn" id="cancel" style="margin-left:auto;margin-right: 50px;">取消</button>
+			<br>
+			<button class="welcome-hero-btn" id="cancel" style="margin-left:auto;margin-right: auto;">取消</button>
 		</div>
 	</div>
 
@@ -353,11 +354,12 @@ th, td {
 									});
 							//积分退款
 							$(document).on("click", "#pointRefund", function() {
-								$.post("/pay/refundByP", {
+								$.post("/pay/refunnbyP", {
 									cost : $(this).attr("cost"),
 									indent_id : $(this).attr("indent_id")
 								}, function(data) {
-									alert("退款成功，你当前还有" + data + "分");
+									if(data==1)
+										alert("退积分成功");
 									$("#payed").click();
 								}, "json");
 							})

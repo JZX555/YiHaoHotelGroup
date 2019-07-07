@@ -299,7 +299,7 @@ a:hover {
 				<input id="score" type="hidden" name="score">
 				<textarea id="comment" rows="20" cols="75" name="comment"
 					placeholder="卫生、网络、服务、设施...请对我们进行表扬或提建议，我们将认真查看您的入住感受，为了在以后给您带来更好的体验"
-					style="width: 602px;"></textarea>
+					style="width: 602px;font-size:18px"></textarea>
 				<input class="input" type="submit" value="确认提交" id="submit"
 					style="margin-top: 5px; width: 64px; height: 24px;">
 			</form>
