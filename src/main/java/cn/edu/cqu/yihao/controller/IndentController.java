@@ -162,13 +162,12 @@ public class IndentController {
 	
 	public String addComment(HttpServletRequest request, Model model) {
 		String result = null;
-		int flag=0;
 		String indent_id=(String)request.getParameter("indent_id");//需要传给我indent_id,score,comment
 		Double score=Double.parseDouble((String)request.getParameter("score"));
 		String comment=(String)request.getParameter("comment");
 		int res=pService.addPost(indent_id, score, comment);//更新该条订单对应的Post结构
 		if(res==1)
-			result = "/Personal/goindents";
+			result = "forward:/Personal/goindents";
 		
 //		Indent indent=inService.getById(indent_id); 
 //		Post post=pService.getById(indent_id);
