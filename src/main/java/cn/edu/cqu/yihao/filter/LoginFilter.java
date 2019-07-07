@@ -54,6 +54,11 @@ public class LoginFilter implements Filter {
 			return;
 		}
 		
+		if(url.endsWith(".css") || url.endsWith(".png") || url.endsWith(".jpg") || url.endsWith(".gif") || url.endsWith(".js")) {
+			chain.doFilter(req, resp);
+			return;
+		}
+		
 		List<String> list= new ArrayList<String>(); //将不需要过滤的请求存放到集合中
 		list.add("/index.jsp");
 		list.add("/log/login");//登录页面
