@@ -47,6 +47,13 @@ public class LoginFilter implements Filter {
 		req.setCharacterEncoding("utf-8");
 		HttpServletResponse resp = (HttpServletResponse) response;
 		resp.setContentType("text/html;charset=utf-8");
+		
+		String url = req.getRequestURI();
+		if(url.contains("/root/")) {
+			chain.doFilter(req, resp);
+			return;
+		}
+		
 		List<String> list= new ArrayList<String>(); //将不需要过滤的请求存放到集合中
 		list.add("/index.jsp");
 		list.add("/log/login");//登录页面
