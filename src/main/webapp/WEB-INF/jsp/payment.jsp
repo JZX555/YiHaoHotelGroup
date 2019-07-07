@@ -177,6 +177,12 @@
 						积分支付
 					</button>
 				</form>
+				
+				<button class="welcome-hero-btn" style="display: inline-block;"><a id="returnIndex" style="color:white" href="/">返回首页
+					</a></button>
+					
+					
+				<button id="cancleIndent" class="welcome-hero-btn" style="display: inline-block;">取消订单</button>
 			</div>
 
 		</div>
@@ -232,6 +238,29 @@
 
 	<!--Custom JS-->
 	<script src="/assets/js/custom.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+			$("#cancleIndent").on("click",function(){
+				$.post("/indents/cancelIndent",{
+					indentId: "${result.currentIndentId }",
+					checkInDate:"${result.checkInDate }",
+					checkOutDate:"${result.checkOutDate }"
+				},function(result){
+					if(result==1){
+						alert("订单取消成功");
+						location.href ="/";
+					}
+				},"json");
+			});
+			
+			
+			
+			
+		})
+		
+	</script>
 
 </body>
 </html>

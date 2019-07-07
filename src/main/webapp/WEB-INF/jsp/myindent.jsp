@@ -332,7 +332,6 @@ th, td {
 									"click",
 									"#cardRefund",
 									function() {
-										alert("hello");
 										$("#cardPayDisplay").show();
 										$("#card_cost").val(
 												$(this).attr("cost"));
@@ -509,7 +508,6 @@ th, td {
 									"click",
 									"#goPayButton",
 									function() {
-										alert($(this).attr("indent_id"));
 										$("#goPayIndentId").val(
 												$(this).attr("indent_id"));
 										$("#goPayPrice").val(1000);
@@ -523,8 +521,6 @@ th, td {
 											"click",
 											"#cancleButton",
 											function() {
-												alert($(this).attr("indent_id"));
-												alert($(this).attr("checkInDate"));
 												$
 														.post(
 																"/indents/cancelIndent",
