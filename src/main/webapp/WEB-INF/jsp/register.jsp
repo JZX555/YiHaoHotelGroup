@@ -223,7 +223,6 @@
 		        tel:$("#tel").val()
 		    },
 		        function(result){
-		    	alert(result)
 		        if(result==0){
 		        	$("#check").html("电话号码可用");
 		        }

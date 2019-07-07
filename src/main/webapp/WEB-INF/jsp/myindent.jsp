@@ -346,6 +346,7 @@ th, td {
 									indent_id : $(this).attr("indent_id")
 								}, function(data) {
 									alert("退款成功，你当前还有" + data + "分");
+									$("#payed").click();
 								}, "json");
 							})
 
@@ -495,8 +496,7 @@ th, td {
 																										tel,
 																										price,
 																										button,
-																										cancle,
-																										checkInDate)
+																										cancle)
 																								.appendTo(
 																										tbody);
 																					})
