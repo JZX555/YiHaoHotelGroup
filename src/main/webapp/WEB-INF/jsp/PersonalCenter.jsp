@@ -221,12 +221,12 @@
 		</div>
 		<div class="person">
 			<div style="width: 520px;height: 290px;margin-left: 100px;">
-				<a href="/">
+				<a href="/Personal/goactivity1">
 					<img src="/assets/images/personalcenter/activity1.png" style="border-radius: 10px;">
 				</a>
 			</div>
 			<div style="width: 520px;height: 260px;margin-left: 100px;">
-				<a href="/">
+				<a href="/Personal/goactivity2">
 					<img src="/assets/images/personalcenter/activity2.png" style="margin-top: 10px;border-radius: 10px;">
 				</a>
 			</div>

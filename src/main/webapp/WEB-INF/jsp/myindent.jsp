@@ -269,7 +269,7 @@ th, td {
 											function() {
 												$("table>thead")
 														.html(
-																"<tr><th>订单号</th><th>预定日期</th><th>预定人电话</th><th>价格</th><th>退款</th></tr>")
+																"<tr><th>订单号</th><th>预定日期</th><th>预定人id</th><th>价格</th><th>退款</th></tr>")
 												var tbody = $("table > tbody")
 														.empty();
 												var header = $("#header")
@@ -369,7 +369,7 @@ th, td {
 											function() {
 												$("table>thead")
 														.html(
-																"<tr><th>订单号</th><th>入住日期</th><th>退房日期</th><th>预定人电话</th><th>价格</th><th>评价</th></tr>")
+																"<tr><th>订单号</th><th>入住日期</th><th>退房日期</th><th>预定人id</th><th>价格</th><th>评价</th></tr>")
 												var header = $("#header")
 														.empty();
 												header.text("已完成订单");
