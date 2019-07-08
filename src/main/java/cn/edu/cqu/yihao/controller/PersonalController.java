@@ -137,6 +137,7 @@ public class PersonalController {
 		return "VipRights";
 	}
 	
+	
 	@RequestMapping("/gologout")
 	public String gologout() {
 		return "forward:/log/logout";

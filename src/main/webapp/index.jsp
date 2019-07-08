@@ -55,14 +55,35 @@
 	padding-left: 50px;
 }
 
-#surronding img{
+#surronding img {
 	display: block;
 	margin: auto
 }
 
-div>p{
-	font-size:18px
+div>p {
+	font-size: 18px;
 }
+
+div
+
+ul>li {
+	text-align: left;
+}
+
+li>ul>li {
+	text-align: left;
+	text-indent: 2em;
+}
+
+
+
+ .clear { 
+     clear: both; 
+ }
+ 
+ #room1Introduction{
+ 	z-index:100;
+ }
 </style>
 
 </head>
@@ -151,7 +172,7 @@ div>p{
 
 					<div class="welcome-hero-form">
 						<div class="single-welcome-hero-form">
-							<h3 >入住日期</h3>
+							<h3>入住日期</h3>
 							<input id="checkInDate" type="date" name="checkInDate" />
 						</div>
 						<div class="single-welcome-hero-form">
@@ -179,9 +200,9 @@ div>p{
 			</div>
 			<!--/.section-header-->
 			<div class="row">
-				<div class=" col-md-4 col-sm-6">
+				<div class=" col-md-4 col-sm-6 ">
 
-					<div class="single-explore-item">
+					<div class="single-explore-item roomIntroduction">
 						<img alt="" src="/assets/images/roomType/1.jpg"><br>
 						<p class="section-header">高级大床房</p>
 					</div>
@@ -189,7 +210,7 @@ div>p{
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<div class="single-explore-item">
+					<div class="single-explore-item  roomIntroduction">
 						<img alt="" src="assets/images/roomType/2.jpg"><br>
 						<p class="section-header">高级双人房</p>
 					</div>
@@ -197,30 +218,29 @@ div>p{
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<div class="single-explore-item">
+					<div class="single-explore-item roomIntroduction">
 						<img alt="" src="assets/images/roomType/3.jpg"><br>
 						<p class="section-header">行政豪华房</p>
 					</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<div class="single-explore-item">
+					<div class="single-explore-item roomIntroduction">
 						<img alt="" src="assets/images/roomType/4.jpg"><br>
 						<p class="section-header">行政豪华套房</p>
 					</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-					<div class="single-explore-item">
+					<div class="single-explore-item roomIntroduction">
 						<img alt="" src="assets/images/roomType/5.jpg"><br>
 						<p class="section-header">总统套房</p>
 					</div>
 				</div>
 
-				<div class=" col-md-4 col-sm-6">
-					<div class="single-explore-item">
-						<img alt=""
-							src="assets/images/roomType/0.jpg"><br>
+				<div class=" col-md-4 col-sm-6" >
+					<div class="single-explore-item roomIntroduction">
+						<img alt="" src="assets/images/roomType/0.jpg"><br>
 						<p class="section-header">公共区域</p>
 					</div>
 
@@ -242,24 +262,24 @@ div>p{
 			<!--/.section-header-->
 			<div class="row">
 				<div class=" col-md-4 col-sm-6">
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/1.jpg"><br>
-							<p class="section-header">道顿堀店大缆车</p>
-						</div>
+					<div class="single-explore-item">
+						<img alt="" src="assets/images/surrounding/1.jpg"><br>
+						<p class="section-header">道顿堀店大缆车</p>
+					</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/2.jpg"><br>
-							<p class="section-header">环球影城</p>
-						</div>
+					<div class="single-explore-item">
+						<img alt="" src="assets/images/surrounding/2.jpg"><br>
+						<p class="section-header">环球影城</p>
+					</div>
 				</div>
 
 				<div class=" col-md-4 col-sm-6">
-						<div class="single-explore-item">
-							<img alt="" src="assets/images/surrounding/3.jpg"><br>
-							<p class="section-header">国际金融中心</p>
-						</div>
+					<div class="single-explore-item">
+						<img alt="" src="assets/images/surrounding/3.jpg"><br>
+						<p class="section-header">国际金融中心</p>
+					</div>
 				</div>
 
 			</div>
@@ -286,6 +306,61 @@ div>p{
 
 	</footer>
 	<!--/.footer-->
+	</div>
+
+	<div id="room1Introduction" class="explore Introduction"
+		style="padding-top: 50px; display:none; position: fixed; width: 30%; left: 35%; top: 15%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0;padding-bottom: 20px;">
+		<div class="section-header">
+			<img id="introImg" alt="" src="">
+			<h2 id="introHeader"></h2>
+			<hr>
+
+			<br>
+			<div style="display:block;width:300px;margin:auto">
+			<div style="float:left;">
+				<ul>
+					<li>私人浴室</li>
+					<li>提供停车场</li>
+					<li>浴室为你提供：
+						<ul>
+							<li>热水浴缸</li>
+							<li>淋浴</li>
+							<li>浴缸</li>
+							<li>吹风机</li>
+							<li>浴袍</li>
+							<li>免费洗浴用品</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div style="float:right">
+				<ul>
+					<li>客房设施
+						<ul>
+							<li>电话</li>
+							<li>卫星频道</li>
+							<li>隔音</li>
+							<li>隔音</li>
+							<li>高层有电梯直达</li>
+							<li>暖气</li>
+						</ul>
+					</li>
+					<li>禁烟/吸烟
+						<ul>
+							<li>不准吸烟</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			</div><br>
+			<div class="clear"></div>
+			
+		</div>
+		<br><hr>
+		<button class="welcome-hero-btn" id="cancel"
+				style="margin-left: auto; margin-right: auto;float:none; display:block; width: 170px;
+	height: 40px;
+	margin: auto;">取消</button>
 
 
 
@@ -330,6 +405,19 @@ div>p{
 			} else
 				return true;
 		}
+		$(document).ready(function(){
+			$(".roomIntroduction").click(function(){
+				$("#introHeader").html($(this).children(".section-header").html());
+				$("#introImg").attr("src",$(this).children("img").attr("src"));
+				$("#room1Introduction").slideDown();
+				
+			});
+			
+			$("#cancel").click(function(){
+				$(".Introduction").slideUp();
+			})
+			
+		})
 	</script>
 </body>
 </html>
