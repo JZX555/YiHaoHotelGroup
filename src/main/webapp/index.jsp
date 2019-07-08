@@ -308,7 +308,7 @@ li>ul>li {
 	<!--/.footer-->
 
 	<div id="room1Introduction" class="explore Introduction"
-		style="padding-top: 50px; display:none; position: fixed; width: 30%; left: 35%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0;padding-bottom: 20px;">
+		style="padding-top: 50px; display:none; position: fixed; width: 30%; left: 35%; top: 0%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0;padding-bottom: 20px;">
 		<div class="section-header">
 			<img id="introImg" alt="" src="">
 			<hr>
@@ -355,8 +355,7 @@ li>ul>li {
 			</div><br>
 			<div class="clear"></div>
 			
-		</div>
-		<br><hr>
+		</div><hr>
 		<button class="welcome-hero-btn" id="cancel"
 				style="margin-left: auto; margin-right: auto;float:none; display:block; width: 170px;
 	height: 40px;

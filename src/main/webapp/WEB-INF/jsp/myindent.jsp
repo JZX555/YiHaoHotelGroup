@@ -185,14 +185,16 @@ th, td {
 	<!--/.footer-->
 
 	<div id="cardPayDisplay" class="explore"
-		style="display: none; position: fixed; width: 90%; left: 5%; top: 20%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
+		style="display: none;z-index:100; position: fixed; width: 90%; left: 5%; top: 20%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 5%">
 		<div class="section-header">
 			<form action="/pay/refunnbyDB" method="post">
-				<input type="text" name="card_id" placeholder="请输入银行卡号码"><br>
+				<h2>请输入银行卡号</h2>
+				<input type="text" name="card_id" placeholder="请输入银行卡号码"><br><br>
 				<input type="hidden" id="card_cost" name="cost"> <input
-					type="hidden" id="card_indent_id" name="indent_id"> <input
+					type="hidden" id="card_indent_id" name="indent_id"> <input class="welcome-hero-btn"
 					type="submit" value="确定退款 ">
 			</form>
+			<button class="welcome-hero-btn cancel"  style="margin-left:auto;margin-right: auto;">取消</button>
 		</div>
 
 	</div>
@@ -209,7 +211,7 @@ th, td {
 					type="submit" name="submit" value="银行卡支付">
 			</form>
 			<br>
-			<button class="welcome-hero-btn" id="cancel" style="margin-left:auto;margin-right: auto;">取消</button>
+			<button class="welcome-hero-btn cancel" id="" style="margin-left:auto;margin-right: auto;">取消</button>
 		</div>
 	</div>
 
@@ -258,8 +260,9 @@ th, td {
 		$(document)
 				.ready(
 						function() {
-							$("#cancel").click(function(){
+							$(".cancel").click(function(){
 								$("#goPay").slideUp();
+								$("#cardPayDisplay").slideUp();
 							});
 							
 							
@@ -346,7 +349,7 @@ th, td {
 									"click",
 									"#cardRefund",
 									function() {
-										$("#cardPayDisplay").show();
+										$("#cardPayDisplay").slideDown();
 										$("#card_cost").val(
 												$(this).attr("cost"));
 										$("#card_indent_id").val(
