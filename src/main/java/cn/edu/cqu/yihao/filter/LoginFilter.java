@@ -77,12 +77,15 @@ public class LoginFilter implements Filter {
 		}
 		Cookie[] cookies = req.getCookies();//这样便可以获取一个cookie数组
 		int flag=0;
-		for(Cookie cookie : cookies)
+		if(cookies!=null)
 		{
-			if(cookie.getName().toString().equals("loginTel"))
+			for(Cookie cookie : cookies)
 			{
-				flag=1;
-				break;
+				if(cookie.getName().toString().equals("loginTel"))
+				{
+					flag=1;
+					break;
+				}
 			}
 		}
 		if(flag==0){
