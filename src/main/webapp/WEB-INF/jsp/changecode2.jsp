@@ -262,8 +262,10 @@ h1{/*派生*/
 							newPassword:$("#newpass").val(),
 						},
 						success:function(res) {
-							if(res == 1)
+							if(res == 1){
 								alert("修改成功");
+								window.location.href="/log/logout";
+							}
 							if(res == -1)
 								alert("旧密码输入错误");
 							if(res == 0)

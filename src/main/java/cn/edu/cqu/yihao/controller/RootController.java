@@ -265,7 +265,7 @@ public class RootController {
 	@ResponseBody
 	public RoomWithIndent modifyRoomPrice(HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("modifyprice");
-		RoomWithIndent res = null;
+		RoomWithIndent res = new RoomWithIndent();
 		
 		String curDate = request.getParameter("curDate");
 		String roomID = request.getParameter("roomID");
@@ -277,9 +277,9 @@ public class RootController {
         room.setPrice(newPrice);
         
         this.roomService.updateSelect(room);
-        
-        res.setRoom(room);
+
         res.setDate(curDate);
+        res.setRoom(room);
         
         if(indent != null) {
         	res.setHaveIndent(1);
