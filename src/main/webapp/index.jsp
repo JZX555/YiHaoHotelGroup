@@ -306,12 +306,12 @@ li>ul>li {
 
 	</footer>
 	<!--/.footer-->
-	</div>
 
 	<div id="room1Introduction" class="explore Introduction"
-		style="padding-top: 50px; display:none; position: fixed; width: 30%; left: 35%; top: 15%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0;padding-bottom: 20px;">
+		style="padding-top: 50px; display:none; position: fixed; width: 30%; left: 35%; top: 10%; background-color: white; border-radius: 5px; border: 1px solid; padding-top: 0;padding-bottom: 20px;">
 		<div class="section-header">
 			<img id="introImg" alt="" src="">
+			<hr>
 			<h2 id="introHeader"></h2>
 			<hr>
 
@@ -361,6 +361,7 @@ li>ul>li {
 				style="margin-left: auto; margin-right: auto;float:none; display:block; width: 170px;
 	height: 40px;
 	margin: auto;">关闭</button>
+	</div>
 
 
 
