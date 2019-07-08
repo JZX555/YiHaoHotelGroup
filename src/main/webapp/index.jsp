@@ -360,7 +360,7 @@ li>ul>li {
 		<button class="welcome-hero-btn" id="cancel"
 				style="margin-left: auto; margin-right: auto;float:none; display:block; width: 170px;
 	height: 40px;
-	margin: auto;">取消</button>
+	margin: auto;">关闭</button>
 
 
 
